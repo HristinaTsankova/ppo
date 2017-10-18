@@ -154,7 +154,7 @@ div.link button.active {
     border-radius:4px;
     color:#555;
 }
-.save, .del{
+.save{
     width: 80%;
 }
 .open {
@@ -208,4 +208,10 @@ td>.open{
 }
 .tech{
     border-right: 1px solid #ccc;
+}
+.logout{
+    float: right;
+}
+.cutting{
+    margin-top: 30px;
 }
