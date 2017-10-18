@@ -39,6 +39,7 @@ class Dependencies extends React.Component {
         this.onItemClick = this.onItemClick.bind(this);
         this.onProcessSelected = this.onProcessSelected.bind(this);
         this.onParentDelete = this.onParentDelete.bind(this);
+        this.onAdd = this.onAdd.bind(this);
         
     }
 
@@ -117,17 +118,28 @@ class Dependencies extends React.Component {
             order: newOrder
         })
     }
-    
-    
-
+    onAdd(parentId) {
+        const newParent = this.state.processesWithParents
+        newParent.push(parentId);
+        this.setState ({
+            ...this.state,
+            processesWithParents: newParent
+        })
+    }
     onParentDelete (id, parentId) {
         console.log('should delete');
-        const newpr = this.state.processesWithParents
-        newpr[id] = newpr[id].splice(newpr[id].indexOf(parentId), 1)
+        console.log(this)
+        const newpr = { ...this.state.processesWithParents }
+        const newParents = newpr[id].filter(parent => parent.id !== parentId)
+        console.log(this.state)
         this.setState({
-            ...this.state,
-             processeswithparents: newpr
+            // ...this.state,
+             processesWithParents: {
+                 ...this.state.processesWithParents,
+                 [id]: newParents
+             }
         })
+        console.log(this.state)
     }
 
     renderParents (rowData) {
@@ -143,10 +155,8 @@ class Dependencies extends React.Component {
         // const fakeData = [{"id":553,"serial_number":3},{"id":552,"serial_number":2}]
         
         // return rowData.children.map(child => (
-        return parents.map(parent => (
-            
-                <Parent parent={parent} onDelete = {() => this.onParentDelete(rowData.id, parent.id)}/>
-        
+        return parents.map((parent, i) => (
+            <Parent key={i}  parent={parent} onDelete = {() => this.onParentDelete(rowData.id, parent.id)}/>
         ))
     }
     
@@ -157,15 +167,15 @@ class Dependencies extends React.Component {
             : ''
         return (
             <tr className={className} key={i} onClick={() => this.onItemClick(rowData)}>
-                <td>{rowData.serial_number}</td>
+                <td className="tech">{rowData.serial_number}</td>
                 <td className="tech">{rowData.name}</td>
-                <td>{rowData.aligned_time}</td>
+                <td className="tech">{rowData.aligned_time}</td>
                <td className="view_dep">
                 {
                     active &&    
                         <Typeahead
                             options={this.state.order.order_processes}
-                            onChange={this.onProcessSelected}
+                            onChange={this.onProcessSelected} 
                             labelKey="name" />
                 }
 
@@ -231,21 +241,27 @@ class Parent extends React.Component {
     constructor(props) {
       super(props);
       this.showDelForm = this.showDelForm.bind(this);
+      
     }
 
     showDelForm = () => {
       const {showDel} = this.state;
       this.setState({showDel : !showDel})
     }
+    onParentDelete(id) {
+        console.log(id)
+    }
+    
+  
 
     render() {
-    const { parent, onParentDelete, rowData } = this.props
+    const { parent} = this.props
       return(
         <div className="child">
             <span className="parentDel">
             {
             this.state.showDel &&
-            <button className="btn btn-circle btn-danger dependencies" onClick={ () => onParentDelete(rowData, parent.id)}>-</button>}
+            <button className="btn btn-circle btn-danger dependencies" value={parent.id} onClick={this.props.onDelete}>-</button>}
             </span>
             <span className="parent" onClick={this.showDelForm}>
                 {parent.serial_number}

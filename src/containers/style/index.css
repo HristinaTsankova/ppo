@@ -206,3 +206,6 @@ td>.open{
 .parentDel{
     float: right;
 }
+.tech{
+    border-right: 1px solid #ccc;
+}
