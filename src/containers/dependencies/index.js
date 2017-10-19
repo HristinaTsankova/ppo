@@ -1,8 +1,6 @@
 import React from 'react';
 import {sortBy} from 'lodash';
-import {withRouter} from 'react-router';
 import {Typeahead} from 'react-bootstrap-typeahead';
-//import Parent from '../parent';
 
 const getProcessParents = (processes) => processes.reduce((all, process) => {
 
@@ -220,4 +218,4 @@ class Parent extends React.Component {
   }
 }
 
-export default withRouter(Dependencies)
+export default Dependencies
