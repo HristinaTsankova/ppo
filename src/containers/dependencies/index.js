@@ -1,6 +1,8 @@
 import React from 'react';
 import {sortBy} from 'lodash';
+import {withRouter} from 'react-router';
 import {Typeahead} from 'react-bootstrap-typeahead';
+import Header from '../header';
 
 const getProcessParents = (processes) => processes.reduce((all, process) => {
 
@@ -160,9 +162,9 @@ class Dependencies extends React.Component {
     const rows = processes.map(this.renderRow)
     return (
       <div>
-
+        <Header/>
         <div className="container dep">
-          <h2 className="title">Технологии и взаимовръзки</h2>
+          <h2 className="title">Последователност на процеси</h2>
           <table className="table">
             <tbody>
               <tr>
