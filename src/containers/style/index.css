@@ -155,7 +155,7 @@ div.link button.active {
     color:#555;
 }
 .save{
-    width: 80%;
+    width: 100%;
 }
 .open {
     margin-top: 0;
@@ -184,12 +184,12 @@ button.dependencies{
     margin: 0;
     margin-bottom: 4px;
 }
-.form-control {
-    height: auto;
-}
+
 td>.open{
     font-size: 14px;
     float: left;
+    width: 16px;
+    height: 16px;
 }
 .title{
     text-align: center;
@@ -214,4 +214,19 @@ td>.open{
 }
 .cutting{
     margin-top: 30px;
+}
+.model, .briga{
+    border: 1px solid #ccc;
+    padding-bottom: 30px;
+    width: 49%;
+}
+.briga{
+    float: right;
+}
+.log{
+    width: 40%;
+}
+.choice{
+    padding-right: 30px;
+    padding-left: 30px;
 }

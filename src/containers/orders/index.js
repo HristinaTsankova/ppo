@@ -1,5 +1,6 @@
 import React from 'react';
 import {Typeahead} from 'react-bootstrap-typeahead';
+import Header from '../header';
 
 export default class Orders extends React.Component {
 
@@ -37,6 +38,7 @@ export default class Orders extends React.Component {
       return response.json()
     }).then((json) => {
       this.setState({orders: json})
+                
     });
   }
 
@@ -46,25 +48,52 @@ export default class Orders extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row logo">
-          <h2>Избери модел:</h2>
-        </div>
-        <div className="row">
-          <div className="col-md-5 login-form">
-            <div className="input-group">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-search"/></span>
-
-              <Typeahead options={this.state.orders} onChange={this.onSelection} labelKey="name"/>
-            </div>
-          </div>
-        </div>
-        <div className="row ">
-          <div className="col-md-6 login-form">
-
-            <button type="button" disabled={!this.state.selectedId} className="btn btn-primary save" onClick={this.onDependenciesClick}>Технологии и взаимовръзки</button>
-            <button type="button" disabled={!this.state.selectedId} className="btn btn-secondary save" onClick={this.onPlansClick}>Подов план</button>
-
+            <div>
+                <Header/>
+                <div className="container-fluid choice">
+                    <div className="row logo">
+                        <div className="col-md-6 model">
+                            <div className="row">
+                                <h2>Избери модел:</h2>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-8 login-form">
+                                    <div className="input-group">
+                                        <span className="input-group-addon"><i className="glyphicon glyphicon-search"/></span>
+                                        <Typeahead
+                                            options={this.state.orders}
+                                            onChange={this.onSelection}
+                                            labelKey="name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-8 login-form">
+                                    <button type="button" disabled={!this.state.selectedId} className="btn btn-primary save" onClick={this.onDependenciesClick}>Последователност на процеси</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6 briga">
+                            <div className="row">
+                                <h2>Избери бригада:</h2>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-8 login-form">
+                                    <div className="input-group">
+                                        <span className="input-group-addon"><i className="glyphicon glyphicon-search"/></span>
+                                        <Typeahead
+                                            options={this.state.orders}
+                                            onChange={this.onSelection}
+                                            labelKey="name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-8 login-form">
+                                    <button type="button" disabled={!this.state.selectedId} className="btn btn-warning save" onClick={this.onPlansClick}>Подов план</button>
+                                </div>
+                            </div>
+                        </div>
           </div>
         </div>
       </div>
