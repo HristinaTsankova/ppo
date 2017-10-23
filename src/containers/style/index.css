@@ -1,3 +1,6 @@
+body{
+    background-color: white;
+}
 .row{
     margin: 0 auto;
     text-align: center;
@@ -26,6 +29,7 @@
  
     .header{
         border-bottom:1px solid lightgrey;
+        background-color: #595959;
     }
     .number{
         border-bottom: 1px solid grey;
@@ -188,17 +192,18 @@ button.dependencies{
 td>.open{
     font-size: 14px;
     float: left;
-    width: 16px;
     height: 16px;
+}
+.view_dep{
+    width: 35px;
 }
 .title{
     text-align: center;
     margin-bottom: 30px;
 }
 .child{
-    width: 40%;
+    width: 50%;
     float: left;
-    margin-right: 5px;
 }
 .parentTD{
     width: 80px;
@@ -219,6 +224,7 @@ td>.open{
     border: 1px solid #ccc;
     padding-bottom: 30px;
     width: 49%;
+    background-color: white;
 }
 .briga{
     float: right;
@@ -229,4 +235,24 @@ td>.open{
 .choice{
     padding-right: 30px;
     padding-left: 30px;
+}
+.table{
+    background-color: white;
+}
+.btn-default{
+    background-color: transparent;
+    border:0;
+    border-right: 1px solid #ccc;
+    color: #ccc;
+    border-left: 1px solid #ccc;
+}
+.exit{
+    border: 0;
+    border-right: 1px solid #e38582;
+    border-left: 1px solid #e38582;
+    background-color: transparent;
+    color: #e38582;
+}
+.links{
+    text-align: left;
 }

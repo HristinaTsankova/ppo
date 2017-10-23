@@ -6,26 +6,34 @@ export default class Orders extends React.Component {
 
   state = {
     orders: [],
-    selectedId: null
+    selectedModel: null,
+    selectedBrigade: null
   }
 
   constructor() {
     super()
     this.onDependenciesClick = this.onDependenciesClick.bind(this)
     this.onPlansClick = this.onPlansClick.bind(this)
-    this.onSelection = this.onSelection.bind(this)
+    this.onSelectionModel = this.onSelectionModel.bind(this)
+    this.onSelectionBrigade = this.onSelectionBrigade.bind(this)
   }
 
   onDependenciesClick() {
-    this.props.history.push(`/orders/${this.state.selectedId}/dependencies`);
+    this.props.history.push(`/orders/${this.state.selectedModel}/dependencies`);
   }
   onPlansClick() {
-    this.props.history.push(`/orders/${this.state.selectedId}/plan`)
+    this.props.history.push(`/orders/${this.state.selectedBrigade}/plan`)
   }
-  onSelection(selection) {
+  onSelectionModel(selection) {
     this.setState({
       ...this.state,
-      selectedId: selection[0].id
+      selectedModel: selection.length ? selection[0].id : null
+    })
+  }
+  onSelectionBrigade(selection) {
+    this.setState({
+      ...this.state,
+      selectedBrigade: selection.length ? selection[0].id : null
     })
   }
 
@@ -62,14 +70,14 @@ export default class Orders extends React.Component {
                                         <span className="input-group-addon"><i className="glyphicon glyphicon-search"/></span>
                                         <Typeahead
                                             options={this.state.orders}
-                                            onChange={this.onSelection}
+                                            onChange={this.onSelectionModel}
                                             labelKey="name" />
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-8 login-form">
-                                    <button type="button" disabled={!this.state.selectedId} className="btn btn-primary save" onClick={this.onDependenciesClick}>Последователност на процеси</button>
+                                    <button type="button" disabled={!this.state.selectedModel} className="btn btn-primary save" onClick={this.onDependenciesClick}>Последователност на процеси</button>
                                 </div>
                             </div>
                         </div>
@@ -83,14 +91,14 @@ export default class Orders extends React.Component {
                                         <span className="input-group-addon"><i className="glyphicon glyphicon-search"/></span>
                                         <Typeahead
                                             options={this.state.orders}
-                                            onChange={this.onSelection}
+                                            onChange={this.onSelectionBrigade}
                                             labelKey="name" />
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-8 login-form">
-                                    <button type="button" disabled={!this.state.selectedId} className="btn btn-warning save" onClick={this.onPlansClick}>Подов план</button>
+                                    <button type="button" disabled={!this.state.selectedBrigade} className="btn btn-warning save" onClick={this.onPlansClick}>Подов план</button>
                                 </div>
                             </div>
                         </div>

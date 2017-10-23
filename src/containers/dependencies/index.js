@@ -1,6 +1,5 @@
 import React from 'react';
 import {sortBy} from 'lodash';
-import {withRouter} from 'react-router';
 import {Typeahead} from 'react-bootstrap-typeahead';
 import Header from '../header';
 
@@ -130,6 +129,7 @@ class Dependencies extends React.Component {
         <td className="tech">{rowData.serial_number}</td>
         <td className="tech">{rowData.name}</td>
         <td className="tech">{rowData.aligned_time}</td>
+        <td className="tech"></td>
         <td className="view_dep">
           {
             active
@@ -139,7 +139,7 @@ class Dependencies extends React.Component {
               onChange={this.makeOnAddParent(rowData.id)}
               labelKey="name"/>
           }
-
+            
         </td>
         <td className="parentTD">
           {this.renderParents(rowData)}
@@ -166,19 +166,22 @@ class Dependencies extends React.Component {
         <div className="container dep">
           <h2 className="title">Последователност на процеси</h2>
           <table className="table">
-            <tbody>
+            <thead>
               <tr>
-                <td>№</td>
-                <td>Процес</td>
-                <td>Н.вр.</td>
-
+                <th>№</th>
+                <th>Процес</th>
+                <th>Н.вр.</th>
+                <th>Буфер</th>
+                <th colSpan="2">Взаимовръзки</th>
               </tr>
+            </thead>
+            <tbody>
               {rows}
             </tbody>
           </table>
 
           <div className="row">
-            <a href="/orders/:id/plan" className="btn btn-success">Продължи</a>
+            <a href="/orders/:id/plan" className="btn btn-success log">Продължи</a>
           </div>
         </div>
       </div>
