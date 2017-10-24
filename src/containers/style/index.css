@@ -206,7 +206,7 @@ td>.open{
     float: left;
 }
 .parentTD{
-    width: 80px;
+    width: 100px;
 }
 .parentDel{
     float: right;
@@ -243,6 +243,7 @@ td>.open{
     border-right: 1px solid #ccc;
     color: #ccc;
     border-left: 1px solid #ccc;
+    margin-right: 5px;
 }
 .exit{
     border: 0;
@@ -278,4 +279,13 @@ td>.open{
 }
 .table{
     margin: 0;
+}
+.open>.dropdown-menu{
+    width: 100%;
+}
+.parent{
+    color: white;
+    border-radius: 4px;
+    padding: 3px;
+    background-color: #009933;
 }
