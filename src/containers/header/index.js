@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from "react-router-dom"
 
-const deleteToken = token => localStorage.setItem('ppotoken', token)
+const deleteToken = () => localStorage.removeItem('ppotoken')
 
 class Header extends React.Component{
     constructor() {
@@ -11,8 +11,8 @@ class Header extends React.Component{
 //        this.onCuttingClick = this.onCuttingClick.bind(this)
     }
     onLogoutClick() {
-        this.props.history.push('/')
         deleteToken()
+        this.props.history.push('/')
     }
 //    onOrderClick() {
 //        this.props.history.push('/orders')
