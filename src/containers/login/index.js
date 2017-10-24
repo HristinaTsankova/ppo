@@ -1,10 +1,15 @@
 import React from 'react'
 import '../style/index.css'
 import logo from '../image/capasca-logo.png'
+import {Redirect} from 'react-router-dom';
 
 const saveToken = token => localStorage.setItem('ppotoken', token)
 
 export default class Login extends React.Component {
+  
+  state = {
+    redirectToReferrer: false
+  }
 
   async submit(e) {
 
@@ -26,13 +31,23 @@ export default class Login extends React.Component {
     const json = await response.json()
     if (response.ok) {
       saveToken(json.access_token)
-      this.props.history.push('/orders')
+      this.setState({ redirectToReferrer: true })
     } else {
       alert(json.errors.join('\n'))
     }
   }
 
   render() {
+    
+    const { from } = this.props.location.state || { from: { pathname: '/orders' } }
+    const { redirectToReferrer } = this.state
+    
+    if (redirectToReferrer) {
+      return (
+        <Redirect to={from}/>
+      )
+    }
+    
     return (
       <div className="container">
         <div className='row login'>
