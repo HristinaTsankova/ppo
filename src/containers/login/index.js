@@ -53,7 +53,7 @@ export default class Login extends React.Component {
                 </span>
                 <input ref="password" type="password" className='form-control' name='password' id="password" placeholder="Password"/>
               </div>
-              <button type="submit" className='btn btn-success'>Login</button>
+              <button type="submit" className='btn btn-success log'>Login</button>
             </form>
           </div>
         </div>

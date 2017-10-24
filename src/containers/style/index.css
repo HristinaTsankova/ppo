@@ -230,15 +230,13 @@ td>.open{
     float: right;
 }
 .log{
-    width: 40%;
+    width: 100%;
 }
 .choice{
     padding-right: 30px;
     padding-left: 30px;
 }
-.table{
-    background-color: white;
-}
+
 .btn-default{
     background-color: transparent;
     border:0;
@@ -255,4 +253,26 @@ td>.open{
 }
 .links{
     text-align: left;
+}
+.sidebar{
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 20%;
+    bottom: 0;
+    background-color: #595959;
+}
+.sidebar_button{
+    position: absolute;
+    right: 20%;
+    top: 45px;
+    background-color: transparent;
+    color: #595959;
+    border: 0;
+    border-right: 1px solid #595959;
+    border-left: 1px solid #595959;
+    padding: 6px 10px;
+}
+.bar{
+    background-color: #f2f2f2;
 }

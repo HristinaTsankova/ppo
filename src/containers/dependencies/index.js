@@ -148,6 +148,7 @@ class Dependencies extends React.Component {
       </tr>
     )
   }
+  
 
   render() {
 
@@ -160,9 +161,22 @@ class Dependencies extends React.Component {
     const processes = sortBy(this.state.order.order_processes, 'serial_number')
 
     const rows = processes.map(this.renderRow)
+ 
     return (
       <div>
         <Header/>
+        <div className="row bar">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Модел</th>
+                <th>Поръчка №</th>
+                <th>Бройки</th>
+                <th>Бригади</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
         <div className="container dep">
           <h2 className="title">Последователност на процеси</h2>
           <table className="table">
@@ -181,7 +195,7 @@ class Dependencies extends React.Component {
           </table>
 
           <div className="row">
-            <a href="/orders/:id/plan" className="btn btn-success log">Продължи</a>
+            <a href="/orders/:id/plan" className="btn btn-success">Продължи</a>
           </div>
         </div>
       </div>

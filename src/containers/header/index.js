@@ -12,7 +12,7 @@ class Header extends React.Component{
     }
     onLogoutClick() {
         this.props.history.push('/')
-        deleteToken('undefined')
+        deleteToken()
     }
     onOrderClick() {
         this.props.history.push('/orders')
@@ -25,7 +25,7 @@ class Header extends React.Component{
                 <div className="container-fluid header">
                     <div className="row">
                         <div className="col-md-6 col-sm-4 links">
-                            <button className="btn btn-default" onClick={this.onOrderClick}>Поръчки</button>
+                            <button className="btn btn-default" onClick={this.onOrderClick}>Процеси и подов план</button>
                             <button className="btn btn-default" onClick ={this.onCuttingClick}>Кроялна</button>
                         </div>
                         <div className="col-md-2 col-sm-2 logout">

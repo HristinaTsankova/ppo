@@ -54,13 +54,14 @@ export default class Orders extends React.Component {
     this.fetchOrders();
   }
 
+
   render() {
     return (
             <div>
                 <Header/>
                 <div className="container-fluid choice">
                     <div className="row logo">
-                        <div className="col-md-6 model">
+                        <div className="col-md-6 col-sm-6 model">
                             <div className="row">
                                 <h2>Избери модел:</h2>
                             </div>
@@ -81,7 +82,7 @@ export default class Orders extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 briga">
+                        <div className="col-md-6 col-sm-6 briga">
                             <div className="row">
                                 <h2>Избери бригада:</h2>
                             </div>
