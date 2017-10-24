@@ -175,6 +175,12 @@ class Dependencies extends React.Component {
                 <th>Бригади</th>
               </tr>
             </thead>
+            <tbody>
+              <tr>
+                <td>{this.state.order.name}</td>
+                <td>{this.state.order.identification_number}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div className="container dep">

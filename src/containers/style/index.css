@@ -17,7 +17,7 @@ body{
 }
 .btn{
     padding: 6px;
-    margin: 5px;
+    margin: 5px 0;
 }
 
     .tab{
@@ -275,4 +275,7 @@ td>.open{
 }
 .bar{
     background-color: #f2f2f2;
+}
+.table{
+    margin: 0;
 }
