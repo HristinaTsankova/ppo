@@ -170,11 +170,7 @@ div.link button.active {
     width: 80%;
 }
 
-.dependencies{
-    border: 1px solid #ccc;
-    
-    
-}
+
 .btn-circle {
   width: 15px;
   height: 15px;
@@ -183,6 +179,9 @@ div.link button.active {
   font-size: 14px;
   line-height: 0;
   border-radius: 30px;
+  border: 0;
+  background-color: transparent;
+  color:#e38582;
 }
 button.dependencies{
     margin: 0;
@@ -192,7 +191,7 @@ button.dependencies{
 td>.open{
     font-size: 14px;
     float: left;
-    height: 16px;
+    height: 20px;
 }
 .view_dep{
     width: 35px;
@@ -202,7 +201,7 @@ td>.open{
     margin-bottom: 30px;
 }
 .child{
-    width: 50%;
+    margin-right: 2px;
     float: left;
 }
 .parentTD{
@@ -240,15 +239,12 @@ td>.open{
 .btn-default{
     background-color: transparent;
     border:0;
-    border-right: 1px solid #ccc;
     color: #ccc;
-    border-left: 1px solid #ccc;
-    margin-right: 5px;
+    border-radius: 0;
+    margin-right: 10px;
 }
 .exit{
-    border: 0;
-    border-right: 1px solid #e38582;
-    border-left: 1px solid #e38582;
+    border: 1px solid #e38582;
     background-color: transparent;
     color: #e38582;
 }
@@ -284,8 +280,13 @@ td>.open{
     width: 100%;
 }
 .parent{
-    color: white;
+    color: #009933;
     border-radius: 4px;
-    padding: 3px;
-    background-color: #009933;
+    padding: 2px 4px;
+    border-right: 1px solid #009933;
+    border-left: 1px solid #009933;
+}
+.modelss{
+    width: 50%;
+    margin: 0 auto;
 }
