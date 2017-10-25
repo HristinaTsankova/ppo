@@ -1,7 +1,8 @@
 import React from 'react';
 import {sortBy} from 'lodash';
-import {Typeahead} from 'react-bootstrap-typeahead';
 import Header from '../header';
+import Parent from './parent';
+import AddParent from './addParent'
 
 const getProcessParents = (processes) => processes.reduce((all, process) => {
 
@@ -134,9 +135,9 @@ class Dependencies extends React.Component {
           {
             active
               &&
-            <Typeahead
+            <AddParent 
               options={this.state.order.order_processes}
-              onChange={this.makeOnAddParent(rowData.id)}
+              onAdd={this.makeOnAddParent(rowData.id)}
               labelKey="name"/>
           }
             
@@ -208,39 +209,5 @@ class Dependencies extends React.Component {
     );
   }
 };
-
-class Parent extends React.Component {
-  state = {
-    showDel: false
-  };
-
-  constructor(props) {
-    super(props);
-    this.showDelForm = this.showDelForm.bind(this);
-
-  }
-
-  showDelForm = () => {
-    const {showDel} = this.state;
-    this.setState({
-      showDel: !showDel
-    })
-  }
-
-  render() {
-    const {parent} = this.props
-    return (
-      <div className="child">
-        <span className="parentDel">
-          {this.state.showDel && <button className="btn btn-circle btn-danger dependencies" value={parent.id} onClick={this.props.onDelete}>X</button>}
-        </span>
-        <span className="parent" onClick={this.showDelForm}>
-          {parent.serial_number}
-        </span>
-
-      </div>
-    )
-  }
-}
 
 export default Dependencies

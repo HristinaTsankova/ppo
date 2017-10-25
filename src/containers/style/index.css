@@ -193,9 +193,6 @@ td>.open{
     float: left;
     height: 20px;
 }
-.view_dep{
-    width: 35px;
-}
 .title{
     text-align: center;
     margin-bottom: 30px;
@@ -278,6 +275,16 @@ td>.open{
 }
 .open>.dropdown-menu{
     width: 100%;
+    width: 250px;
+    padding: 0;
+}
+
+.open > .dropdown-menu > li {
+  padding: 5px;
+}
+
+.open > .dropdown-menu > li > a {
+  padding: 0;
 }
 .parent{
     color: #009933;
@@ -289,4 +296,16 @@ td>.open{
 .modelss{
     width: 50%;
     margin: 0 auto;
+}
+
+.rbt-input {
+  width: 20px;
+  overflow: hidden;
+}
+
+.btn-add-parent {
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  width: 20px;
 }
