@@ -216,10 +216,9 @@ td>.open{
 .cutting{
     margin-top: 30px;
 }
-.model, .briga{
+.model{
     border: 1px solid #ccc;
     padding-bottom: 30px;
-    width: 49%;
     background-color: white;
 }
 .briga{
@@ -319,4 +318,14 @@ td>.open{
 .login-form > .input-group > .rbt > .dropdown-menu{
     width: 100%;
     overflow-x: hidden !important;
+}
+.navbar-nav>li>a:hover {
+    background-color: black !important; 
+}
+li{
+    border: 0;
+    padding: 0;
+}
+.navbar-form{
+    margin: 0;
 }

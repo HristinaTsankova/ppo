@@ -29,9 +29,9 @@ class Header extends React.Component{
                         <li><a href="/orders">Процеси и подов план</a></li>
                         <li><a href="/cutting">Кроялно</a></li>
                     </ul>
-                    <form className="navbar-form navbar-right">
+                    <div className="navbar-form navbar-right">
                         <button className="btn btn-danger exit" onClick={this.onLogoutClick}>Изход</button>
-                    </form>
+                    </div>
                     
                 </div>
                 </div>
