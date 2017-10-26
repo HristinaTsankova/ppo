@@ -22,20 +22,20 @@ class Header extends React.Component{
 //    }
     render() {
         return(
-                <div className="container-fluid header">
-                    <div className="row">
-                        <div className="col-md-6 col-sm-4 links">
-                            <a className="btn btn-default" href="/orders">Процеси и подов план</a>
-                            <a className="btn btn-default" href="/cutting">Кроялна</a>
-                        </div>
-                        <div className="col-md-2 col-sm-2 logout">
-                            <button className="btn btn-danger exit" onClick={this.onLogoutClick}>Изход</button>
-                        </div>
-                    </div>
+            <nav className="navbar navbar-inverse">
+                <div className="container-fluid">
+                <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul className="nav navbar-nav">
+                        <li><a href="/orders">Процеси и подов план</a></li>
+                        <li><a href="/cutting">Кроялно</a></li>
+                    </ul>
+                    <form className="navbar-form navbar-right">
+                        <button className="btn btn-danger exit" onClick={this.onLogoutClick}>Изход</button>
+                    </form>
                     
                 </div>
-                
-       
+                </div>
+            </nav>
         )
     }
 }

@@ -244,6 +244,7 @@ td>.open{
     border: 1px solid #e38582;
     background-color: transparent;
     color: #e38582;
+    float: right;
 }
 .links{
     text-align: left;
@@ -274,9 +275,9 @@ td>.open{
     margin: 0;
 }
 .open>.dropdown-menu{
-    width: 100%;
     width: 250px;
     padding: 0;
+    overflow-x: hidden !important;
 }
 
 .open > .dropdown-menu > li {
@@ -308,4 +309,14 @@ td>.open{
   padding: 0;
   height: 20px;
   width: 20px;
+}
+.navbar{
+    margin-bottom: 0;
+}
+.login-form > .input-group > .rbt > .rbt-input{
+    width: 100% !important;
+}
+.login-form > .input-group > .rbt > .dropdown-menu{
+    width: 100%;
+    overflow-x: hidden !important;
 }
