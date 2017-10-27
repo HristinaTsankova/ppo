@@ -24,7 +24,7 @@ export default class Login extends React.Component {
         'Accept': 'application/vnd.elitex-v1+json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({user_name: username.value, password: password.value})
+       body: JSON.stringify({user_name: username.value, password: password.value})
     }
 
     const response = await fetch(BASE_URL, request)

@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../header';
-import Sidebar from '../sidebar';
+import Sidebar from './sidebar';
 
 export default class Plan extends React.Component {
     state={
@@ -24,7 +24,7 @@ export default class Plan extends React.Component {
             <div>
                 <Header/>
                 <div className="row bar">
-                    <div className="col-md-7">
+                    <div className="col-md-7 col-sm-7">
                         <table className="table">
                             <thead>
                                 <tr>

@@ -217,13 +217,14 @@ td>.open{
     margin-top: 30px;
 }
 .model{
-    border: 1px solid #ccc;
+    border-right: 2px solid #ccc;
+    border-left: 2px solid #ccc;
+    border-radius: 4px;
     padding-bottom: 30px;
-    background-color: white;
+    background-color: rgba(34, 34, 34, 0.1);
 }
-.briga{
-    float: right;
-}
+
+
 .log{
     width: 100%;
 }
@@ -250,16 +251,16 @@ td>.open{
 }
 .sidebar{
     position: absolute;
-    top: 45px;
-    right: 0;
-    width: 20%;
+    top: 53px;
+    right: 2px;
+    width: 30%;
     bottom: 0;
-    background-color: #595959;
+    background-color: #222;
+    overflow: auto;
 }
 .sidebar_button{
     position: absolute;
-    right: 20%;
-    top: 45px;
+    right: 30%;
     background-color: transparent;
     color: #595959;
     border: 0;
@@ -296,6 +297,7 @@ td>.open{
 .modelss{
     width: 50%;
     margin: 0 auto;
+    background-color: #f2f2f2;
 }
 
 .rbt-input {
@@ -328,4 +330,28 @@ li{
 }
 .navbar-form{
     margin: 0;
+}
+.users{
+    color: #ccc;
+    margin: 5px;
+    width: 97%;
+    max-height: 50%;
+}
+.mashineBtn{
+    background-color: #eb9114;
+    color: white;
+    width: 100%;
+}
+.userBtn{
+    background-color: #f3bd72;
+    color: white;
+    width: 100%;
+}
+.process{
+    width: 100%;
+}
+.searching{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 5px;
 }

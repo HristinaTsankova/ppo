@@ -1,6 +1,5 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
-
 import Plan from '../plan';
 import Dependencies from '../dependencies';
 import Login from '../login';

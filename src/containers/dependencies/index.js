@@ -178,8 +178,8 @@ class Dependencies extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <td>{this.state.order.name}</td>
-                <td>{this.state.order.identification_number}</td>
+                <td className="tech">{this.state.order.name}</td>
+                <td className="tech">{this.state.order.identification_number}</td>
               </tr>
             </tbody>
           </table>
