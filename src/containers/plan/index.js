@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../header';
 import Sidebar from './sidebar';
+import { Droppable } from 'react-drag-and-drop';
 
 export default class Plan extends React.Component {
     state={
@@ -17,6 +18,10 @@ export default class Plan extends React.Component {
         this.setState({
             showSidebar: !showSidebar
         })
+        this.onDrop = this.onDrop.bind(this);
+    }
+    onDrop(data) {
+        console.log(data)
     }
     render () {
         
@@ -43,6 +48,29 @@ export default class Plan extends React.Component {
                 
                 {this.state.showSidebar &&
                 <Sidebar />}
+                <div className="container-fluid">
+                    <div className="col-md-3 seat">
+                        <Droppable 
+                            type={['plan']}
+                            onDrop={this.onDrop}>
+                            <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Работник</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Машина</td>
+                                        <td>Процес</td>
+                                        <td>Н.вр.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </Droppable>
+                    </div>
+                </div>
             </div>
         )
     }

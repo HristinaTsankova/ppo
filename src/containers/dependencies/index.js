@@ -5,14 +5,7 @@ import Parent from './parent';
 import AddParent from './addParent'
 
 const getProcessParents = (processes) => processes.reduce((all, process) => {
-
   all[process.id] = all[process.id] || []
-
-  process.children.forEach((childId) => {
-    all[childId] = all[childId]
-      ? all[childId].concat(process)
-      : [process]
-  })
   return all
 }, {})
 
@@ -42,7 +35,7 @@ class Dependencies extends React.Component {
     const {id} = this.props.match.params
     const request = {
       method: 'GET',
-      headers: ({'Access': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
+      headers: ({'Accept': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
     };
     fetch(`http://178.62.112.203/api/fp/orders/${id}`, request).then((response) => {
       return response.json()
@@ -127,10 +120,9 @@ class Dependencies extends React.Component {
       : ''
     return (
       <tr className={className} key={i} onClick={() => this.onItemClick(rowData)}>
+        <td>{rowData.flagged}</td>
         <td className="tech">{rowData.serial_number}</td>
         <td className="tech">{rowData.name}</td>
-        <td className="tech">{rowData.aligned_time}</td>
-        <td className="tech"></td>
         <td className="view_dep">
           {
             active
@@ -145,6 +137,9 @@ class Dependencies extends React.Component {
         <td className="parentTD">
           {this.renderParents(rowData)}
         </td>
+        <td className="tech2"></td>
+        <td className="tech"></td>
+        
 
       </tr>
     )
@@ -178,8 +173,8 @@ class Dependencies extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <td className="tech">{this.state.order.name}</td>
-                <td className="tech">{this.state.order.identification_number}</td>
+                <td>{this.state.order.name}</td>
+                <td>{this.state.order.identification_number}</td>
               </tr>
             </tbody>
           </table>
@@ -189,11 +184,12 @@ class Dependencies extends React.Component {
           <table className="table">
             <thead>
               <tr>
+                <th></th>
                 <th>№</th>
                 <th>Процес</th>
-                <th>Н.вр.</th>
+                <th colSpan="2">Зависи от:</th>
+                <th>Натрупване</th>
                 <th>Буфер</th>
-                <th colSpan="2">Взаимовръзки</th>
               </tr>
             </thead>
             <tbody>
@@ -202,7 +198,7 @@ class Dependencies extends React.Component {
           </table>
 
           <div className="row">
-            <a href="/orders/:id/plan" className="btn btn-success">Продължи</a>
+            <a href="/departments/:id/plan" className="btn btn-success">Продължи</a>
           </div>
         </div>
       </div>

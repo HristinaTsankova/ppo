@@ -203,12 +203,14 @@ td>.open{
 }
 .parentTD{
     width: 100px;
+    background-color: #f7d3a1;
 }
 .parentDel{
     float: right;
 }
 .tech{
-    border-right: 1px solid #ccc;
+    border-right: 1px solid white;
+    background-color: #f7d3a1;
 }
 .logout{
     float: right;
@@ -354,4 +356,23 @@ li{
     width: 80%;
     margin: 0 auto;
     margin-top: 5px;
+}
+.tech2{
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    text-align: center;
+    background:#f7d3a1;
+}
+.seat{
+    margin-top: 10px;
+}
+.view_dep{
+    background-color:#f7d3a1;
+}
+.colm{
+    border-right: 1px solid #ccc;
+}
+.table>thead>tr>th, .table>tbody>tr>td{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
 }
