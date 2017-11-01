@@ -386,3 +386,38 @@ li{
 .table>tbody>tr.active>td{
     background-color: white;
 }
+.showPlan{
+    padding: 0;
+    margin: 0;
+}
+.cutting_table{
+    margin-top: 30px;
+    border: 1px solid #ccc;
+}
+.name{
+    border:1px solid #ccc;
+    width: 200px;
+    background-color: #9fa8a3;
+    color: #3d3c3d;
+}
+.modelName{
+    background-color: #c5d5cb;
+}
+.orders{
+    background-color: #e3e0cf;
+}
+.cut{
+    background-color:   #e6ffe6;
+}
+.grafic{
+    background-color:  #b3c2bf;  
+}
+.min{
+    background-color: #e6ffcc
+}
+.stock{
+    background-color:  #ffffcc;
+}
+.ok{
+    border: 0 !important;
+}

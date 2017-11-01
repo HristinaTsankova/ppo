@@ -3,8 +3,6 @@ import {sortBy} from 'lodash';
 import Header from '../header';
 import Parent from './parent';
 import AddParent from './addParent';
-import start from '../image/start.png';
-import end from '../image/end.png'
 
 const getProcessParents = (processes) => processes.reduce((all, process) => {
   all[process.id] = all[process.id] || []
@@ -103,17 +101,7 @@ class Dependencies extends React.Component {
     })
   }
   renderStart(rowData){
-    const {startEnd} =this.state
-    if (!startEnd)
-      return null
     
-    const starting = startEnd[rowData.flagged]
-
-    if (!startEnd) {
-        return <img src={start} alt='' className="start"/>
-      } else {
-        return <img src={end} alt='' className="start"/>
-      }
     }
   
 
@@ -158,7 +146,7 @@ class Dependencies extends React.Component {
         </td>
         <td className="tech2"></td>
         <td className="tech3"></td>
-        <div>{active && <a href="/departments/:id/plan" className="btn btn-default">Покажи подов план</a>}</div>
+        <td>{active && <a href="/departments/:id/plan" className="btn btn-default showPlan">Покажи подов план</a>}</td>
       </tr>
     )
   }
