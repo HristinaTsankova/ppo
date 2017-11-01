@@ -2,6 +2,7 @@ import React from 'react'
 import '../style/index.css'
 import logo from '../image/capasca-logo.png'
 import {Redirect} from 'react-router-dom';
+import Consants from '../app/constants';
 
 const saveToken = token => localStorage.setItem('ppotoken', token)
 
@@ -15,7 +16,7 @@ export default class Login extends React.Component {
 
     e.preventDefault()
 
-    const BASE_URL = 'http://178.62.112.203/api/fp/login'
+    const BASE_URL = Consants.remoteServer + '/api/fp/login'
     const {username, password} = this.refs
 
     const request = {

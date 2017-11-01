@@ -3,6 +3,7 @@ import {sortBy} from 'lodash';
 import Header from '../header';
 import Parent from './parent';
 import AddParent from './addParent';
+import Consants from '../app/constants';
 
 const getProcessParents = (processes) => processes.reduce((all, process) => {
   all[process.id] = all[process.id] || []
@@ -38,13 +39,14 @@ class Dependencies extends React.Component {
       method: 'GET',
       headers: ({'Accept': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
     };
-    fetch(`http://178.62.112.203/api/fp/orders/${id}`, request).then((response) => {
+    fetch(`${Consants.remoteServer}/api/fp/orders/${id}`, request).then((response) => {
       return response.json()
     }).then((json) => {
+      let data = getProcessParents(json.order_processes);
       this.setState({
         ...this.state,
         order: json,
-        processesWithParents: getProcessParents(json.order_processes)
+        processesWithParents: data
       })
     });
 
@@ -100,33 +102,62 @@ class Dependencies extends React.Component {
       }
     })
   }
-  renderStart(rowData){
-    
+  renderStart(rowData) {
+    const flag = rowData.flagged;
+
+    if (flag === "start") {
+      return <span className="glyphicon glyphicon-log-in text-success"></span>
+    } else if (flag === "end") {
+      return <span className="glyphicon glyphicon-log-out text-danger"></span>
     }
+
+    return null;
+  }
   
+  renderConnectinIcon(rowData) {
+    const selected = this.state.selected;
+
+    if (selected != null) {
+      if (selected.id === rowData.id) {
+        return <span className="glyphicon glyphicon-record text-primary"></span>
+      }
+      
+      const dependency = this.state.processesWithParents[selected.id];
+      const iAmParent = dependency.find((obj) => { return obj.id === rowData.id })
+      if (iAmParent !== undefined) {
+        return <span className="glyphicon glyphicon-open text-warning"></span>
+      }
+
+      const parents = this.state.processesWithParents[rowData.id];
+      const iAmChild = parents.find((obj) => { return obj.id === selected.id })
+      if (iAmChild !== undefined) {
+        return <span className="glyphicon glyphicon-save text-primary"></span>
+      }
+    }
+
+    return null;
+  }
 
   renderParents(rowData) {
-
     const {processesWithParents} = this.state
-
-    if (!processesWithParents) 
+    if (!processesWithParents) {
       return null
+    }
 
     const parents = processesWithParents[rowData.id]
 
     return parents.map((parent, i) => (
       <Parent key={i} parent={parent} onDelete= {() => this.onParentDelete(rowData.id, parent.id)}/>
-    ))
+    ));
   }
 
   renderRow(rowData, i) {
     const active = this.state.selected && this.state.selected.id === rowData.id
-    const className = active
-      ? 'active'
-      : ''
+    const className = active ? 'active' : '';
     return (
       <tr className={className} key={i} onClick={() => this.onItemClick(rowData)}>
-        <td>{this.renderStart(rowData)}</td>
+        <td className="no-border">{this.renderStart(rowData)}</td>
+        <td className="no-border">{this.renderConnectinIcon(rowData)}</td>
         <td className="tech">{rowData.serial_number}</td>
         <td className="tech">{rowData.name}</td>
         <td className="tech time">{rowData.aligned_time}</td>
@@ -146,7 +177,7 @@ class Dependencies extends React.Component {
         </td>
         <td className="tech2"></td>
         <td className="tech3"></td>
-        <td>{active && <a href="/departments/:id/plan" className="btn btn-default showPlan">Покажи подов план</a>}</td>
+        <td className="size-180 no-border">{active && <a href="/departments/:id/plan" className="btn btn-default showPlan">Покажи подов план</a>}</td>
       </tr>
     )
   }
@@ -190,7 +221,8 @@ class Dependencies extends React.Component {
           <table className="table">
             <thead>
               <tr>
-                <th></th>
+                <th className="size-30"></th>
+                <th className="size-30"></th>
                 <th>№</th>
                 <th>Процес</th>
                 <th >Н.вр.</th>

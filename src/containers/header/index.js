@@ -22,7 +22,7 @@ class Header extends React.Component{
 //    }
     render() {
         return(
-            <nav className="navbar navbar-inverse">
+            <nav className="navbar navbar-inverse navbar-static-top">
                 <div className="container-fluid">
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">

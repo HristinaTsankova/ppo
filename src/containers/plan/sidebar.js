@@ -2,6 +2,7 @@ import React from 'react';
 import {sortBy} from 'lodash';
 import Mashine from './mashine';
 import Process from './process';
+import Consants from '../app/constants';
 import { Draggable } from 'react-drag-and-drop';
 
 export default class Sidebar extends React.Component{
@@ -24,7 +25,7 @@ export default class Sidebar extends React.Component{
           method: 'GET',
           headers: ({'Accept': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
         };
-        fetch(`http://178.62.112.203/api/fp/users`, request).then((response) => {
+        fetch(`${Consants.remoteServer}/api/fp/users`, request).then((response) => {
           return response.json()
         }).then((json) => {
           this.setState({users: json})

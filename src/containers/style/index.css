@@ -421,3 +421,15 @@ li{
 .ok{
     border: 0 !important;
 }
+
+.no-border {
+    border-top: 0 !important;
+}
+
+.size-180 {
+    width: 180px !important;
+}
+
+.size-30 {
+    width: 30px !important;
+}
