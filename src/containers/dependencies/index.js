@@ -3,7 +3,7 @@ import {sortBy} from 'lodash';
 import Header from '../header';
 import Parent from './parent';
 import AddParent from './addParent';
-import Consants from '../app/constants';
+import Constants from '../app/constants';
 
 const getProcessParents = (processes) => processes.reduce((all, process) => {
   all[process.id] = all[process.id] || []
@@ -37,9 +37,9 @@ class Dependencies extends React.Component {
     const {id} = this.props.match.params
     const request = {
       method: 'GET',
-      headers: ({'Accept': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
+      headers: Constants.headers
     };
-    fetch(`${Consants.remoteServer}/api/fp/orders/${id}`, request).then((response) => {
+    fetch(`${Constants.remoteServer}/api/fp/orders/${id}`, request).then((response) => {
       return response.json()
     }).then((json) => {
       let data = getProcessParents(json.order_processes);
