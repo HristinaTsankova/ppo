@@ -1,6 +1,7 @@
 import React from 'react';
 import {Typeahead} from 'react-bootstrap-typeahead';
-import {withRouter} from "react-router-dom"
+import {withRouter} from "react-router-dom";
+import Consants from '../app/constants';
 
 class Departments extends React.Component{
     state = {
@@ -30,7 +31,7 @@ class Departments extends React.Component{
           method: 'GET',
           headers: ({'Accept': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
         };
-        fetch(`http://178.62.112.203/api/fp/departments`, request).then((response) => {
+        fetch(`${Consants.remoteServer}/api/fp/departments`, request).then((response) => {
           return response.json()
         }).then((json) => {
           this.setState({departments: json})
@@ -46,7 +47,7 @@ class Departments extends React.Component{
           return(
             <div>
                 <div className="col-md-6 col-sm-6">
-                    <div className="model">
+                    <div className="briga">
                         <div className="row">
                             <h2>Избери бригада:</h2>
                         </div>

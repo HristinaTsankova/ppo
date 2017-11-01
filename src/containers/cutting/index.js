@@ -45,6 +45,16 @@ fetchUsers() {
             <td className="stock">Наличен буфер</td>
             <td className="attention">За кроене</td>
           </tr>
+          <tr>
+            <td className="modelName"></td>
+            <td className="orders"></td>
+            <td className="cut"></td>
+            <td ><input type="checkbox" name="vehicle" value="true" className="form-control prosh"/></td>
+            <td className="grafic"></td>
+            <td className="min"></td>
+            <td className="stock"></td>
+            <td className="attention"></td>
+          </tr>
         </tbody>
       </table>
     )
@@ -58,7 +68,7 @@ fetchUsers() {
       <div>
         <Header/>
         <div className="container-fluid">
-          <h2 className="title">План Кроялно</h2>
+          <h2 className="title2">План Кроялно</h2>
           <div className="row">
             {rows}
           </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/index.css';
 import logo from '../image/capasca-logo.png';
+import Consants from '../app/constants';
 
 
 export default class Login extends React.Component {
@@ -9,7 +10,7 @@ export default class Login extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         }
     onSubmit() {
-        fetch('http://178.62.112.203/api/fp/login', {
+        fetch(Consants.remoteServer + '/api/fp/login', {
             method: 'POST',
             headers: {
                 'Access': 'application/vnd.elitex-v1+json',

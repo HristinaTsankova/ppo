@@ -219,14 +219,16 @@ td>.open{
 .cutting{
     margin-top: 30px;
 }
-.model{
+.model, .briga{
     border-right: 2px solid #ccc;
     border-left: 2px solid #ccc;
     border-radius: 4px;
     padding-bottom: 30px;
-    background-color: rgba(34, 34, 34, 0.1);
+    background-color: #e9ece5;
 }
-
+.briga{
+    background-color: #e3e0cf;
+}
 
 .log{
     width: 100%;
@@ -395,7 +397,7 @@ li{
     border-radius: 2px;
 }
 .cutting_table{
-    margin-top: 30px;
+    margin-top: 20px;
     border: 1px solid #ccc;
 }
 .name{
@@ -427,7 +429,33 @@ li{
 }
 .attention{
     background-color: #b56969;
+    color: white;
 }
 .tech4{
     border: 0;
+}
+
+.no-border {
+    border-top: 0 !important;
+}
+
+.size-180 {
+    width: 180px !important;
+}
+
+.size-30 {
+    width: 30px !important;
+}
+.prosh{
+    border: 0;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0);
+    height: 25px;
+}
+.prosh:focus{
+    border: 0;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0);
+}
+.title2{
+    text-align: center;
+    margin-bottom: 10px;
 }

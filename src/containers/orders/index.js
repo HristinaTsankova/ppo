@@ -2,6 +2,7 @@ import React from 'react';
 import {Typeahead} from 'react-bootstrap-typeahead';
 import Header from '../header';
 import Departments from './departments';
+import Consants from '../app/constants';
 
 export default class Orders extends React.Component {
 
@@ -38,7 +39,7 @@ export default class Orders extends React.Component {
       method: 'GET',
       headers: ({'Accept': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
     };
-    fetch(`http://178.62.112.203/api/fp/orders`, request).then((response) => {
+    fetch(`${Consants.remoteServer}/api/fp/orders`, request).then((response) => {
       return response.json()
     }).then((json) => {
       this.setState({orders: json})
