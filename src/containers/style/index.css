@@ -203,7 +203,7 @@ td>.open{
 }
 .parentTD{
     width: 100px;
-    background-color: #fbe9d0;
+    background-color: #e9ece5;
     border-right: 1px solid #737373;
 }
 .parentDel{
@@ -211,7 +211,7 @@ td>.open{
 }
 .tech{
     border-right: 1px solid #737373;
-    background-color: #fbe9d0;
+    background-color: #e9ece5;
 }
 .logout{
     float: right;
@@ -313,6 +313,7 @@ td>.open{
   padding: 0;
   height: 20px;
   width: 20px;
+  background-color: #89bdd3;
 }
 .navbar{
     margin-bottom: 0;
@@ -360,17 +361,17 @@ li{
 }
 .tech2{
     text-align: center;
-    background:#fbe9d0;
+    background:#e9ece5;
     border-right: 1px solid #737373;
 }
 .tech3{
-    background-color: #fbe9d0;
+    background-color: #e9ece5;
 }
 .seat{
     margin-top: 10px;
 }
 .view_dep{
-    background-color:#fbe9d0;
+    background-color:#e9ece5;
 }
 
 .table>thead>tr>th, .table>tbody>tr>td{
@@ -387,8 +388,11 @@ li{
     background-color: white;
 }
 .showPlan{
-    padding: 0;
+    padding: 0 4px;
     margin: 0;
+    background-color: #edd9c0;
+    color: #737373;
+    border-radius: 2px;
 }
 .cutting_table{
     margin-top: 30px;
@@ -407,17 +411,23 @@ li{
     background-color: #e3e0cf;
 }
 .cut{
-    background-color:   #e6ffe6;
+    background-color:   #e6e6e6;
 }
 .grafic{
-    background-color:  #b3c2bf;  
+    background-color:  #d7ecc6;  
 }
 .min{
-    background-color: #e6ffcc
+    background-color: #F3FAB6;
 }
 .stock{
     background-color:  #ffffcc;
 }
 .ok{
     border: 0 !important;
+}
+.attention{
+    background-color: #b56969;
+}
+.tech4{
+    border: 0;
 }

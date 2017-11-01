@@ -43,7 +43,7 @@ fetchUsers() {
             <td className="grafic">Дневен график</td>
             <td className="min">Минимален буфер</td>
             <td className="stock">Наличен буфер</td>
-            <td className="danger">За кроене</td>
+            <td className="attention">За кроене</td>
           </tr>
         </tbody>
       </table>
