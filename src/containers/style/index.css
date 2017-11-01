@@ -203,14 +203,15 @@ td>.open{
 }
 .parentTD{
     width: 100px;
-    background-color: #f7d3a1;
+    background-color: #fbe9d0;
+    border-right: 1px solid #737373;
 }
 .parentDel{
     float: right;
 }
 .tech{
-    border-right: 1px solid white;
-    background-color: #f7d3a1;
+    border-right: 1px solid #737373;
+    background-color: #fbe9d0;
 }
 .logout{
     float: right;
@@ -358,21 +359,30 @@ li{
     margin-top: 5px;
 }
 .tech2{
-    border-left: 1px solid white;
-    border-right: 1px solid white;
     text-align: center;
-    background:#f7d3a1;
+    background:#fbe9d0;
+    border-right: 1px solid #737373;
+}
+.tech3{
+    background-color: #fbe9d0;
 }
 .seat{
     margin-top: 10px;
 }
 .view_dep{
-    background-color:#f7d3a1;
+    background-color:#fbe9d0;
 }
-.colm{
-    border-right: 1px solid #ccc;
-}
+
 .table>thead>tr>th, .table>tbody>tr>td{
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
+    border-top: 1px solid  #737373;
+    
+}
+.time{
+    text-align: center;
+}
+.start{
+    width: 15px;
+}
+.table>tbody>tr.active>td{
+    background-color: white;
 }
