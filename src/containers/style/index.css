@@ -67,11 +67,7 @@ li {
 .continue, .zapis{
     margin-top: 20px;
 }
-.open{
-    margin-top: 20px;
-    font-size: 24px;
-    float: right;
-}
+
 .right{
     position: absolute;
     top: 0;
