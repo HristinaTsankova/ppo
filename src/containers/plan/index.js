@@ -1,12 +1,7 @@
 import React from 'react';
 import Header from '../header';
 import Sidebar from './sidebar';
-import { Droppable } from 'react-drag-and-drop';
-import day from '../image/day.png';
-import machine from '../image/machine.png';
-import process from '../image/process.png';
-import moment from '../image/moment.png';
-import buffer from '../image/buffer.png';
+import Floor from './floor';
  
 export default class Plan extends React.Component {
     state={
@@ -54,27 +49,8 @@ export default class Plan extends React.Component {
                 {this.state.showSidebar &&
                 <Sidebar />}
                 <div className="container-fluid">
-                    <div className="col-md-3 seat">
-                        <Droppable 
-                            type={['plan']}
-                            onDrop={this.onDrop}>
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Работник</th>
-                                        <th>%</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>№</td>
-                                        <td className="floor_plan"><img src={process} alt='' className="icon"/></td>
-                                        <td className="floor_plan"><img src={machine} alt='' className="icon"/></td>
-                                        <td>Н.вр.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </Droppable>
+                    <div className="row">
+                        <Floor/>
                     </div>
                 </div>
             </div>

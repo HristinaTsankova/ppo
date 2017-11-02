@@ -442,8 +442,17 @@ li{
     margin-bottom: 10px;
 }
 .icon{
+    width: 80%;
+}
+.icon2{
     width: 30%;
 }
 .floor_plan{
     text-align: center;
+    font-size: 12px;
+    background-color: #e3e0cf;
+}
+.floor_plan2{
+    font-size: 12px;
+    background-color: #c9d8c5;
 }

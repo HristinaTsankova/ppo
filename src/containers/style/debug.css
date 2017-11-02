@@ -1,7 +1,6 @@
 #floorPlan td {
-  border: 1px solid red;
-  width: 200px;
-  height: 150px;
+  width: 250px;
+ 
 }
 
 #floorPlan .row {
@@ -10,4 +9,8 @@
 
 .red-border {
   border: 1px solid red;
+}
+.floor{
+  border-spacing: 20px;
+  border-collapse: separate;
 }

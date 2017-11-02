@@ -1,6 +1,7 @@
 import React from 'react';
 import Constants from '../app/constants';
 import '../style/debug.css';
+import MachineTable from './machine_table'
 
 class Row extends React.Component {
   render () {
@@ -11,9 +12,10 @@ class Row extends React.Component {
       <tr>
         {this.props.data.map((item, index) => {
           return (
-            <td key={this.props.index + index.toString()}>{item.name}</td>
+            <td key={this.props.index + index.toString()}>{item.name} <MachineTable/></td>
           )
         })}
+        
       </tr>
     )
   }
@@ -91,7 +93,7 @@ export default class Floor extends React.Component {
     <div id="floorPlan">
       <div className="row">
         <div className={cls}>
-          <table>
+          <table className="floor">
             <tbody>
               {table.map((item, index) => {
                 return (
