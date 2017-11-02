@@ -53,20 +53,17 @@ class Departments extends React.Component{
                         </div>
                         <div className="row">
                             <div className="col-md-8 col-md-offset-2">
-                                <div className="input-group">
-                                    <span className="input-group-addon"><i className="glyphicon glyphicon-search"/></span>
-                                        <Typeahead
-                                            options={this.state.departments}
-                                            onChange={this.onSelectionBrigade}
-                                            labelKey="name" />
-                                    </div>
-                                </div>
+                                <Typeahead
+                                    options={this.state.departments}
+                                    onChange={this.onSelectionBrigade}
+                                    labelKey="name" />
                             </div>
-                            <div className="row">
-                                <div className="col-md-8 col-md-offset-2">
-                                    <button type="button" disabled={!this.state.selectedBrigade} className="btn btn-warning save" onClick={this.onPlansClick}>Подов план</button>
-                                </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-8 col-md-offset-2">
+                                <button type="button" disabled={!this.state.selectedBrigade} className="btn btn-warning save" onClick={this.onPlansClick}>Подов план</button>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>

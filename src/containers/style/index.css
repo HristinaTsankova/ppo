@@ -156,6 +156,7 @@ div.link button.active {
 }
 .save{
     width: 100%;
+    margin-top: 10px;
 }
 .open {
     margin-top: 0;

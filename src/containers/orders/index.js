@@ -65,13 +65,11 @@ export default class Orders extends React.Component {
                 </div>
                 <div className="row">
                   <div className="col-md-8 col-md-offset-2">
-                    <div className="input-group">
-                      <span className="input-group-addon"><i className="glyphicon glyphicon-search"/></span>
                       <Typeahead
                         options={this.state.orders}
                         onChange={this.onSelectionModel}
                         labelKey="name" />
-                    </div>
+                    
                   </div>
                 </div>
                 <div className="row">

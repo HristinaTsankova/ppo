@@ -20,6 +20,7 @@ export default class Sidebar extends React.Component{
         this.showUserTable = this.showUserTable.bind(this);
         this.showMahineTable = this.showMashineTable.bind(this);
         this.showProcessTable = this.showProcessTable.bind(this);
+        this.onSelectionAll = this.onSelectionAll.bind(this);
     }
     fetchUsers() {
         const request = {
@@ -48,7 +49,7 @@ export default class Sidebar extends React.Component{
       onSelectionAll(selection) {
         this.setState({
           ...this.state,
-          selectedAll: selection.length ? selection.id : null
+          selectedAll: selection.length ? selection[0].id : null
         })
     }
       showUserTable = () => {
