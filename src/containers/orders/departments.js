@@ -46,7 +46,7 @@ class Departments extends React.Component{
       render() {
           return(
             <div>
-                <div className="col-md-6 col-sm-6">
+                <div className="col-lg-6 col-sm-12 col-md-12">
                     <div className="briga">
                         <div className="row">
                             <h2>Избери бригада:</h2>

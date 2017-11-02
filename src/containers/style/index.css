@@ -221,6 +221,7 @@ td>.open{
     border-radius: 4px;
     padding-bottom: 30px;
     background-color: #e9ece5;
+    margin-top: 5px;
 }
 .briga{
     background-color: #e3e0cf;
@@ -276,7 +277,7 @@ td>.open{
     margin: 0;
 }
 .open>.dropdown-menu{
-    width: 250px;
+    width: 100%;
     padding: 0;
     overflow-x: hidden !important;
 }
@@ -301,10 +302,14 @@ td>.open{
     background-color: #f2f2f2;
 }
 
-.rbt-input {
-  width: 20px;
+.open>.rbt-input {
+  width: 400px;
   overflow: hidden;
 }
+.view_dep>.open>.rbt-input {
+    width: 20px;
+    overflow: hidden;
+  }
 
 .btn-add-parent {
   margin: 0;

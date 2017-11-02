@@ -1,9 +1,9 @@
 import React from 'react';
-import {sortBy} from 'lodash';
 import Mashine from './mashine';
 import Process from './process';
 import Constants from '../app/constants';
 import { Draggable } from 'react-drag-and-drop';
+import {Typeahead} from 'react-bootstrap-typeahead';
 
 export default class Sidebar extends React.Component{
    
@@ -14,7 +14,8 @@ export default class Sidebar extends React.Component{
             users: [],
             showUsers: false,
             showMashine: false,
-            showProcess: false
+            showProcess: false,
+            selectedAll: null
         }
         this.showUserTable = this.showUserTable.bind(this);
         this.showMahineTable = this.showMashineTable.bind(this);
@@ -44,6 +45,12 @@ export default class Sidebar extends React.Component{
           </tr>
         )
       }
+      onSelectionAll(selection) {
+        this.setState({
+          ...this.state,
+          selectedAll: selection.length ? selection.id : null
+        })
+    }
       showUserTable = () => {
         const {showUsers} =this.state
         this.setState({
@@ -65,8 +72,6 @@ export default class Sidebar extends React.Component{
 
     render() {
 
-        const processes = sortBy(this.state.users, 'department_name')
-        const rows = processes.map(this.renderRow)
 
         return(
             <div className="sidebar">
@@ -78,25 +83,17 @@ export default class Sidebar extends React.Component{
                         <button type="button" className="btn btn-warning process" onClick={this.showProcessTable}>Процеси</button>
                     </div>
                     <div className="col-md-4">
-                        <button type="button" className="btn userBtn" onClick={this.showUserTable}>Работници</button>
+                        <button type="button" className="btn userBtn" onClick={this.showUserTable}>Всички работници</button>
                     </div>
                 </div>
                 {this.state.showUsers &&
                 <div>
-                    <div className="row">
-                        <input type="search" className="form-control searching"/>
+                    <div className="row searching">
+                        <Typeahead
+                            options={this.state.users}
+                            onChange={this.onSelectionAll}
+                            labelKey="name" />
                     </div>
-                    <table className="table users">
-                        <thead>
-                            <tr>
-                                <th>Работник</th>
-                                <th>Цех</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {rows}
-                        </tbody>
-                    </table>
                 </div>}
                 <div>
                     {this.state.showMashine &&
