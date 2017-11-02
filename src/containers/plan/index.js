@@ -2,7 +2,12 @@ import React from 'react';
 import Header from '../header';
 import Sidebar from './sidebar';
 import { Droppable } from 'react-drag-and-drop';
-
+import day from '../image/day.png';
+import machine from '../image/machine.png';
+import process from '../image/process.png';
+import moment from '../image/moment.png';
+import buffer from '../image/buffer.png';
+ 
 export default class Plan extends React.Component {
     state={
         showSidebar: false
@@ -62,8 +67,9 @@ export default class Plan extends React.Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Машина</td>
-                                        <td>Процес</td>
+                                        <td>№</td>
+                                        <td className="floor_plan"><img src={process} alt='' className="icon"/></td>
+                                        <td className="floor_plan"><img src={machine} alt='' className="icon"/></td>
                                         <td>Н.вр.</td>
                                     </tr>
                                 </tbody>

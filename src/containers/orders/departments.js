@@ -39,9 +39,9 @@ class Departments extends React.Component{
         });
     }
     
-      componentDidMount() {
+    componentDidMount() {
         this.fetchDepartments();
-      }
+    }
 
       render() {
           return(
@@ -56,7 +56,8 @@ class Departments extends React.Component{
                                 <Typeahead
                                     options={this.state.departments}
                                     onChange={this.onSelectionBrigade}
-                                    labelKey="name" />
+                                    labelKey="name"
+                                    placeholder="Търси по бригада..." />
                             </div>
                         </div>
                         <div className="row">

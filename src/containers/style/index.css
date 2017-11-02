@@ -20,22 +20,26 @@ body{
     margin: 5px 0;
 }
 
-    .tab{
-        margin: 10px 0 0;
-        padding: 0;
-        display: inline-block;
-    }
-    
- 
-    .header{
-        border-bottom:1px solid lightgrey;
-        background-color: #595959;
-    }
+.tab{
+    margin: 10px 0 0;
+    padding: 0;
+    display: inline-block;
+}
+.header{
+    border-bottom:1px solid lightgrey;
+    background-color: #595959;
+}
     .number{
         border-bottom: 1px solid grey;
         padding: 3px;
     }
-    
+.navbar-inverse{
+    background-color: #616b65;
+    border-color: #49504c;
+}
+.navbar-nav>li>a{
+    color: white !important;
+}
 ul {
     margin: 0;
     padding: 0;
@@ -130,37 +134,12 @@ div.link button.active {
     background-color: #3c3c3d;
     text-decoration: none;
 }
-[data-draggable="item"]
-{
-    display:block;
-    list-style-type:none;
-    
-    margin:0 0 2px 0;
-    
-    border-radius:0.2em;
-    
-    line-height:1.3;
-}
-[data-draggable="target"]
-{
-    list-style-type:none;
-    height:30px;
-    overflow-y:auto;
-    padding: 0;
-    margin:5px;
-    
-    
-    border:1px solid #ccc;
-    border-radius:4px;
-    color:#555;
-}
 .save{
     width: 100%;
     margin-top: 10px;
 }
 .open {
     margin-top: 0;
-    padding: 0;
 }
 .dep{
     margin-top: 10px;
@@ -244,9 +223,6 @@ td>.open{
     margin-right: 10px;
 }
 .exit{
-    border: 1px solid #e38582;
-    background-color: transparent;
-    color: #e38582;
     float: right;
 }
 .links{
@@ -258,17 +234,17 @@ td>.open{
     right: 2px;
     width: 30%;
     bottom: 0;
-    background-color: #222;
+    background-color: #c5d5cb;
     overflow: auto;
 }
 .sidebar_button{
     position: absolute;
     right: 30%;
     background-color: transparent;
-    color: #595959;
+    color: #616b65;
     border: 0;
-    border-right: 1px solid #595959;
-    border-left: 1px solid #595959;
+    border-right: 1px solid #616b65;
+    border-left: 1px solid #616b65;
     padding: 6px 10px;
 }
 .bar{
@@ -311,6 +287,9 @@ td>.open{
     width: 20px;
     overflow: hidden;
   }
+  .view_dep>.open{
+      padding: 0;
+  }
 
 .btn-add-parent {
   margin: 0;
@@ -330,7 +309,8 @@ td>.open{
     overflow-x: hidden !important;
 }
 .navbar-nav>li>a:hover {
-    background-color: black !important; 
+    background-color: #49504c !important;
+    color: white !important; 
 }
 li{
     border: 0;
@@ -460,4 +440,10 @@ li{
 .title2{
     text-align: center;
     margin-bottom: 10px;
+}
+.icon{
+    width: 30%;
+}
+.floor_plan{
+    text-align: center;
 }

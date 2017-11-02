@@ -1,8 +1,7 @@
 import React from 'react';
-import Mashine from './mashine';
+import User from './user';
 import Process from './process';
 import Constants from '../app/constants';
-import { Draggable } from 'react-drag-and-drop';
 import {Typeahead} from 'react-bootstrap-typeahead';
 
 export default class Sidebar extends React.Component{
@@ -20,7 +19,7 @@ export default class Sidebar extends React.Component{
         this.showUserTable = this.showUserTable.bind(this);
         this.showMahineTable = this.showMashineTable.bind(this);
         this.showProcessTable = this.showProcessTable.bind(this);
-        this.onSelectionAll = this.onSelectionAll.bind(this);
+        this.onSelectionAll = this.onSelectionAll.bind(this)
     }
     fetchUsers() {
         const request = {
@@ -37,14 +36,6 @@ export default class Sidebar extends React.Component{
     
       componentDidMount() {
         this.fetchUsers();
-      }
-      renderRow(rowData, i) {
-        return (
-          <tr key={i}>
-            <td className="colm"><Draggable type="user" data="users">{rowData.name}</Draggable></td>
-            <td>{rowData.department_id}</td>
-          </tr>
-        )
       }
       onSelectionAll(selection) {
         this.setState({
@@ -78,7 +69,7 @@ export default class Sidebar extends React.Component{
             <div className="sidebar">
                 <div className="row buttons">
                     <div className="col-md-4">
-                        <button type="button" className="btn mashineBtn" onClick={this.showMashineTable}>Машини</button>
+                        <button type="button" className="btn mashineBtn" onClick={this.showMashineTable}>Работници</button>
                     </div>
                     <div className="col-md-4">
                         <button type="button" className="btn btn-warning process" onClick={this.showProcessTable}>Процеси</button>
@@ -93,13 +84,14 @@ export default class Sidebar extends React.Component{
                         <Typeahead
                             options={this.state.users}
                             onChange={this.onSelectionAll}
-                            labelKey="name" />
+                            labelKey="name"
+                            placeholder="Търси работник" />
                     </div>
                 </div>}
                 <div>
                     {this.state.showMashine &&
                     <div>
-                        <Mashine/>
+                        <User/>
                     </div>}
                 </div>
                 <div>

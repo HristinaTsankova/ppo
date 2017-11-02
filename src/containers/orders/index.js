@@ -68,7 +68,8 @@ export default class Orders extends React.Component {
                       <Typeahead
                         options={this.state.orders}
                         onChange={this.onSelectionModel}
-                        labelKey="name" />
+                        labelKey="name"
+                        placeholder="Търси по модел..." />
                     
                   </div>
                 </div>
