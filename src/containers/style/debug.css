@@ -1,0 +1,13 @@
+#floorPlan td {
+  border: 1px solid red;
+  width: 200px;
+  height: 150px;
+}
+
+#floorPlan .row {
+  text-align: left;
+}
+
+.red-border {
+  border: 1px solid red;
+}

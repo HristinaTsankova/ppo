@@ -5,9 +5,9 @@ import Parent from './parent';
 import AddParent from './addParent';
 import Constants from '../app/constants';
 
-const getProcessParents = (processes) => processes.reduce((all, process) => {
-  all[process.id] = all[process.id] || []
-  return all
+const getProcessParents = (processes) => processes.map((process) => {
+  process.parents = (process.parents === undefined) ? [] : process.parents;
+  return process;
 }, {})
 
 class Dependencies extends React.Component {
@@ -17,7 +17,7 @@ class Dependencies extends React.Component {
     this.state = {
       order: null,
       selected: null,
-      processesWithParents: null,
+      processes: null,
       startEnd: 'no'
     }
 
@@ -46,7 +46,7 @@ class Dependencies extends React.Component {
       this.setState({
         ...this.state,
         order: json,
-        processesWithParents: data
+        processes: data
       })
     });
 
@@ -71,37 +71,44 @@ class Dependencies extends React.Component {
     return selection => {
       const parent = selection[0]
       
-      if (!parent)
-        return
-      
-      const parentExists = this.state.processesWithParents[processId]
-        .filter(pr => pr.id === parent.id).length > 0
+      if (!parent) {
+        return;
+      }
+
+      let i = this.state.processes.findIndex(r => r.id === processId);
+      const parentExists = this.state.processes[i].parents.filter(pr => pr.id === parent.id).length > 0
+
+      if (parentExists) {
+        return;
+      }
         
-      if (parentExists)
-        return
-        
-      const newParents = this.state.processesWithParents
-      newParents[processId].push(parent);
+      const newParents = this.state.processes;
+      newParents[i].parents.push(parent);
       this.setState({
         ...this.state,
-        processesWithParents: newParents
+        processes: newParents
       })
     }
   }
 
   onParentDelete(id, parentId) {
-    const newpr = {
-      ...this.state.processesWithParents
-    }
-    const newParents = newpr[id].filter(parent => parent.id !== parentId)
+    const newpr = this.state.processes;
+
+    let i = newpr.findIndex(r => r.id === id);
+    newpr[i].parents = newpr[i].parents.filter(parent => parent.id !== parentId)
     this.setState({
-      // ...this.state,
-      processesWithParents: {
-        ...this.state.processesWithParents,
-        [id]: newParents
-      }
+      ...this.state,
+      processes: newpr
     })
   }
+  
+  renderParents(rowData) {
+    const parents = rowData.parents;
+    return parents.map((parent, i) => (
+      <Parent key={i} parent={parent} onDelete= {() => this.onParentDelete(rowData.id, parent.id)}/>
+    ));
+  }
+  
   renderStart(rowData) {
     const flag = rowData.flagged;
 
@@ -114,21 +121,21 @@ class Dependencies extends React.Component {
     return null;
   }
   
-  renderConnectinIcon(rowData) {
-    const selected = this.state.selected;
+  renderConnectingIcon(rowData, i) {
+    const { selected, processes } = this.state;
 
     if (selected != null) {
       if (selected.id === rowData.id) {
         return <span className="glyphicon glyphicon-record text-primary"></span>
       }
       
-      const dependency = this.state.processesWithParents[selected.id];
-      const iAmParent = dependency.find((obj) => { return obj.id === rowData.id })
+      const dependency = processes.find((obj) => { return obj.id === selected.id });
+      const iAmParent = dependency.parents.find((obj) => { return obj.id === rowData.id })
       if (iAmParent !== undefined) {
         return <span className="glyphicon glyphicon-open text-warning"></span>
       }
 
-      const parents = this.state.processesWithParents[rowData.id];
+      const parents = rowData.parents;
       const iAmChild = parents.find((obj) => { return obj.id === selected.id })
       if (iAmChild !== undefined) {
         return <span className="glyphicon glyphicon-save text-primary"></span>
@@ -138,26 +145,13 @@ class Dependencies extends React.Component {
     return null;
   }
 
-  renderParents(rowData) {
-    const {processesWithParents} = this.state
-    if (!processesWithParents) {
-      return null
-    }
-
-    const parents = processesWithParents[rowData.id]
-
-    return parents.map((parent, i) => (
-      <Parent key={i} parent={parent} onDelete= {() => this.onParentDelete(rowData.id, parent.id)}/>
-    ));
-  }
-
   renderRow(rowData, i) {
     const active = this.state.selected && this.state.selected.id === rowData.id
     const className = active ? 'active' : '';
     return (
       <tr className={className} key={i} onClick={() => this.onItemClick(rowData)}>
         <td className="no-border">{this.renderStart(rowData)}</td>
-        <td className="no-border">{this.renderConnectinIcon(rowData)}</td>
+        <td className="no-border">{this.renderConnectingIcon(rowData, i)}</td>
         <td className="tech">{rowData.serial_number}</td>
         <td className="tech">{rowData.name}</td>
         <td className="tech time">{rowData.aligned_time}</td>
@@ -177,7 +171,7 @@ class Dependencies extends React.Component {
         </td>
         <td className="tech2"></td>
         <td className="tech3"></td>
-        <td className="size-180 no-border">{active && <a href="/departments/:id/plan" className="btn btn-warning showPlan">Покажи подов план</a>}</td>
+        <td className="size-180 no-border">{active && <a href={"/departments/" + rowData.id + "/plan"} className="btn btn-warning showPlan">Покажи подов план</a>}</td>
       </tr>
     )
   }
@@ -191,7 +185,7 @@ class Dependencies extends React.Component {
       )
     }
 
-    const processes = sortBy(this.state.order.order_processes, 'serial_number')
+    const processes = sortBy(this.state.processes, 'serial_number')
 
     const rows = processes.map(this.renderRow)
  
