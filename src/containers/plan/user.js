@@ -1,5 +1,5 @@
 import React from 'react';
-import Constants from '../app/constants';
+import Constants from '../../utils/constants';
 import {sortBy} from 'lodash';
 
 export default class User extends React.Component {

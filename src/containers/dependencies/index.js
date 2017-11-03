@@ -3,7 +3,7 @@ import {sortBy} from 'lodash';
 import Header from '../header';
 import Parent from './parent';
 import AddParent from './addParent';
-import Constants from '../app/constants';
+import Constants from '../../utils/constants';
 
 const getProcessParents = (processes) => processes.map((process) => {
   process.parents = (process.parents === undefined) ? [] : process.parents;

@@ -1,49 +1,30 @@
-import React from 'react'
-import '../style/index.css'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import logo from '../image/capasca-logo.png'
 import {Redirect} from 'react-router-dom';
-import Constants from '../app/constants';
+import { isLoggedIn, login } from '../../actions/login';
 
-const saveToken = token => Constants.setToken(token);
+import '../style/index.css';
+import '../style/debug.css';
 
-export default class Login extends React.Component {
-  
-  state = {
-    redirectToReferrer: false
+class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  async submit(e) {
-
+  onSubmit(e) {
     e.preventDefault()
-
-    const BASE_URL = Constants.remoteServer + '/api/fp/login'
-    const {username, password} = this.refs
-
-    const request = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/vnd.elitex-v1+json',
-        'Content-Type': 'application/json'
-      },
-       body: JSON.stringify({user_name: username.value, password: password.value})
-    }
-
-    const response = await fetch(BASE_URL, request)
-    const json = await response.json()
-    if (response.ok) {
-      saveToken(json.access_token)
-      this.setState({ redirectToReferrer: true })
-    } else {
-      alert(json.errors.join('\n'))
-    }
+    let { username, password } = this.refs;
+    this.props.login(username.value, password.value);
   }
 
   render() {
-    
-    const { from } = this.props.location.state || { from: { pathname: '/orders' } }
-    const { redirectToReferrer } = this.state
-    
-    if (redirectToReferrer) {
+    this.props.isLoggedIn();
+    let {isLoginSuccess, loginError} = this.props;
+    let { from } = this.props.location.state || { from: { pathname: '/orders' } }
+    if (isLoginSuccess) {
       return (
         <Redirect to={from}/>
       )
@@ -55,8 +36,9 @@ export default class Login extends React.Component {
           <div>
             <img src={logo} alt='' className='logo'/>
           </div>
+          <div className="error-message">{ loginError && <div>{loginError.message}</div> }</div>
           <div className="col-md-5 login-form">
-            <form onSubmit={this.submit.bind(this)}>
+            <form onSubmit={this.onSubmit}>
               <div className="input-group">
                 <span className="input-group-addon">
                   <i className="glyphicon glyphicon-user"></i>
@@ -77,3 +59,21 @@ export default class Login extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isLoginPending: state.login.isLoginPending,
+    isLoginSuccess: state.login.isLoginSuccess,
+    loginError: state.login.loginError,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    login: (username, password) => dispatch(login(username, password)),
+    isLoggedIn: () => dispatch(isLoggedIn())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

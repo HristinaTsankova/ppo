@@ -2,7 +2,7 @@ import React from 'react';
 import {Typeahead} from 'react-bootstrap-typeahead';
 import Header from '../header';
 import Departments from './departments';
-import Constants from '../app/constants';
+import Constants from '../../utils/constants';
 
 export default class Orders extends React.Component {
 

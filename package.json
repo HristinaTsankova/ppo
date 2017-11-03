@@ -17,11 +17,12 @@
   },
   "devDependencies": {
     "jquery": "^3.2.1",
-    "react-scripts": "1.0.12"
+    "react-scripts": "1.0.12",
+    "redux-logger": "^3.0.6"
   },
   "proxy": "http://178.62.112.203",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_ENV=development react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

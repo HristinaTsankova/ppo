@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/index.css';
 import logo from '../image/capasca-logo.png';
-import Constants from '../app/constants';
+import Constants from '../../utils/constants';
 
 
 export default class Login extends React.Component {

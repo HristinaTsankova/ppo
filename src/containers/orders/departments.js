@@ -1,7 +1,7 @@
 import React from 'react';
 import {Typeahead} from 'react-bootstrap-typeahead';
 import {withRouter} from "react-router-dom";
-import Constants from '../app/constants';
+import Constants from '../../utils/constants';
 
 class Departments extends React.Component{
     state = {

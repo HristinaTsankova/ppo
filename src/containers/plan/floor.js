@@ -1,5 +1,5 @@
 import React from 'react';
-import Constants from '../app/constants';
+import Constants from '../../utils/constants';
 import '../style/debug.css';
 import MachineTable from './machine_table'
 

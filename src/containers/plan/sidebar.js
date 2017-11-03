@@ -1,7 +1,7 @@
 import React from 'react';
 import User from './user';
 import Process from './process';
-import Constants from '../app/constants';
+import Constants from '../../utils/constants';
 import {Typeahead} from 'react-bootstrap-typeahead';
 
 export default class Sidebar extends React.Component{
