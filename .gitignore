@@ -16,6 +16,8 @@ package-lock.json
 .env.development.local
 .env.test.local
 .env.production.local
+start.sh
+start.bat
 
 npm-debug.log*
 yarn-debug.log*
