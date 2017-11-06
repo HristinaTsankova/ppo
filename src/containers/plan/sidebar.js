@@ -2,7 +2,6 @@ import React from 'react';
 import User from './user';
 import Process from './process';
 import Constants from '../../utils/constants';
-import {Typeahead} from 'react-bootstrap-typeahead';
 
 export default class Sidebar extends React.Component{
    
@@ -42,21 +41,24 @@ export default class Sidebar extends React.Component{
         })
     }
       showUserTable = () => {
-        const {showUsers} = this.state
         this.setState({
-            showUsers: !showUsers
+            showUsers: true,
+            showMashine: false,
+            showProcess: false
         })
     }
     showMashineTable = () => {
-        const {showMashine} = this.state
         this.setState({
-            showMashine: !showMashine
+            showMashine: true,
+            showProcess: false,
+            showUsers: false
         })
     }
     showProcessTable = () => {
-        const {showProcess} = this.state
         this.setState({
-            showProcess: !showProcess
+            showProcess: true,
+            showMashine: false,
+            showUsers: false
         })
     }
 
@@ -74,27 +76,10 @@ export default class Sidebar extends React.Component{
                         <button type="button" className="btn userBtn" onClick={this.showUserTable}>Всички работници</button>
                     </div>
                 </div>
-                {this.state.showUsers &&
                 <div>
-                    <div className="row searching">
-                        <Typeahead
-                            options={this.state.users}
-                            onChange={this.onSelectionAll}
-                            labelKey="name"
-                            placeholder="Търси работник" />
-                    </div>
-                </div>}
-                <div>
-                    {this.state.showMashine &&
-                    <div>
-                        <User />
-                    </div>}
-                </div>
-                <div>
-                    {this.state.showProcess &&
-                    <div>
-                        <Process/>
-                    </div>}
+                    { this.state.showUsers && <User filter="BY_NAME" />}
+                    { this.state.showMashine && <User filter="BY_DEPARTMENT" /> }
+                    { this.state.showProcess && <Process/> }
                 </div>
             </div>
             

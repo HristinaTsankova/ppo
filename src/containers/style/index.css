@@ -472,8 +472,12 @@ li{
     text-align: center;
     font-size: 12px;
     background-color: #e3e0cf;
+    border: 1px solid #ba9077 !important;
+    height: 25px;
 }
 .floor_plan2{
     font-size: 12px;
     background-color: #c9d8c5;
+    border: 1px solid #ba9077 !important;
+    height: 25px;
 }

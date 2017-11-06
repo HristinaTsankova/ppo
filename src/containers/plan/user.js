@@ -5,7 +5,21 @@ import { sortBy } from 'lodash';
 class User extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      searchUser: ''
+    }
+  }
+
+  getVisibleUsers = () => {
+    if (this.props.filter === "BY_NAME") {
+      if (this.state.searchUser.trim() === '') {
+        return [];
+      } else {
+        return this.props.users.filter(t => t.name.toLowerCase().includes(this.state.searchUser.toLowerCase()));
+      }
+    } else {
+      return this.props.users.filter(t => t.department_id === parseInt(this.props.department, 10));
+    }
   }
 
   renderRow(rowData, i) {
@@ -18,11 +32,12 @@ class User extends React.Component {
   }
 
   render() {
-    const users = sortBy(this.props.users, 'name')
+    const users = sortBy(this.getVisibleUsers(), 'name')
     const rows = users.map(this.renderRow)
 
     return (
       <div>
+        {(this.props.filter === "BY_NAME") && <input onChange={e => this.setState({searchUser: e.target.value})} value={this.state.searchUser} name="searchUser" className="form-control searching" placeholder="Име на потребителя" />}
         <table className="table">
           <tbody>
             {rows}
@@ -33,12 +48,9 @@ class User extends React.Component {
   }
 }
 
-const getVisibleUsers = (users, filter) => {
-  return users.filter(t => t.department_id === parseInt(filter, 10));
-}
-
 const mapStateToProps = (state) => ({
-  users: getVisibleUsers(state.users.data, state.departments.selectedDepartment)
+  department: state.departments.selectedDepartment,
+  users: state.users.data
 });
 
 const mapDispatchToProps = (dispatch) => {
