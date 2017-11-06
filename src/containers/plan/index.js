@@ -1,17 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../header';
 import Sidebar from './sidebar';
 import Floor from './floor';
- 
-export default class Plan extends React.Component {
-    state={
-        showSidebar: false
-    };
-    constructor() {
-        super();
+import { loadAllUsers } from '../../actions/users';
+import { selsectDepartment } from '../../actions/departments';
 
-        this.showSidebarForm = this.showSidebarForm.bind(this);
-    }
+class Plan extends React.Component {
+  state = {
+    showSidebar: false
+  };
+  constructor(props) {
+    super(props);
+    this.props.selsectDepartment(this.props.match.params.id);
+    this.showSidebarForm = this.showSidebarForm.bind(this);
+  }
+  
+  componentDidMount() {
+    this.props.loadAllUsers();
+  }
 
     showSidebarForm = () => {
         const {showSidebar} =this.state
@@ -59,3 +66,16 @@ export default class Plan extends React.Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+  return { };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    loadAllUsers: () => dispatch(loadAllUsers()),
+    selsectDepartment: (department) => dispatch(selsectDepartment(department))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Plan);

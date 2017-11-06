@@ -8,7 +8,6 @@ export default class Sidebar extends React.Component{
    
     constructor(props) {
         super(props);
-
         this.state = {
             users: [],
             showUsers: false,
@@ -30,41 +29,38 @@ export default class Sidebar extends React.Component{
           return response.json()
         }).then((json) => {
           this.setState({users: json})
-                    
         });
-      }
+    }
     
-      componentDidMount() {
+    componentDidMount() {
         this.fetchUsers();
-      }
-      onSelectionAll(selection) {
+    }
+    onSelectionAll(selection) {
         this.setState({
-          ...this.state,
-          selectedAll: selection.length ? selection[0].id : null
+            ...this.state,
+            selectedAll: selection.length ? selection[0].id : null
         })
     }
       showUserTable = () => {
-        const {showUsers} =this.state
+        const {showUsers} = this.state
         this.setState({
             showUsers: !showUsers
         })
     }
     showMashineTable = () => {
-        const {showMashine} =this.state
+        const {showMashine} = this.state
         this.setState({
             showMashine: !showMashine
         })
     }
     showProcessTable = () => {
-        const {showProcess} =this.state
+        const {showProcess} = this.state
         this.setState({
             showProcess: !showProcess
         })
     }
 
     render() {
-
-
         return(
             <div className="sidebar">
                 <div className="row buttons">
@@ -91,7 +87,7 @@ export default class Sidebar extends React.Component{
                 <div>
                     {this.state.showMashine &&
                     <div>
-                        <User/>
+                        <User />
                     </div>}
                 </div>
                 <div>
