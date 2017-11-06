@@ -6,6 +6,7 @@ import Login from '../login';
 import Orders from '../orders';
 import Cutting from '../cutting';
 import '../style/index.css';
+import Header from '../header';
 
 const isAuthenticated = () => !!localStorage.getItem('ppotoken')
 
@@ -27,6 +28,7 @@ const App = () => (
 
   <div>
     <main>
+      <Header/>
       <Route exact path="/" component={Login}/>
       <PrivateRoute exact path="/orders" component={Orders}/>
       <PrivateRoute exact path="/orders/:id/dependencies" component={Dependencies}/>

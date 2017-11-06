@@ -34,7 +34,6 @@ class Plan extends React.Component {
         
         return(
             <div>
-                <Header/>
                 <div className="row">
                     <div className="row bar">
                         <div className="col-md-7 col-sm-7">

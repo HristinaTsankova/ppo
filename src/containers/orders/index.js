@@ -55,7 +55,6 @@ export default class Orders extends React.Component {
   render() {
     return (
       <div>
-        <Header/>
         <div className="container-fluid choice">
           <div className="row logo">
             <div className="col-lg-6 col-sm-12 col-md-12">

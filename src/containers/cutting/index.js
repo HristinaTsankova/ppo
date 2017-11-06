@@ -66,7 +66,6 @@ fetchUsers() {
 
     return(
       <div>
-        <Header/>
         <div className="container-fluid">
           <h2 className="title2">План Кроялно</h2>
           <div className="row">

@@ -191,7 +191,6 @@ class Dependencies extends React.Component {
  
     return (
       <div>
-        <Header/>
         <div className="row bar">
           <table className="table modelss">
             <thead>
