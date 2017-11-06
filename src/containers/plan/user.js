@@ -1,57 +1,50 @@
 import React from 'react';
-import Constants from '../../utils/constants';
-import {sortBy} from 'lodash';
+import { connect } from 'react-redux';
+import { sortBy } from 'lodash';
 
-export default class User extends React.Component {
-    constructor(props) {
-        super(props);
+class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
 
-        this.state = {
-            departments: []
-        }
-    }
-    fetchUsers() {
-        const request = {
-          method: 'GET',
-          headers: Constants.headers
-        };
-        fetch(`${Constants.remoteServer}/api/fp/departments/${12}`, request).then((response) => {
-          return response.json()
-        }).then((json) => {
-          this.setState({departments: json})
-                    
-        });
-      }
-    
-      componentDidMount() {
-        this.fetchUsers();
-      }
+  renderRow(rowData, i) {
+    return (
+      <tr key={i}>
+        <td className="colm">{rowData.name}</td>
+        <td>{rowData.department_id}</td>
+      </tr>
+    )
+  }
 
-      
-      renderRow(rowData, i) {
-        return (
-          <tr key={i}>
-            <td className="colm">{rowData.name}</td>
-            <td>{rowData.department_id}</td>
-          </tr>
-        )
-      }
+  render() {
+    const users = sortBy(this.props.users, 'name')
+    const rows = users.map(this.renderRow)
 
-      render() {
-
-        const processes = sortBy(this.state.departments.users, 'serial_number')
-        
-        const rows = processes.map(this.renderRow)
-        
-          return(
-              <div>
-                <table className="table">
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </table>
-              </div>
-          )
-      }
+    return (
+      <div>
+        <table className="table">
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
+const getVisibleUsers = (users, filter) => {
+  return users.filter(t => t.department_id === parseInt(filter, 10));
+}
+
+const mapStateToProps = (state) => ({
+  users: getVisibleUsers(state.users.data, state.departments.selectedDepartment)
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);
