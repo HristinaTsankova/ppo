@@ -36,6 +36,7 @@ body{
 .navbar-inverse{
     background-color: #616b65;
     border-color: #49504c;
+    z-index: 10;
 }
 .navbar-nav>li>a{
     color: white !important;
@@ -44,6 +45,8 @@ body{
     background-color: #616b65;
     position: fixed;
     width: 100%;
+    z-index: 10;
+    left: 0;
 }
 ul {
     margin: 0;
@@ -207,9 +210,11 @@ td>.open{
     padding-bottom: 30px;
     background-color: #e9ece5;
     margin-top: 5px;
+    box-shadow: 5px 10px 5px rgba(170, 170, 170, 0.5);
 }
 .briga{
     background-color: #e3e0cf;
+    
 }
 
 .log{
@@ -243,6 +248,7 @@ td>.open{
     background-color: #c5d5cb;
     overflow: auto;
     z-index:10;
+    box-shadow: -10px 0px 10px 1px rgba(170, 170, 170, 0.3);
 }
 .sidebar_button{
     position: absolute;
@@ -258,6 +264,8 @@ td>.open{
     background-color: #f2f2f2;
     position: fixed;
     width: 100%;
+    z-index: 10;
+    box-shadow: 0 4px 4px rgba(170, 170, 170, 0.3);
 }
 .places{
     position: absolute;
@@ -392,7 +400,7 @@ li{
     border-radius: 2px;
 }
 .cutting_table{
-    margin-top: 20px;
+    margin-top: 10px;
     border: 1px solid #ccc;
 }
 .name{

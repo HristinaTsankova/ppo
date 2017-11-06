@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from '../header';
 import Sidebar from './sidebar';
 import Floor from './floor';
 import { loadAllUsers } from '../../actions/users';

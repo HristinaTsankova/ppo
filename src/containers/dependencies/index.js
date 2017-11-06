@@ -1,6 +1,5 @@
 import React from 'react';
 import {sortBy} from 'lodash';
-import Header from '../header';
 import Parent from './parent';
 import AddParent from './addParent';
 import Constants from '../../utils/constants';
@@ -191,23 +190,25 @@ class Dependencies extends React.Component {
  
     return (
       <div>
-        <div className="row bar">
-          <table className="table modelss">
-            <thead>
-              <tr>
-                <th>Модел</th>
-                <th>Поръчка №</th>
-                <th>Бройки</th>
-                <th>Бригади</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{this.state.order.name}</td>
-                <td>{this.state.order.identification_number}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="row">
+          <div className="row bar">
+            <table className="table modelss">
+              <thead>
+                <tr>
+                  <th>Модел</th>
+                  <th>Поръчка №</th>
+                  <th>Бройки</th>
+                  <th>Бригади</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{this.state.order.name}</td>
+                  <td>{this.state.order.identification_number}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="container dep">
           <h2 className="title">Последователност на процеси</h2>

@@ -86,7 +86,7 @@ export default class Floor extends React.Component {
     if (table === null) {
       return null;
     }
-    let cols = (table[0].length > 10) ? 11 : (table[0].length + 1);
+//    let cols = (table[0].length > 10) ? 11 : (table[0].length + 1);
 //    let cls = "col-md-" + cols;
 
     return(
