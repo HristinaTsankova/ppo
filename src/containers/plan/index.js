@@ -28,27 +28,29 @@ export default class Plan extends React.Component {
         return(
             <div>
                 <Header/>
-                <div className="row bar">
-                    <div className="col-md-7 col-sm-7">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>График</th>
-                                    <th>Работници</th>
-                                    <th>Отсъстващи</th>
-                                    <th>Актуален график</th>
-                                    <th>Скроено</th>
-                                    <th>Остават</th>
-                                </tr>
-                            </thead>
-                        </table>
+                <div className="row">
+                    <div className="row bar">
+                        <div className="col-md-7 col-sm-7">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>График</th>
+                                        <th>Работници</th>
+                                        <th>Отсъстващи</th>
+                                        <th>Актуален график</th>
+                                        <th>Скроено</th>
+                                        <th>Остават</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <button type="button" className="btn sidebar_button" onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-large"></span></button>
                     </div>
-                    <button type="button" className="btn sidebar_button" onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-large"></span></button>
                 </div>
                 
                 {this.state.showSidebar &&
                 <Sidebar />}
-                <div className="container-fluid">
+                <div className="container-fluid places">
                     <div className="row">
                         <Floor/>
                     </div>

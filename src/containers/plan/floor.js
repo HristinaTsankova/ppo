@@ -87,12 +87,12 @@ export default class Floor extends React.Component {
       return null;
     }
     let cols = (table[0].length > 10) ? 11 : (table[0].length + 1);
-    let cls = "col-md-" + cols;
+//    let cls = "col-md-" + cols;
 
     return(
     <div id="floorPlan">
       <div className="row">
-        <div className={cls}>
+        <div className="col-md-11">
           <table className="floor">
             <tbody>
               {table.map((item, index) => {
