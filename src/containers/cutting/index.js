@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../header';
 import {sortBy} from 'lodash';
 
 export default class Cutting extends React.Component{

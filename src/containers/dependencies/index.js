@@ -1,6 +1,5 @@
 import React from 'react';
 import {sortBy} from 'lodash';
-import Header from '../header';
 import Parent from './parent';
 import AddParent from './addParent';
 import Constants from '../../utils/constants';

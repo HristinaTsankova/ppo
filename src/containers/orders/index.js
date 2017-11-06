@@ -1,6 +1,5 @@
 import React from 'react';
 import {Typeahead} from 'react-bootstrap-typeahead';
-import Header from '../header';
 import Departments from './departments';
 import Constants from '../../utils/constants';
 
