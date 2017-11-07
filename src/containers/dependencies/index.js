@@ -171,9 +171,16 @@ class Dependencies extends React.Component {
         </td>
         <td className="tech2"></td>
         <td className="tech3"></td>
-        <td className="size-180 no-border">{active && <Link to={"/departments/" + rowData.id + "/plan"} className="btn btn-warning showPlan">Покажи подов план</Link>}</td>
+        <td className="size-180 no-border">{active && this.renderDepartmenLinks(rowData.id)}</td>
       </tr>
     )
+  }
+
+  renderDepartmenLinks (process) {    
+    let links = this.state.order.departments.map(depatment => {
+      return (<Link key={process + '.' + depatment.id} to={"/departments/" + depatment.id + "/plan?process=" + process} title={depatment.name} className="btn btn-warning showPlan"><span className="glyphicon glyphicon-th"></span></Link>)
+    });
+    return links;
   }
   
 
