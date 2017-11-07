@@ -16,7 +16,7 @@ const middleware = [
 
 if (process.env.NODE_ENV === 'development') {
   middleware.push(createLogger());
-
+  
   const devToolsExtension = window.devToolsExtension;
   if (typeof devToolsExtension === 'function') {
     enhancers.push(devToolsExtension())

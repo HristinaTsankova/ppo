@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from "react-router-dom"
-
+import { withRouter, Link } from 'react-router-dom';
 import { logout } from '../../actions/login';
 
 class Header extends React.Component{
@@ -21,8 +20,8 @@ class Header extends React.Component{
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              <li><a href="/orders">Процеси и подов план</a></li>
-              <li><a href="/cutting">Кроялно</a></li>
+              <li><Link to="/orders">Процеси и подов план</Link></li>
+              <li><Link to="/cutting">Кроялно</Link></li>
             </ul>
             <div className="navbar-form navbar-right">
               <button className="btn btn-danger exit" onClick={this.onLogoutClick}>Изход</button>

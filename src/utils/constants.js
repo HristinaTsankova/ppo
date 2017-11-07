@@ -1,6 +1,6 @@
 class ConstantsData {
   token = localStorage.getItem('ppotoken');
-  remoteServer = 'http://178.62.112.203';
+  remoteServer = ''; //'http://178.62.112.203';
   
   defaultHeaders = {
     'Accept': 'application/vnd.elitex-v1+json',

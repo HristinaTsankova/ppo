@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {sortBy} from 'lodash';
 import Parent from './parent';
 import AddParent from './addParent';
@@ -170,7 +171,7 @@ class Dependencies extends React.Component {
         </td>
         <td className="tech2"></td>
         <td className="tech3"></td>
-        <td className="size-180 no-border">{active && <a href={"/departments/" + rowData.id + "/plan"} className="btn btn-warning showPlan">Покажи подов план</a>}</td>
+        <td className="size-180 no-border">{active && <Link to={"/departments/" + rowData.id + "/plan"} className="btn btn-warning showPlan">Покажи подов план</Link>}</td>
       </tr>
     )
   }
