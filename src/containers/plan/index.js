@@ -4,6 +4,7 @@ import Sidebar from './sidebar';
 import Floor from './floor';
 import { loadAllUsers } from '../../actions/users';
 import { selsectDepartment } from '../../actions/departments';
+import noImage from '../image/image.png';
 
 class Plan extends React.Component {
   state = {
@@ -30,7 +31,6 @@ class Plan extends React.Component {
         console.log(data)
     }
     render () {
-        
         return(
             <div>
                 <div className="row">
@@ -39,6 +39,7 @@ class Plan extends React.Component {
                             <table className="table">
                                 <thead>
                                     <tr>
+                                        <th>Модел</th>
                                         <th>График</th>
                                         <th>Работници</th>
                                         <th>Отсъстващи</th>
@@ -47,15 +48,31 @@ class Plan extends React.Component {
                                         <th>Остават</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="search" className="form-control"/></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
-                        <button type="button" className="btn sidebar_button" onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-large"></span></button>
+                        <div className="col-md-1">
+                            <button type="button" className="btn sidebar_button" onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-large"></span></button>
+                        </div>
+                        <div className="col-md-1">
+                            <img src={noImage} alt='' className="noImage"/>
+                        </div>
+                        <div className="col-md-2">
+                            <textarea type="text" placeholder="Забележки" className="notes"/>
+                        </div>
                     </div>
                 </div>
                 
                 {this.state.showSidebar &&
                 <Sidebar />}
                 <div className="container-fluid places">
+                    <div className="row">
+                        <h2>Бригада 1</h2>
+                    </div>
                     <div className="row">
                         <Floor/>
                     </div>

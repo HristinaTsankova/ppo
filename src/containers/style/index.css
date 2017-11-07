@@ -47,6 +47,7 @@ body{
     width: 100%;
     z-index: 10;
     left: 0;
+    height: 25px;
 }
 ul {
     margin: 0;
@@ -240,7 +241,7 @@ td>.open{
     text-align: left;
 }
 .sidebar{
-    position: absolute;
+    position: fixed;
     top: 53px;
     right: 2px;
     width: 30%;
@@ -251,8 +252,6 @@ td>.open{
     box-shadow: -10px 0px 10px 1px rgba(170, 170, 170, 0.3);
 }
 .sidebar_button{
-    position: absolute;
-    right: 30%;
     background-color: transparent;
     color: #616b65;
     border: 0;
@@ -262,14 +261,15 @@ td>.open{
 }
 .bar{
     background-color: #f2f2f2;
-    position: fixed;
+    position: absolute;
+    height: 80px;
     width: 100%;
     z-index: 10;
     box-shadow: 0 4px 4px rgba(170, 170, 170, 0.3);
 }
 .places{
     position: absolute;
-    top: 12%;
+    top: 130px;
 }
 .table{
     margin: 0;
@@ -480,4 +480,18 @@ li{
     background-color: #c9d8c5;
     border: 1px solid #ba9077 !important;
     height: 25px;
+}
+.bar .table td{
+    padding: 2px;
+    width: 50px;
+}
+.noImage{
+    width: 80px;
+    height: 80px;
+    border: 1px solid #49504c;
+    border-radius: 5px; 
+}
+.notes{
+    margin-top: 15px;
+    border-radius: 5px;
 }
