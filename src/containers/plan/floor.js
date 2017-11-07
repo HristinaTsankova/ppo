@@ -11,8 +11,17 @@ class Row extends React.Component {
     return (
       <tr>
         {this.props.data.map((item, index) => {
+          let machines = <div className="margin-top-10"><span className="glyphicon glyphicon-record" /></div>;
+          if (item.length > 0) {
+            machines = item.map((machine, idx) => {
+              return <MachineTable key={this.props.index + index.toString() + idx.toString()} spot={machine}/>
+            })
+          }
           return (
-            <td key={this.props.index + index.toString()}>{item.name} <MachineTable/></td>
+            <td key={this.props.index + index.toString()} className="floor-cell">
+              <div className="text-muted floor-cell-number">{(this.props.index + 1) + '.' + (index + 1)}</div>
+              {machines}
+            </td>
           )
         })}
         
