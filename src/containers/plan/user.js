@@ -26,7 +26,7 @@ class User extends React.Component {
   renderRow(rowData, i) {
     return (
       <tr key={i}>
-        <td className="colm"><Draggable type="plan" data={rowData.name}>{rowData.name}</Draggable></td>
+        <td className="colm"><Draggable type="plan" data={rowData.id}>{rowData.name}</Draggable></td>
         <td>{rowData.department_id}</td>
       </tr>
     )

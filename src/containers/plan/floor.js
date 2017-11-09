@@ -1,9 +1,25 @@
 import React from 'react';
 import Constants from '../../utils/constants';
 import '../style/debug.css';
-import MachineTable from './machine_table'
+import MachineTable from './machine_table';
+import { Droppable } from 'react-drag-and-drop';
 
 class Row extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hovering: false,
+      dropped: '',
+    }
+  }
+  onDrop (data) {
+    console.log(data);
+    this.setState({hovering: false, dropped: data.plan})
+  }
+
+  onDragEnter() {
+    this.setState({hovering: true})
+  }
   render () {
     if (this.props.data === null) {
       return null;
@@ -19,8 +35,10 @@ class Row extends React.Component {
           }
           return (
             <td key={this.props.index + index.toString()} className="floor-cell">
+            <Droppable types={['plan']} onDrop={this.onDrop.bind(this)} onDragEnter={this.onDragEnter.bind(this)}>
               <div className="text-muted floor-cell-number">{(this.props.index + 1) + '.' + (index + 1)}</div>
               {machines}
+            </Droppable>
             </td>
           )
         })}
