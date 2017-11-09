@@ -25,11 +25,8 @@ class Plan extends React.Component {
         this.setState({
             showSidebar: !showSidebar
         })
-        this.onDrop = this.onDrop.bind(this);
     }
-    onDrop(data) {
-        console.log(data)
-    }
+    
     render () {
         return(
             <div>

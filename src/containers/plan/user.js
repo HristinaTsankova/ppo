@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { sortBy } from 'lodash';
+import {Draggable} from 'react-drag-and-drop';
 
 class User extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class User extends React.Component {
   renderRow(rowData, i) {
     return (
       <tr key={i}>
-        <td className="colm">{rowData.name}</td>
+        <td className="colm"><Draggable type="plan" data={rowData.name}>{rowData.name}</Draggable></td>
         <td>{rowData.department_id}</td>
       </tr>
     )

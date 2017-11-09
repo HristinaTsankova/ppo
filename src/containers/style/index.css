@@ -151,7 +151,7 @@ div.link button.active {
     margin-top: 0;
 }
 .dep{
-    margin-top: 10px;
+    margin-top: 90px;
     width: 80%;
 }
 
@@ -250,6 +250,7 @@ td>.open{
     overflow: auto;
     z-index:10;
     box-shadow: -10px 0px 10px 1px rgba(170, 170, 170, 0.3);
+    padding: 5px;
 }
 .sidebar_button{
     background-color: transparent;
@@ -260,11 +261,10 @@ td>.open{
     padding: 6px 10px;
 }
 .bar{
-    background-color: #f2f2f2;
+    background-color: #c5d5cb;
     position: absolute;
     height: 80px;
     width: 100%;
-    z-index: 10;
     box-shadow: 0 4px 4px rgba(170, 170, 170, 0.3);
 }
 .places{
@@ -296,8 +296,8 @@ td>.open{
 }
 .modelss{
     width: 50%;
-    margin: 0 auto;
-    background-color: #f2f2f2;
+    margin: 6px auto;
+    background-color: #c5d5cb;
 }
 
 .open>.rbt-input {
@@ -486,12 +486,16 @@ li{
     width: 50px;
 }
 .noImage{
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border: 1px solid #49504c;
-    border-radius: 5px; 
+    border-radius: 5px;
+    margin-top: 5px;
 }
 .notes{
     margin-top: 15px;
     border-radius: 5px;
+}
+.modelss th{
+    width: 200px;
 }
