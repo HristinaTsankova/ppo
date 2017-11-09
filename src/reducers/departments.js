@@ -1,12 +1,16 @@
-import {SELECT_DEPARTMENT} from "../actions/departments";
+import {LOAD_DEPARTMENTS_SUCCESS, LOAD_DEPARTMENTS_ERROR} from "../actions/departments";
 
-const departments = (state = {
-  selectedDepartment: -1,
+const orders = (state = {
 }, action) => {
   switch (action.type) {
-    case SELECT_DEPARTMENT:
+    case LOAD_DEPARTMENTS_SUCCESS:
       return {...state,
-        selectedDepartment: action.selsectDepartment
+        list: action.list
+      };
+
+    case LOAD_DEPARTMENTS_ERROR:
+      return {...state,
+        isListLoadError: action.isListLoadError
       };
 
     default:
@@ -14,4 +18,4 @@ const departments = (state = {
   }
 }
 
-export default departments;
+export default orders;

@@ -23,10 +23,10 @@ class Parent extends React.Component {
     return (
       <div className="child">
         <span className="parentDel">
-          {this.state.showDel && <button className="btn btn-circle btn-danger dependencies" value={parent.id} onClick={this.props.onDelete}>X</button>}
+          {this.state.showDel && <button className="btn btn-circle btn-danger dependencies" value={parent} onClick={this.props.onDelete}>X</button>}
         </span>
         <span className="parent" onClick={this.showDelForm}>
-          {parent.serial_number}
+          {parent}
         </span>
 
       </div>

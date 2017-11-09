@@ -1,10 +1,7 @@
 body{
     background-color: white;
 }
-.row{
-    margin: 0 auto;
-    text-align: center;
-}
+
 .logo{
     margin-top: 10%;
 }
@@ -498,4 +495,73 @@ li{
 }
 .modelss th{
     width: 200px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
+.error-message {
+  height: 30px;
+  color: red;
+}
+
+.color-0 {
+  color: #696969 !important;
+}
+
+.color-1 {
+  color: #00008B !important;
+}
+
+.color-2 {
+  color: #4682B4 !important;
+}
+
+.color-3 {
+  color: #708090 !important;
+}
+
+.color-4 {
+  color: #2F4F4F !important;
+}
+
+.color-5 {
+  color: #008B8B !important;
+}
+
+.color-6 {
+  color: #5F9EA0 !important;
+}
+
+.color-7 {
+  color: #B8860B !important;
+}
+
+.color-8 {
+  color: #CD853F !important;
+}
+
+.color-9 {
+  color: #D2691E !important;
+}
+
+.color-10 {
+  color: #8B4513 !important;
+}
+
+.color-11 {
+  color: #BDB76B !important;
+}
+
+.color-12 {
+  color: #808000 !important;
+}
+
+.color-14 {
+  color: #800080 !important;
 }

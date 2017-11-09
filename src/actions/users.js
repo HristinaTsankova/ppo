@@ -25,10 +25,10 @@ function loadUsersSuccess(data) {
   };
 }
 
-function loadUsersError(loadError) {
+function loadUsersError(isLoadError) {
   return {
     type: LOAD_USERS_ERROR,
-    loadError
+    isLoadError
   };
 }
 

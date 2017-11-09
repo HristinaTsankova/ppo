@@ -1,13 +1,17 @@
 import { combineReducers } from 'redux'
-// import { routerReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux';
+import departments from './departments';
 import login from './login';
 import users from './users';
-import departments from './departments';
+import query from './query';
+import orders from './orders';
 
 
 export default combineReducers({
-  // routing: routerReducer,
+  routing: routerReducer,
+  departments: departments,
   login: login,
   users: users,
-  departments: departments
+  query: query,
+  orders: orders
 })

@@ -50,7 +50,7 @@ class User extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  department: state.departments.selectedDepartment,
+  department: state.query.department,
   users: state.users.data
 });
 
