@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {sortBy} from 'lodash';
+import { sortBy } from 'lodash';
 import Parent from './parent';
 import AddParent from './addParent';
-import { loadOrderById } from '../../actions/orders';
+import { loadOrderById, saveParentsData } from '../../actions/orders';
 
 class Dependencies extends React.Component {
   constructor(props) {
@@ -40,19 +40,19 @@ class Dependencies extends React.Component {
   }
 
   componentDidMount() {
-    const {id} = this.props.match.params;
+    const { id } = this.props.match.params;
     this.props.loadOrderData(id);
   }
 
   onItemClick(selected) {
     const currentlySelected = this.state.selected
-    if (currentlySelected && currentlySelected.id === selected.id) 
-      return 
+    if (currentlySelected && currentlySelected.id === selected.id)
+      return
     this.setState({
       ...this.state,
       selected
     })
-    
+
   }
 
   makeOnAddParent(processId) {
@@ -75,31 +75,30 @@ class Dependencies extends React.Component {
         newParents[processId] = [];
       }
 
+      const newOrder = this.props.order;
+
       newParents[processId].push(parent.serial_number);
-      this.setState({
-        ...this.state,
-        dependencies: newParents
-      })
+      newOrder.payload.dependencies = newParents;
+      this.props.saveParentsData(newOrder);
     }
   }
 
   onParentDelete(id, parentId) {
-    const newpr = this.state.dependencies;
+    const newParents = this.state.dependencies;
+    const newOrder = this.props.order;
 
-    newpr[id] = newpr[id].filter(parent => parent !== parentId)
-    this.setState({
-      ...this.state,
-      dependencies: newpr
-    })
+    newParents[id] = newParents[id].filter(parent => parent !== parentId);
+    newOrder.payload.dependencies = newParents;
+    this.props.saveParentsData(newOrder);
   }
-  
+
   renderParents(rowData) {
     const parents = this.state.dependencies[rowData.id] || [];
     return parents.map((parent, i) => (
-      <Parent key={rowData.id + '.' + i} parent={parent} onDelete= {() => this.onParentDelete(rowData.id, parent)}/>
+      <Parent key={rowData.id + '.' + i} parent={parent} onDelete={() => this.onParentDelete(rowData.id, parent)} />
     ));
   }
-  
+
   renderStart(rowData) {
     const flag = rowData.flagged;
 
@@ -111,7 +110,7 @@ class Dependencies extends React.Component {
 
     return null;
   }
-  
+
   renderConnectingIcon(rowData, i) {
     const { selected, dependencies } = this.state;
 
@@ -119,7 +118,7 @@ class Dependencies extends React.Component {
       if (selected.id === rowData.id) {
         return <span className="glyphicon glyphicon-record text-primary"></span>
       }
-      
+
       if (dependencies[selected.id] !== undefined) {
         const iAmParent = dependencies[selected.id].find((row) => { return row === rowData.serial_number });
         if (iAmParent !== undefined) {
@@ -150,13 +149,13 @@ class Dependencies extends React.Component {
         <td className="view_dep">
           {
             active
-              &&
-            <AddParent 
+            &&
+            <AddParent
               options={this.props.order.order_processes}
               onAdd={this.makeOnAddParent(rowData.id)}
-              labelKey="name"/>
+              labelKey="name" />
           }
-            
+
         </td>
         <td className="parentTD">
           {this.renderParents(rowData)}
@@ -168,7 +167,7 @@ class Dependencies extends React.Component {
     )
   }
 
-  renderDepartmenLinks (process, showName = false) {    
+  renderDepartmenLinks(process, showName = false) {
     let query = (process !== null) ? "?process=" + process : '';
     let links = this.props.order.departments.map((depatment, i) => {
       return (<span key={process + '.' + depatment.id}><Link to={"/departments/" + depatment.id + "/plan" + query} title={depatment.name} className={"btn btn-link showPlan color-" + i.toString()}><span className="glyphicon glyphicon-th"></span>{showName && ' ' + depatment.name}</Link>{showName && <br />}</span>)
@@ -192,21 +191,21 @@ class Dependencies extends React.Component {
         <div className="row">
           <div className="col-md-2 margin-top-40">
             <div className="well">
-              <b>Модел</b><br/>
+              <b>Модел</b><br />
               {this.props.order.name}
-              <br/><br/>
-              <b>Поръчка №</b><br/>
+              <br /><br />
+              <b>Поръчка №</b><br />
               {this.props.order.identification_number}
-              <br/><br/>
-              <b>Бройки</b><br/>
+              <br /><br />
+              <b>Бройки</b><br />
               000000
-              <br/><br/>
-              <b>Бригади</b><br/>
+              <br /><br />
+              <b>Бригади</b><br />
               {this.renderDepartmenLinks(null, true)}
-              <br/><br/>
+              <br /><br />
             </div>
           </div>
-          <div  className="col-md-10">
+          <div className="col-md-10">
             <table className="table">
               <thead>
                 <tr>
@@ -244,6 +243,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     loadOrderData: (id) => dispatch(loadOrderById(id)),
+    saveParentsData: (data) => dispatch(saveParentsData(data))
   };
 }
 
