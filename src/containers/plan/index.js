@@ -7,12 +7,13 @@ import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT } from '../../actions/qu
 import noImage from '../image/image.png';
 
 class Plan extends React.Component {
-  state = {
-    showSidebar: false
-  };
+  
 
   constructor(props) {
     super(props);
+    this.state = {
+      showSidebar: false
+    }
     const query = new URLSearchParams(this.props.location.search);
     this.props.setQueryValue(query.get('process'), QUERY_PROCESS);
     this.props.setQueryValue(this.props.match.params.id, QUERY_DEPARTMENT);
@@ -68,15 +69,26 @@ class Plan extends React.Component {
           </div>
         </div>
 
-        {this.state.showSidebar &&
-          <Sidebar />}
-        <div className="container-fluid places">
-          <div className="row">
-            <h2>Бригада 1</h2>
-          </div>
-          <div className="row">
-            <Floor />
-          </div>
+       
+          <Sidebar isOpen = {this.state.showSidebar}/>
+          <Content isOpen = {this.state.showSidebar}/>
+        <div className="container-fiuld"></div>
+      </div>
+    )
+  }
+}
+
+class Content extends React.Component {
+
+  render() {
+    const contentClass = this.props.isOpen ? 'content more' : 'content';
+    return(
+      <div className={contentClass}>
+        <div className="row">
+          <h2>Бригада 1</h2>
+        </div>
+        <div className="row">
+          <Floor />
         </div>
       </div>
     )

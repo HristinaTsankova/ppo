@@ -48,16 +48,17 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
+    const sidebarClass = this.props.isOpen ? 'sidebar more' : 'sidebar';
     return (
-      <div className="sidebar">
+      <div className={sidebarClass}>
         <div className="row buttons">
           <div className="col-md-4">
             <button type="button" className="btn mashineBtn" onClick={this.showMashineTable}>Работници</button>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3">
             <button type="button" className="btn btn-warning process" onClick={this.showProcessTable}>Процеси</button>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-5">
             <button type="button" className="btn userBtn" onClick={this.showUserTable}>Всички работници</button>
           </div>
         </div>

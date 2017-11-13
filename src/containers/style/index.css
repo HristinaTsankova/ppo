@@ -238,16 +238,31 @@ td>.open{
     text-align: left;
 }
 .sidebar{
-    position: fixed;
-    top: 53px;
-    right: 2px;
-    width: 30%;
-    bottom: 0;
+    display: none;
+    transition: right .3s ease-in-out;
     background-color: #c5d5cb;
     overflow: auto;
     z-index:10;
     box-shadow: -10px 0px 10px 1px rgba(170, 170, 170, 0.3);
     padding: 5px;
+    overflow-x: hidden;
+}
+.content {
+    position: absolute;
+    top: 105px;
+    left: 50px;
+    transition: right .3s ease-in-out;
+}
+.sidebar.more{
+    display: block;
+    right: 0;
+    position: absolute;
+    top: 53px;
+    width: 30%;
+    bottom: 0;
+}
+.content.more{
+    right: 30%;
 }
 .sidebar_button{
     background-color: transparent;
@@ -259,6 +274,7 @@ td>.open{
 }
 .bar{
     background-color: #c5d5cb;
+    margin-left: 0;
     position: absolute;
     height: 80px;
     width: 100%;
@@ -561,4 +577,8 @@ li{
 
 .color-14 {
   color: #800080 !important;
+}
+
+.panel-body{
+    padding: 0 15px;
 }
