@@ -5,6 +5,7 @@ import Floor from './floor';
 import { loadAllUsers } from '../../actions/users';
 import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT } from '../../actions/query';
 import noImage from '../image/image.png';
+import Dropdown from './dropdown';
 
 class Plan extends React.Component {
   
@@ -12,14 +13,15 @@ class Plan extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSidebar: false
+      showSidebar: false,
+      
     }
     const query = new URLSearchParams(this.props.location.search);
     this.props.setQueryValue(query.get('process'), QUERY_PROCESS);
     this.props.setQueryValue(this.props.match.params.id, QUERY_DEPARTMENT);
     this.showSidebarForm = this.showSidebarForm.bind(this);
   }
-
+  
 
   componentDidMount() {
     this.props.loadAllUsers();
@@ -33,6 +35,7 @@ class Plan extends React.Component {
   }
 
   render() {
+    
     return (
       <div>
         <div className="row">
@@ -52,7 +55,9 @@ class Plan extends React.Component {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><input type="search" className="form-control" /></td>
+                    <td>
+                      <Dropdown/>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -72,7 +77,6 @@ class Plan extends React.Component {
        
           <Sidebar isOpen = {this.state.showSidebar}/>
           <Content isOpen = {this.state.showSidebar}/>
-        <div className="container-fiuld"></div>
       </div>
     )
   }
@@ -96,6 +100,7 @@ class Content extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  
   return {};
 }
 

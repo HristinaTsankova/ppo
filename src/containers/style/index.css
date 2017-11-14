@@ -582,3 +582,13 @@ li{
 .panel-body{
     padding: 0 15px;
 }
+.logo-row{
+    text-align: center;
+}
+.selectpicker{
+    width: 100%;
+}
+.selectpicker option{
+    max-width: 50px;
+    min-width: 40px;
+}

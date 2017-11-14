@@ -33,7 +33,7 @@ class LoginForm extends Component {
     return (
       <div className="container">
         <div className='row login'>
-          <div>
+          <div className='logo-row'>
             <img src={logo} alt='' className='logo'/>
           </div>
           <div className="error-message">{ loginError && <div>{loginError.message}</div> }</div>
