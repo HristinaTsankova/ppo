@@ -493,7 +493,7 @@ li{
 }
 .bar .table td{
     padding: 2px;
-    width: 50px;
+    width: 80px;
 }
 .noImage{
     width: 70px;
@@ -587,6 +587,8 @@ li{
 }
 .selectpicker{
     width: 100%;
+    margin-top: 5px;
+    border-radius: 5px;
 }
 .selectpicker option{
     max-width: 50px;
