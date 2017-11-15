@@ -1,4 +1,4 @@
-import { QUERY_DEPARTMENT, QUERY_PROCESS } from "../actions/query";
+import { QUERY_DEPARTMENT, QUERY_PROCESS, QUERY_ORDER } from "../actions/query";
 
 const departments = (state = {
   department: null,
@@ -6,12 +6,21 @@ const departments = (state = {
 }, action) => {
   switch (action.type) {
     case QUERY_DEPARTMENT:
-      return {...state,
+      return {
+        ...state,
         department: action.department
       };
+
     case QUERY_PROCESS:
-      return {...state,
+      return {
+        ...state,
         process: action.process
+      };
+
+    case QUERY_ORDER:
+      return {
+        ...state,
+        order: action.order
       };
 
     default:

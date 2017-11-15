@@ -168,7 +168,9 @@ class Dependencies extends React.Component {
   }
 
   renderDepartmenLinks(process, showName = false) {
-    let query = (process !== null) ? "?process=" + process : '';
+    const { id } = this.props.match.params;
+    let query = "?order=" + id;
+    query += (process !== null) ? "&process=" + process : '';
     let links = this.props.order.departments.map((depatment, i) => {
       return (<span key={process + '.' + depatment.id}><Link to={"/departments/" + depatment.id + "/plan" + query} title={depatment.name} className={"btn btn-link showPlan color-" + i.toString()}><span className="glyphicon glyphicon-th"></span>{showName && ' ' + depatment.name}</Link>{showName && <br />}</span>)
     });

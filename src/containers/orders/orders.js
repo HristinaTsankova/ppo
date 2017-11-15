@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { loadAllOrders } from '../../actions/orders';
 
 class Orders extends React.Component {
 
@@ -27,17 +26,13 @@ class Orders extends React.Component {
       selectedModel: selection.length ? selection[0].id : null
     })
   }
+  
   onSelectionBrigade(selection) {
     this.setState({
       ...this.state,
       selectedBrigade: selection.length ? selection[0].id : null
     })
   }
-
-  componentDidMount() {
-    this.props.loadOrders();
-  }
-
 
   render() {
     if (this.props.orders === undefined || this.props.orders.length === undefined) {
@@ -79,8 +74,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
-    loadOrders: () => dispatch(loadAllOrders()),
+    dispatch
   };
 }
 

@@ -1,5 +1,9 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+import { loadAllUsers } from '../../actions/users';
+import { loadAllOrders } from '../../actions/orders';
+import { loadAllDepartments } from '../../actions/departments';
 import Plan from '../plan';
 import Dependencies from '../dependencies';
 import Login from '../login';
@@ -14,30 +18,55 @@ const PrivateRoute = ({
   component: Component,
   ...rest
 }) => (
-  <Route {...rest} render={props => (isAuthenticated()
-    ? (<Component {...props}/>)
-    : (<Redirect to={{
-      pathname: '/',
-      state: {
-        from: props.location
-      }
-    }}/>))}/>
-)
+    <Route {...rest} render={props => (isAuthenticated()
+      ? (<Component {...props} />)
+      : (<Redirect to={{
+        pathname: '/',
+        state: {
+          from: props.location
+        }
+      }} />))} />
+  )
 
-const App = () => (
+class App extends React.Component {
+  componentDidMount() {
+    this.props.loadDepartments();
+    this.props.loadOrders();
+    this.props.loadAllUsers();
+  }
 
-  <div>
-    <main>
-      <Header/>
-      <div className="panel-body">
-        <Route exact path="/" component={Login}/>
-        <PrivateRoute exact path="/orders" component={Search}/>
-        <PrivateRoute exact path="/orders/:id/dependencies" component={Dependencies}/>
-        <PrivateRoute exact path="/departments/:id/plan" component={Plan}/>
-        <PrivateRoute exact path="/cutting" component={Cutting}/>
+  render() {
+    return (
+      <div>
+        <main>
+          <Header />
+          <div className="panel-body">
+            <Route exact path="/" component={Login} />
+            <PrivateRoute exact path="/orders" component={Search} />
+            <PrivateRoute exact path="/orders/:id/dependencies" component={Dependencies} />
+            <PrivateRoute exact path="/departments/:id/plan" component={Plan} />
+            <PrivateRoute exact path="/cutting" component={Cutting} />
+          </div>
+        </main>
       </div>
-    </main>
-  </div>
-)
+    )
+  }
+}
 
-export default App
+
+const mapStateToProps = (state) => {
+  return {
+    route: state.routing
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    loadOrders: () => dispatch(loadAllOrders()),
+    loadDepartments: () => dispatch(loadAllDepartments()),
+    loadAllUsers: () => dispatch(loadAllUsers())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

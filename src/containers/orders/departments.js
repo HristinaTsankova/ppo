@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { loadAllDepartments } from '../../actions/departments';
 
 class Departments extends React.Component {
   state = {
@@ -25,10 +24,6 @@ class Departments extends React.Component {
       ...this.state,
       selectedBrigade: selection.length ? selection[0].id : null
     })
-  }
-
-  componentDidMount() {
-    this.props.loadDepartments();
   }
 
   render() {
@@ -72,8 +67,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
-    loadDepartments: () => dispatch(loadAllDepartments()),
+    dispatch
   };
 }
 

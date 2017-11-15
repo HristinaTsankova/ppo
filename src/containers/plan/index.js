@@ -2,29 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Sidebar from './sidebar';
 import Floor from './floor';
-import { loadAllUsers } from '../../actions/users';
-import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT } from '../../actions/query';
+import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT, QUERY_ORDER } from '../../actions/query';
+import { loadDepartmentById } from '../../actions/departments';
+import { loadOrderById } from '../../actions/orders';
 import noImage from '../image/image.png';
 import Dropdown from './dropdown';
 
 class Plan extends React.Component {
-  
-
   constructor(props) {
     super(props);
     this.state = {
-      showSidebar: false,
-      
+      showSidebar: false
     }
+    this.showSidebarForm = this.showSidebarForm.bind(this);
+  }
+
+  componentWillMount() {
     const query = new URLSearchParams(this.props.location.search);
     this.props.setQueryValue(query.get('process'), QUERY_PROCESS);
     this.props.setQueryValue(this.props.match.params.id, QUERY_DEPARTMENT);
-    this.showSidebarForm = this.showSidebarForm.bind(this);
-  }
-  
-
-  componentDidMount() {
-    this.props.loadAllUsers();
+    this.props.setQueryValue(query.get('order'), QUERY_ORDER, (order) => {
+      this.props.loadCurrentDepartment(this.props.match.params.id, (data) => {
+        if (order === null) {
+          this.props.setQueryValue(data.orders[0].id, QUERY_ORDER);
+        }
+        if (this.props.order === undefined) {
+          this.props.loadOrderData((order === null) ? data.orders[0].id : order);
+        }
+      });
+    });
   }
 
   showSidebarForm = () => {
@@ -35,7 +41,12 @@ class Plan extends React.Component {
   }
 
   render() {
-    
+    if (this.props.department === undefined || this.props.department.id === undefined || this.props.queryOrder === null || this.props.order === undefined) {
+      return null;
+    }
+
+    let { department } = this.props;
+
     return (
       <div>
         <div className="row">
@@ -56,7 +67,7 @@ class Plan extends React.Component {
                 <tbody>
                   <tr>
                     <td>
-                      <Dropdown/>
+                      <Dropdown />
                     </td>
                   </tr>
                 </tbody>
@@ -74,25 +85,14 @@ class Plan extends React.Component {
           </div>
         </div>
 
-       
-          <Sidebar isOpen = {this.state.showSidebar}/>
-          <Content isOpen = {this.state.showSidebar}/>
-      </div>
-    )
-  }
-}
-
-class Content extends React.Component {
-
-  render() {
-    const contentClass = this.props.isOpen ? 'content more' : 'content';
-    return(
-      <div className={contentClass}>
-        <div className="row">
-          <h2>Бригада 1</h2>
-        </div>
-        <div className="row">
-          <Floor />
+        <Sidebar isOpen={this.state.showSidebar} />
+        <div className={this.props.isOpen ? 'content more' : 'content'}>
+          <div className="row">
+            <h2>{department.name}</h2>
+          </div>
+          <div className="row">
+            <Floor />
+          </div>
         </div>
       </div>
     )
@@ -100,15 +100,19 @@ class Content extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  
-  return {};
+  return {
+    department: state.departments.department,
+    queryOrder: state.query.order,
+    order: state.orders.order
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
-    loadAllUsers: () => dispatch(loadAllUsers()),
-    setQueryValue: (val, type) => dispatch(setQueryValue(val, type)),
+    setQueryValue: (val, type, callback) => dispatch(setQueryValue(val, type, callback)),
+    loadOrderData: (id) => dispatch(loadOrderById(id)),
+    loadCurrentDepartment: (id, callback) => dispatch(loadDepartmentById(id, callback))
   };
 }
 
