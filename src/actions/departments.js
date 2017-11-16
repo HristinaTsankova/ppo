@@ -8,9 +8,6 @@ export const LOAD_SINGLE_DEPARTMENT_ERROR = 'LOAD_SINGLE_DEPARTMENT_ERROR';
 
 export function loadAllDepartments() {
   return dispatch => {
-    // dispatch(loadDepartmentsSuccess({}));
-    // dispatch(loadDepartmentsError(null));
-
     callDepartmentsApi(null, (data, error) => {
       if (!error) {
         dispatch(loadDepartmentsSuccess(data));
@@ -18,14 +15,11 @@ export function loadAllDepartments() {
         dispatch(loadDepartmentsError(error));
       }
     });
-  }
+  };
 }
 
 export function loadDepartmentById(depId, callback) {
   return dispatch => {
-    // dispatch(loadSingleDepartmentSuccess({}));
-    // dispatch(loadSingleDepartmentError(null));
-
     callDepartmentsApi(depId, (data, error) => {
       if (!error) {
         dispatch(loadSingleDepartmentSuccess(data));
@@ -36,7 +30,7 @@ export function loadDepartmentById(depId, callback) {
         dispatch(loadSingleDepartmentError(error));
       }
     });
-  }
+  };
 }
 
 function loadDepartmentsSuccess(data) {
@@ -69,7 +63,7 @@ function loadSingleDepartmentError(isLoadError) {
 
 async function callDepartmentsApi(department, callback) {
   const BASE_URL = Constants.remoteServer + '/api/fp/departments' + ((department != null) ? '/' + department : '');
-  const request = { method: 'GET', headers: Constants.headers }
+  const request = { method: 'GET', headers: Constants.headers };
 
   try {
     const response = await fetch(BASE_URL, request);
@@ -77,7 +71,6 @@ async function callDepartmentsApi(department, callback) {
     if (response.ok) {
       return callback(json);
     } else {
-      console.log(json);
       return callback({}, new Error('Unknown error!'));
     }
   } catch (error) {

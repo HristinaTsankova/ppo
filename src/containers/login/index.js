@@ -5,7 +5,6 @@ import {Redirect} from 'react-router-dom';
 import { isLoggedIn, login } from '../../actions/login';
 
 import '../style/index.css';
-import '../style/debug.css';
 
 class LoginForm extends Component {
   constructor(props) {

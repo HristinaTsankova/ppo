@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { sortBy } from 'lodash';
-import {Draggable} from 'react-drag-and-drop';
+import { Draggable } from 'react-drag-and-drop';
 
 class User extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class User extends React.Component {
   renderRow(rowData, i) {
     return (
       <tr key={i}>
-        <td ><Draggable type="plan" data={rowData.id}>{rowData.name}</Draggable></td>
+        <td ><Draggable type="user" data={rowData.id}>{rowData.name}</Draggable></td>
         <td className="colm">{rowData.department_id}</td>
       </tr>
     )
@@ -38,7 +38,7 @@ class User extends React.Component {
 
     return (
       <div>
-        {(this.props.filter === "BY_NAME") && <input onChange={e => this.setState({searchUser: e.target.value})} value={this.state.searchUser} name="searchUser" className="form-control searching" placeholder="Име на работника" />}
+        {(this.props.filter === "BY_NAME") && <input onChange={e => this.setState({ searchUser: e.target.value })} value={this.state.searchUser} name="searchUser" className="form-control searching" placeholder="Име на работника" />}
         <table className="table">
           <thead>
             <tr>

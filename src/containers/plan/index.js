@@ -18,7 +18,7 @@ class Plan extends React.Component {
     this.onOrderChange = this.onOrderChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const query = new URLSearchParams(this.props.location.search);
     this.props.setQueryValue(query.get('process'), QUERY_PROCESS);
     this.props.setQueryValue(this.props.match.params.id, QUERY_DEPARTMENT);
@@ -85,7 +85,7 @@ class Plan extends React.Component {
             <div className="col-md-1">
               <img src={noImage} alt='' className="noImage" />
             </div>
-            <div className="col-md-2">
+            <div className="col-md-3">
               <textarea type="text" placeholder="Забележки..." className="notes" />
             </div>
           </div>

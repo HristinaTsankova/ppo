@@ -1,6 +1,6 @@
 import { LOAD_DEPARTMENTS_SUCCESS, LOAD_DEPARTMENTS_ERROR, LOAD_SINGLE_DEPARTMENT_SUCCESS, LOAD_SINGLE_DEPARTMENT_ERROR } from "../actions/departments";
 
-const orders = (state = {
+const departments = (state = {
 }, action) => {
   switch (action.type) {
     case LOAD_DEPARTMENTS_SUCCESS:
@@ -28,4 +28,4 @@ const orders = (state = {
   }
 }
 
-export default orders;
+export default departments;
