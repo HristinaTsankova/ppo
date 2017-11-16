@@ -10,20 +10,17 @@ class DropDown extends React.Component {
     }
   }
   
-
-
   renderRow(rowData, i) {
     return (
-      <option key={i} value={rowData.id}>{rowData.id}</option>
+      <option key={i} value={rowData.id}>{rowData.name}</option>
     )
   }
-  
   
   render() {
     const rows = this.props.department.orders.map(this.renderRow)
     return (
-      <select className="selectpicker">
-        <option>Избери модел</option>
+      <select className="selectpicker" value={this.props.order} onChange={(e) => this.props.changeHandler(e.target.value) }>
+        <option disabled>Избери модел</option>
         {rows}
       </select>
     )
@@ -31,7 +28,8 @@ class DropDown extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  department: state.departments.department
+  department: state.departments.department,
+  order: state.query.order
 });
 
 const mapDispatchToProps = (dispatch) => {

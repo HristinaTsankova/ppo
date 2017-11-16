@@ -23,6 +23,10 @@ class Process extends React.Component{
     }
 
     render(){
+        if (this.props.orders.order.order_processes === undefined) {
+            return (<div>....</div>);
+        }
+
         const rows = this.props.orders.order.order_processes.map(this.renderRow)
         return(
             <div>

@@ -15,6 +15,7 @@ class Plan extends React.Component {
       showSidebar: false
     }
     this.showSidebarForm = this.showSidebarForm.bind(this);
+    this.onOrderChange = this.onOrderChange.bind(this);
   }
 
   componentWillMount() {
@@ -31,6 +32,11 @@ class Plan extends React.Component {
         }
       });
     });
+  }
+
+  onOrderChange(order) {
+    this.props.setQueryValue(order, QUERY_ORDER);
+    this.props.loadOrderData(order);
   }
 
   showSidebarForm = () => {
@@ -67,7 +73,7 @@ class Plan extends React.Component {
                 <tbody>
                   <tr>
                     <td>
-                      <Dropdown />
+                      <Dropdown changeHandler={this.onOrderChange} />
                     </td>
                   </tr>
                 </tbody>

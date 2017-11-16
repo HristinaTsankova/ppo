@@ -38,7 +38,7 @@ class User extends React.Component {
 
     return (
       <div>
-        {(this.props.filter === "BY_NAME") && <input onChange={e => this.setState({searchUser: e.target.value})} value={this.state.searchUser} name="searchUser" className="form-control searching" placeholder="Име на потребителя" />}
+        {(this.props.filter === "BY_NAME") && <input onChange={e => this.setState({searchUser: e.target.value})} value={this.state.searchUser} name="searchUser" className="form-control searching" placeholder="Име на работника" />}
         <table className="table">
           <tbody>
             {rows}
