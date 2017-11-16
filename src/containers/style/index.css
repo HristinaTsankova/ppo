@@ -505,6 +505,7 @@ li{
 .notes{
     margin-top: 15px;
     border-radius: 5px;
+    overflow: hidden;
 }
 .modelss th{
     width: 200px;
@@ -593,4 +594,10 @@ li{
 .selectpicker option{
     max-width: 50px;
     min-width: 40px;
+}
+.head{
+    width: 80%;
+}
+.colm {
+    text-align: center;
 }

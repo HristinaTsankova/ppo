@@ -86,7 +86,7 @@ class Plan extends React.Component {
               <img src={noImage} alt='' className="noImage" />
             </div>
             <div className="col-md-2">
-              <textarea type="text" placeholder="Забележки" className="notes" />
+              <textarea type="text" placeholder="Забележки..." className="notes" />
             </div>
           </div>
         </div>

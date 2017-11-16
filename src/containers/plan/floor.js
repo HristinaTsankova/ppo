@@ -73,7 +73,7 @@ export default class Floor extends React.Component {
   }
 
   componentDidMount() {
-    // this.fetchFloorData();
+    this.fetchFloorData();
   }
 
   onAddColumn() {

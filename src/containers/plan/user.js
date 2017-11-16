@@ -26,8 +26,8 @@ class User extends React.Component {
   renderRow(rowData, i) {
     return (
       <tr key={i}>
-        <td className="colm"><Draggable type="plan" data={rowData.id}>{rowData.name}</Draggable></td>
-        <td>{rowData.department_id}</td>
+        <td ><Draggable type="plan" data={rowData.id}>{rowData.name}</Draggable></td>
+        <td className="colm">{rowData.department_id}</td>
       </tr>
     )
   }
@@ -40,6 +40,12 @@ class User extends React.Component {
       <div>
         {(this.props.filter === "BY_NAME") && <input onChange={e => this.setState({searchUser: e.target.value})} value={this.state.searchUser} name="searchUser" className="form-control searching" placeholder="Име на работника" />}
         <table className="table">
+          <thead>
+            <tr>
+              <th className="head">Работник</th>
+              <th>Цех</th>
+            </tr>
+          </thead>
           <tbody>
             {rows}
           </tbody>
