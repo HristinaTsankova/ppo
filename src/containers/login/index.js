@@ -4,8 +4,6 @@ import logo from '../image/capasca-logo.png'
 import {Redirect} from 'react-router-dom';
 import { isLoggedIn, login } from '../../actions/login';
 
-import '../style/index.css';
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +17,11 @@ class LoginForm extends Component {
     this.props.login(username.value, password.value);
   }
 
-  render() {
+  componentWillUpdate() {
     this.props.isLoggedIn();
+  }
+
+  render() {
     let {isLoginSuccess, loginError} = this.props;
     let { from } = this.props.location.state || { from: { pathname: '/orders' } }
     if (isLoginSuccess) {
@@ -35,7 +36,7 @@ class LoginForm extends Component {
           <div className='logo-row'>
             <img src={logo} alt='' className='logo'/>
           </div>
-          <div className="error-message">{ loginError && <div>{loginError.message}</div> }</div>
+          <div className="error-message text-center">{ loginError && <div>{loginError.message}</div> }</div>
           <div className="col-md-5 login-form">
             <form onSubmit={this.onSubmit}>
               <div className="input-group">

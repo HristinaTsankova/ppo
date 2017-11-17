@@ -15,6 +15,10 @@ class Header extends React.Component{
   }
 
   render() {
+    if (this.props.login.isLoginSuccess === false) {
+      return null;
+    }
+    
     return(
       <nav className="navbar navbar-inverse navbar-static-top">
         <div className="container-fluid">
@@ -35,7 +39,9 @@ class Header extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    login: state.login
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -66,10 +66,14 @@ async function callLoginApi(username, password, callback) {
       return callback(null);
     } else {
       console.log(json);
-      return callback(new Error('Unknown error!'));
+      if (json.errors !== undefined) {
+        return callback(new Error(json.errors[0]));
+      } else {
+        return callback(new Error('Грешка при логин!'));
+      }
     }
   } catch (error) {
-    return callback(new Error('Invalid Username or password!'));
+    return callback(new Error('Грешка при логин!'));
   }
 
 }
