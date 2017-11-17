@@ -19,8 +19,11 @@ class LoginForm extends Component {
     this.props.login(username.value, password.value);
   }
 
-  render() {
+  componentWillUpdate() {
     this.props.isLoggedIn();
+  }
+
+  render() {
     let {isLoginSuccess, loginError} = this.props;
     let { from } = this.props.location.state || { from: { pathname: '/orders' } }
     if (isLoginSuccess) {
