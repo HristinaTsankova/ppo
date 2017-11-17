@@ -10,8 +10,8 @@ import Dependencies from '../dependencies';
 import Login from '../login';
 import Search from '../orders';
 import Cutting from '../cutting';
-import '../style/index.css';
 import Header from '../header';
+import '../style/index.css';
 
 const isAuthenticated = () => !!localStorage.getItem('ppotoken')
 
