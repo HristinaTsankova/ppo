@@ -63,6 +63,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    route: state.routing,
     login: state.login
   };
 }
