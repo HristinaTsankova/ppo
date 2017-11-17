@@ -1,30 +1,16 @@
 import React from 'react';
-import {sortBy} from 'lodash';
+import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 
-export default class Cutting extends React.Component{
+class Cutting extends React.Component{
   constructor(props) {
     super(props);
 
     this.state = {
-        users: [],
+        departments:'',
     }
 }
-fetchUsers() {
-    const request = {
-      method: 'GET',
-      headers: ({'Accept': 'application/vnd.elitex-v1+json', 'Content-Type': 'application/json', 'Authorization': "access_token=-fKJ0-fsGTCwNcyDg1BMUQ"})
-    };
-    fetch(`http://178.62.112.203/api/fp/departments`, request).then((response) => {
-      return response.json()
-    }).then((json) => {
-      this.setState({users: json})
-                
-    });
-  }
 
-  componentDidMount() {
-    this.fetchUsers();
-  }
   renderRow(rowData, i) {
     return (
       <table className="table cutting_table" key={i}>
@@ -60,9 +46,10 @@ fetchUsers() {
   }
   render() {
 
-    const processes = sortBy(this.state.users, 'department_name')
-    const rows = processes.map(this.renderRow)
-
+    if (this.props.departments === undefined || this.props.departments.length === undefined) {
+      return null;
+    }
+    const rows = this.props.departments.map(this.renderRow)
     return(
       <div>
         <div className="container-fluid">
@@ -75,3 +62,18 @@ fetchUsers() {
     )
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    departments: state.departments.list
+    
+
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cutting));
