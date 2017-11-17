@@ -20,10 +20,18 @@ class MachineTable extends React.Component {
     const user = this.props.users.find(u => u.id === seachFor);
     return (
       <div className="margin-top-10">
-        <table className="table table-bordered">
+        <table className="table">
+          <thead>
+            <tr><td></td></tr>
+          </thead>
           <tbody>
             <tr>
-              <td className="floor_plan2"><div className="cell-user-name" title={user.name}>{user.name}</div></td>
+              <td className="floor_plan2">
+                <div className="cell-user-name" title={user.name}>
+                  {this.props.editable ? <div className="floor-person-actions"><a className="text-danger" title="Премахване на работника"><span className="glyphicon glyphicon-remove"/></a></div> : "" }
+                  {user.name}
+                </div>
+              </td>
               <td className="floor_plan2"></td>
             </tr>
             {this.props.spot.processes.map((process, idx) => {

@@ -32,12 +32,14 @@ class Cell extends React.Component {
     let machines = <div className="margin-top-10"><span className="glyphicon glyphicon-record" /></div>;
     if (item.length > 0) {
       machines = item.map((machine, idx) => {
-        return <MachineTable key={this.props.row + this.props.index.toString() + idx.toString()} spot={machine} />
+        return <MachineTable key={this.props.row + this.props.index.toString() + idx.toString()} spot={machine} editable={this.props.editable} />
       })
     }
 
     return (
       <Droppable types={['user']} onDrop={this.onDrop.bind(this)}>
+        {this.props.row === 0 && this.props.editable ? <div className="floor-delete-column"><a className="text-danger" title="Премахване на колона"><span className="glyphicon glyphicon-remove"/></a></div>:""}
+        {this.props.index === 0 && this.props.editable ? <div className="floor-delete-row"><a className="text-danger" title="Премахване на ред"><span className="glyphicon glyphicon-remove"/></a></div>:""}
         <div className="text-muted floor-cell-number">{(this.props.row + 1) + '.' + (this.props.index + 1)}</div>
         {machines}
       </Droppable>
@@ -46,7 +48,8 @@ class Cell extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  floor: state.floor.floor
+  floor: state.floor.floor,
+  editable: state.query.editable
 });
 
 const mapDispatchToProps = (dispatch) => {

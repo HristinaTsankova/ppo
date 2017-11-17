@@ -31,3 +31,36 @@
   overflow-x: hidden;
   overflow-y: hidden;
 }
+
+.floor-person-actions {
+  font-size: 12px;
+  line-height: 1;
+  position: absolute;
+  margin-top: -16px;
+  background-color: white;
+  padding: 0px 5px 0px 5px;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+.floor-delete-column {
+  line-height: 1;
+  position: absolute;
+  margin-top: -10px;
+  margin-left: 50px;
+  background-color: white;
+  padding: 0px 5px 0px 5px;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+.floor-delete-row {
+  line-height: 1;
+  position: absolute;
+  margin-left: -20px;
+  margin-top: 30px;
+  background-color: white;
+  padding: 5px 0px 5px 0px;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}

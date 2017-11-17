@@ -55,9 +55,9 @@ class Floor extends React.Component {
               </tbody>
             </table>
           </div>
-          <div className="col-md-1"><button type="button" onClick={() => this.onAddColumn()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div>
+          {this.props.editable ? <div className="col-md-1"><button type="button" onClick={() => this.onAddColumn()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div> : "" }
         </div>
-        <div className="row"><div className="col-md-1"><button type="button" onClick={() => this.onAddRow()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div></div>
+        {this.props.editable ? <div className="row"><div className="col-md-1"><button type="button" onClick={() => this.onAddRow()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div></div>: "" }
       </div>
     )
   }
@@ -65,7 +65,8 @@ class Floor extends React.Component {
 
 const mapStateToProps = (state) => ({
   plans: state.floor.list,
-  floor: state.floor.floor
+  floor: state.floor.floor,
+  editable: state.query.editable
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Sidebar from './sidebar';
 import Floor from './floor';
-import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT, QUERY_ORDER } from '../../actions/query';
+import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT, QUERY_ORDER, QUERY_EDITABLE } from '../../actions/query';
 import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
 import noImage from '../image/image.png';
@@ -20,6 +20,7 @@ class Plan extends React.Component {
 
   componentDidMount() {
     const query = new URLSearchParams(this.props.location.search);
+    // this.props.setQueryValue(this.state.editable, QUERY_EDITABLE);
     this.props.setQueryValue(query.get('process'), QUERY_PROCESS);
     this.props.setQueryValue(this.props.match.params.id, QUERY_DEPARTMENT);
     this.props.setQueryValue(query.get('order'), QUERY_ORDER, (order) => {
@@ -44,6 +45,10 @@ class Plan extends React.Component {
     this.setState({
       showSidebar: !showSidebar
     })
+  }
+
+  setEditable = () => {
+    this.props.setQueryValue(!this.props.editable, QUERY_EDITABLE);
   }
 
   render() {
@@ -94,7 +99,7 @@ class Plan extends React.Component {
         <Sidebar isOpen={this.state.showSidebar} />
         <div className={this.props.isOpen ? 'content more' : 'content'}>
           <div className="row">
-            <h2>{department.name}</h2>
+            <h2>{department.name} <button type="button" onClick={this.setEditable} className="btn btn-link"><span className="glyphicon glyphicon-pencil" /></button></h2>
           </div>
           <div className="row">
             <Floor />
@@ -109,6 +114,7 @@ const mapStateToProps = (state) => {
   return {
     department: state.departments.department,
     queryOrder: state.query.order,
+    editable: state.query.editable,
     order: state.orders.order
   };
 }

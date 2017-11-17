@@ -11,7 +11,7 @@ export default class Row extends React.Component {
         {this.props.data.map((item, index) => {
           return (
             <td key={this.props.index + index.toString()} className="floor-cell">
-              <Cell row={this.props.index} index={index} data={item} />
+              <Cell row={this.props.index} index={index} data={item} editable={this.props.editable} />
             </td>
           )
         })}

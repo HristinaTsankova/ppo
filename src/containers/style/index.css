@@ -392,10 +392,10 @@ li{
     background-color:#e9ece5;
 }
 
-.table>thead>tr>th, .table>tbody>tr>td{
+/* .table>thead>tr>th, .table>tbody>tr>td{
     border-top: 1px solid  #737373;
     
-}
+} */
 .time{
     text-align: center;
 }

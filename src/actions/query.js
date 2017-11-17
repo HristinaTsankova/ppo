@@ -1,10 +1,15 @@
 export const QUERY_PROCESS = 'QUERY_PROCESS';
 export const QUERY_DEPARTMENT = 'QUERY_DEPARTMENT';
 export const QUERY_ORDER = 'QUERY_ORDER';
+export const QUERY_EDITABLE = 'QUERY_EDITABLE';
 
 export function setQueryValue(val, type, callback) {
   return dispatch => {
     switch (type) {
+      case QUERY_EDITABLE:
+        dispatch(setEditable(val));
+        break;
+
       case QUERY_ORDER:
         dispatch(setOrder(val, callback));
         break;
@@ -21,6 +26,13 @@ export function setQueryValue(val, type, callback) {
         break;
     }
   }
+}
+
+function setEditable(val) {
+  return {
+    type: QUERY_EDITABLE,
+    editable: val
+  };
 }
 
 function setDepartment(dept) {

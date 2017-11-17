@@ -1,10 +1,17 @@
-import { QUERY_DEPARTMENT, QUERY_PROCESS, QUERY_ORDER } from "../actions/query";
+import { QUERY_DEPARTMENT, QUERY_PROCESS, QUERY_ORDER, QUERY_EDITABLE } from "../actions/query";
 
 const departments = (state = {
+  editable: false,
   department: null,
   process: null
 }, action) => {
   switch (action.type) {
+    case QUERY_EDITABLE:
+      return {
+        ...state,
+        editable: action.editable
+      };
+
     case QUERY_DEPARTMENT:
       return {
         ...state,
