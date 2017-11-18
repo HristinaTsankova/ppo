@@ -612,7 +612,7 @@ li{
     vertical-align: top;
 }
 
-.Droppable {
+.floor-cell > .Droppable {
     height: 100%;
 }
   

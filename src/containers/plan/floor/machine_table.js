@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Droppable } from 'react-drag-and-drop';
 import { showDialog } from '../../../actions/dialog';
 import { saveFloorData } from '../../../actions/floor';
 
@@ -15,6 +16,12 @@ class MachineTable extends React.Component {
         <td className="floor_plan"></td>
       </tr>
     )
+  }
+  
+  onDrop = (data) => {
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
   }
 
   askToRemoveUser = () => {
@@ -33,7 +40,7 @@ class MachineTable extends React.Component {
     const seachFor = parseInt(this.props.spot.user, 10);
     const user = this.props.users.find(u => u.id === seachFor);
     return (
-      <div>
+      <Droppable types={['process']} onDrop={this.onDrop.bind(this)}>
         <div className="margin-top-10">
           <table className="table">
             <thead>
@@ -55,7 +62,7 @@ class MachineTable extends React.Component {
             </tbody>
           </table>
         </div>
-      </div>
+      </Droppable>
     )
   }
 }
