@@ -392,10 +392,6 @@ li{
     background-color:#e9ece5;
 }
 
-/* .table>thead>tr>th, .table>tbody>tr>td{
-    border-top: 1px solid  #737373;
-    
-} */
 .time{
     text-align: center;
 }
@@ -600,4 +596,74 @@ li{
 }
 .colm {
     text-align: center;
+}
+
+
+.floor {
+    border-spacing: 20px;
+    border-collapse: separate;
+}
+  
+.floor-cell {
+    width: 250px;
+    height: 100px;
+    border: 1px solid gray;
+    padding: 0px 10px 10px 10px;
+    vertical-align: top;
+}
+
+.Droppable {
+    height: 100%;
+}
+  
+.floor-cell-number {
+    font-size: 9px;
+    margin-top: 0px;
+    margin-bottom: -10px;
+    margin-left: -10px;
+}
+  
+.cell-user-name {
+    min-width: 80px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+  
+.floor-person-actions {
+    font-size: 12px;
+    line-height: 1;
+    position: absolute;
+    margin-top: -16px;
+    background-color: white;
+    padding: 0px 5px 0px 5px;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+  }
+  
+.floor-delete-column {
+    line-height: 1;
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 50px;
+    background-color: white;
+    padding: 0px 5px 0px 5px;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+  
+.floor-delete-row {
+    line-height: 1;
+    position: absolute;
+    margin-left: -20px;
+    margin-top: 30px;
+    background-color: white;
+    padding: 5px 0px 5px 0px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.modal.in {
+    display: block;
+    background-color: rgba(0,0,0,0.4);
 }

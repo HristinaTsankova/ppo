@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Droppable } from 'react-drag-and-drop';
 import { saveFloorData } from '../../../actions/floor';
-import MachineTable from '../machine_table';
+import { showDialog } from '../../../actions/dialog';
+import MachineTable from './machine_table';
 
 class Cell extends React.Component {
   onDrop(data) {
@@ -27,19 +28,41 @@ class Cell extends React.Component {
     this.props.saveFloorData(floor);
   }
 
+  askToRemoveColumn = () => {
+    this.props.showDialog('Изтриване на колона', 'Желаете ли да изтриете избраната колона? Това ще изтрие и работниците добавени в нея!', this.removeColumn)
+  }
+
+  askToRemoveRow = () => {
+    this.props.showDialog('Изтриване на ред', 'Желаете ли да изтриете избрания ред? Това ще изтрие и работниците добавени на него!', this.removeRow)
+  }
+
+  removeColumn = () => {
+    const floor = this.props.floor.payload.data;
+    for (const key in floor) {
+      floor[key].splice(this.props.index, 1);
+    }
+    this.props.saveFloorData(floor);
+  }
+
+  removeRow = () => {
+    const floor = this.props.floor.payload.data;
+    floor.splice(this.props.row, 1);
+    this.props.saveFloorData(floor);
+  }
+
   render() {
     let item = this.props.data;
     let machines = <div className="margin-top-10"><span className="glyphicon glyphicon-record" /></div>;
     if (item.length > 0) {
       machines = item.map((machine, idx) => {
-        return <MachineTable key={this.props.row + this.props.index.toString() + idx.toString()} spot={machine} editable={this.props.editable} />
+        return <MachineTable key={this.props.row + this.props.index.toString() + idx.toString()} row={this.props.row} col={this.props.index} index={idx} spot={machine} />
       })
     }
 
     return (
       <Droppable types={['user']} onDrop={this.onDrop.bind(this)}>
-        {this.props.row === 0 && this.props.editable ? <div className="floor-delete-column"><a className="text-danger" title="Премахване на колона"><span className="glyphicon glyphicon-remove"/></a></div>:""}
-        {this.props.index === 0 && this.props.editable ? <div className="floor-delete-row"><a className="text-danger" title="Премахване на ред"><span className="glyphicon glyphicon-remove"/></a></div>:""}
+        {this.props.row === 0 && this.props.editable ? <div className="floor-delete-column"><a className="text-danger" title="Премахване на колона" onClick={this.askToRemoveColumn}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
+        {this.props.index === 0 && this.props.editable ? <div className="floor-delete-row"><a className="text-danger" title="Премахване на ред" onClick={this.askToRemoveRow}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
         <div className="text-muted floor-cell-number">{(this.props.row + 1) + '.' + (this.props.index + 1)}</div>
         {machines}
       </Droppable>
@@ -55,7 +78,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
-    saveFloorData: (data) => dispatch(saveFloorData(data))
+    saveFloorData: (data) => dispatch(saveFloorData(data)),
+    showDialog: (title, question, callback) => dispatch(showDialog(title, question, callback))
   };
 }
 

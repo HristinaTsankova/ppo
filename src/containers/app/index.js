@@ -11,6 +11,7 @@ import Login from '../login';
 import Search from '../orders';
 import Cutting from '../cutting';
 import Header from '../header';
+import Dialog from '../../utils/dialog';
 import '../style/index.css';
 
 const isAuthenticated = () => !!localStorage.getItem('ppotoken')
@@ -53,13 +54,13 @@ class App extends React.Component {
             <PrivateRoute exact path="/orders/:id/dependencies" component={Dependencies} />
             <PrivateRoute exact path="/departments/:id/plan" component={Plan} />
             <PrivateRoute exact path="/cutting" component={Cutting} />
+            <Dialog />
           </div>
         </main>
       </div>
     )
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {

@@ -6,6 +6,7 @@ import users from './users';
 import query from './query';
 import orders from './orders';
 import floor from './floor';
+import dialog from './dialog';
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
   users: users,
   query: query,
   orders: orders,
-  floor: floor
+  floor: floor,
+  dialog: dialog
 })

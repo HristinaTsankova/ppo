@@ -16,7 +16,6 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "jquery": "^3.2.1",
     "react-scripts": "1.0.12",
     "redux-logger": "^3.0.6"
   },
