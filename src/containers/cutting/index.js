@@ -1,31 +1,42 @@
 import React from 'react';
-import CutDepartments from './cutDepartments';
+import { connect } from 'react-redux';
+import Department from './department';
 
 
-export default class Cutting extends React.Component{
-  constructor(props) {
-    super(props);
+class Cutting extends React.Component {
+  renderRow(rowData, i) {
+    return (
+      <div className="row" key={i}>
+        <Department data={rowData} />
+      </div>
+    )
+  }
 
-    this.state = {
-        departments:'',
-    }
-}
-
-  
   render() {
-
-    return(
-      <div>
-        <div className="container-fluid">
-          <h2 className="title2">План Кроялно</h2>
-          <div className="row">
-            
-              <CutDepartments/>
-            
-          </div>
-        </div>
+    if (this.props.departments === undefined || this.props.departments.length === undefined) {
+      return null;
+    }
+    const rows = this.props.departments.map(this.renderRow);
+    return (
+      <div className="container-fluid">
+        <h2 className="title2">План Кроялно</h2>
+        {rows}
+        <br /><br />
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    departments: state.departments.list
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cutting);
