@@ -61,7 +61,7 @@ function loadSingleDepartmentError(isLoadError) {
   };
 }
 
-async function callDepartmentsApi(department, callback) {
+export async function callDepartmentsApi(department, callback) {
   const BASE_URL = Constants.remoteServer + '/api/fp/departments' + ((department != null) ? '/' + department : '');
   const request = { method: 'GET', headers: Constants.headers };
 

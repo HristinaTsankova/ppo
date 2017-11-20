@@ -667,3 +667,10 @@ li{
     display: block;
     background-color: rgba(0,0,0,0.4);
 }
+
+.modelName div {
+    width: 200px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
