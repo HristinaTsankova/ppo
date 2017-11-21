@@ -7,14 +7,17 @@ import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
 import noImage from '../image/image.png';
 import Dropdown from './dropdown';
+import More from './more';
 
 class Plan extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSidebar: false
+      showSidebar: false, 
+      showMore: false
     }
     this.showSidebarForm = this.showSidebarForm.bind(this);
+    this.showMoreForm = this.showMoreForm.bind(this);
     this.onOrderChange = this.onOrderChange.bind(this);
   }
 
@@ -46,6 +49,12 @@ class Plan extends React.Component {
       showSidebar: !showSidebar
     })
   }
+  showMoreForm = () => {
+    const {showMore} = this.state
+    this.setState ({
+      showMore: !showMore
+    })
+  }
 
   setEditable = () => {
     this.props.setQueryValue(!this.props.editable, QUERY_EDITABLE);
@@ -71,7 +80,7 @@ class Plan extends React.Component {
                     <th>Работници</th>
                     <th>Отсъстващи</th>
                     <th>Актуален график</th>
-                    <th>Скроено</th>
+                    <th>Брой поръчки</th>
                     <th>Остават</th>
                   </tr>
                 </thead>
@@ -80,11 +89,14 @@ class Plan extends React.Component {
                     <td>
                       <Dropdown changeHandler={this.onOrderChange} />
                     </td>
+                    <td></td>
+                    <td><input type='number' className="selectpicker works"/></td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className="col-md-1">
+              <button type="button" className="btn more_menu" onClick={this.showMoreForm}><span className="glyphicon glyphicon-option-horizontal"></span></button>
               <button type="button" className="btn sidebar_button" onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-large"></span></button>
             </div>
             <div className="col-md-1">
@@ -95,7 +107,11 @@ class Plan extends React.Component {
             </div>
           </div>
         </div>
-
+        {
+          this.state.showMore
+            ? <More />
+            : null
+        }
         <Sidebar isOpen={this.state.showSidebar} />
         <div className={this.props.isOpen ? 'content more' : 'content'}>
           <div className="row">

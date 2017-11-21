@@ -271,6 +271,7 @@ td>.open{
     border-right: 1px solid #616b65;
     border-left: 1px solid #616b65;
     padding: 6px 10px;
+    float: right;
 }
 .bar{
     background-color: #c5d5cb;
@@ -417,28 +418,39 @@ li{
 }
 .modelName{
     background-color: #c5d5cb;
+    width: 200px !important;
+    padding: 2px !important;
+    text-align: center;
 }
+
 .orders{
     background-color: #e3e0cf;
+    width: 50px;
 }
 .cut{
     background-color:   #e6e6e6;
+    width: 50px;
 }
 .grafic{
-    background-color:  #d7ecc6;  
+    background-color:  #d7ecc6;
+    width: 50px;  
 }
 .min{
     background-color: #F3FAB6;
+    width: 50px;
 }
 .stock{
     background-color:  #ffffcc;
+    width: 50px;
 }
 .ok{
     border: 0 !important;
+    width: 50px;
 }
 .attention{
     background-color: #b56969;
     color: white;
+    width: 50px;
 }
 .tech4{
     border: 0;
@@ -586,6 +598,7 @@ li{
     width: 100%;
     margin-top: 5px;
     border-radius: 5px;
+    padding: 2px;
 }
 .selectpicker option{
     max-width: 50px;
@@ -669,8 +682,31 @@ li{
 }
 
 .modelName div {
-    width: 200px;
+    width: 190px;
     white-space: nowrap;
     overflow-x: hidden;
     overflow-y: hidden;
+    margin: 0 auto;
+}
+.works{
+    border: 1px solid #ccc;
+    width: 50%;
+    margin:5px 20px;;
+}
+.more_menu{
+    background-color: transparent;
+    color: #334431;
+    font-size: 18px;
+    border: 0;
+    border-right: 1px solid #334431;
+    border-left: 1px solid #334431;
+    padding: 5px 10px;
+}
+.more_bar{
+    background-color: #597656;
+    position: absolute;
+    top: 130px;
+    left: 0;
+    z-index: 10;
+    color: white;
 }
