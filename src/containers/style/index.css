@@ -239,8 +239,9 @@ td>.open{
 }
 .sidebar{
     display: none;
+    color: white;
     transition: right .3s ease-in-out;
-    background-color: #c5d5cb;
+    background-color: #6b947a;
     overflow: auto;
     z-index:10;
     box-shadow: -10px 0px 10px 1px rgba(170, 170, 170, 0.3);
@@ -703,10 +704,15 @@ li{
     padding: 5px 10px;
 }
 .more_bar{
-    background-color: #597656;
+    background-color: #6b947a;
     position: absolute;
-    top: 130px;
-    left: 0;
+    top: 135px;
+    left: 2px;
     z-index: 10;
     color: white;
+    border-radius: 5px;
+    box-shadow: 6px 7px 5px -1px rgba(0,0,0,0.14);
+}
+.first{
+    border-top: 0 !important;
 }

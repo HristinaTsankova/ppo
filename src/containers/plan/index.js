@@ -109,10 +109,10 @@ class Plan extends React.Component {
         </div>
         {
           this.state.showMore
-            ? <More />
+            ? <More/>
             : null
         }
-        <Sidebar isOpen={this.state.showSidebar} />
+        <Sidebar isOpen={this.state.showSidebar}/>
         <div className={this.props.isOpen ? 'content more' : 'content'}>
           <div className="row">
             <h2>{department.name} <button type="button" onClick={this.setEditable} className="btn btn-link"><span className="glyphicon glyphicon-pencil" /></button></h2>

@@ -7,12 +7,12 @@ export default class More extends React.Component {
                 <table className="table">
                     <tbody>
                         <tr>
-                            <td>Нормовреме</td>
-                            <td></td>
-                            <td>Брой пуснати облекла</td>
-                            <td></td>
-                            <td>Остават за пускане</td>
-                            <td></td>
+                            <td className="first">Нормовреме</td>
+                            <td className="first"></td>
+                            <td className="first">Брой пуснати облекла</td>
+                            <td className="first"></td>
+                            <td className="first">Остават за пускане</td>
+                            <td className="first"></td>
                         </tr>
                         <tr>
                             <td>Общо скроени бройки</td>
