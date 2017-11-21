@@ -1,3 +1,24 @@
 .red-border {
   border: 1px solid red;
 }
+
+.floor-process-actions {
+  line-height: 1;
+  font-size: 10px;
+  position: absolute;
+  margin-left: 5px;
+  margin-top: -5px;
+  background-color: white;
+  padding: 5px 0px 5px 0px;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.floor_plan {
+  max-width: 150px;
+  text-align: left;
+}
+
+.num {
+  text-align: right;
+}
