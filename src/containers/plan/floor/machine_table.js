@@ -7,8 +7,8 @@ import { saveFloorData } from '../../../actions/floor';
 class MachineTable extends React.Component {
   renderProcess(process, idx) {
     return (
-      <tr key={idx + process.toString()}>
-        <td className="floor_plan">{process}</td>
+      <tr key={idx + process.id.toString()}>
+        <td className="floor_plan">{process.name}</td>
         <td className="floor_plan"></td>
         <td className="floor_plan"></td>
         <td className="floor_plan"></td>
@@ -19,9 +19,17 @@ class MachineTable extends React.Component {
   }
   
   onDrop = (data) => {
+    const floor = this.props.floor.payload.data;
     console.log('====================================');
     console.log(data);
     console.log('====================================');
+    console.log(this.props.orders.order.order_processes);
+    const seachFor = parseInt(this.props.spot.processes, 10);
+    const processes = this.props.orders.order.order_processes.find(u => u.id === seachFor);
+    floor[this.props.row][this.props.index].push(processes);
+    console.log(floor[this.props.row][this.props.index].push(processes));
+    
+   // this.props.saveFloorData(floor);
   }
 
   askToRemoveUser = () => {
@@ -56,9 +64,11 @@ class MachineTable extends React.Component {
                 </td>
                 <td className="floor_plan2"></td>
               </tr>
-              {this.props.spot.processes.map((process, idx) => {
-                return this.renderProcess(process, idx)
-              })}
+              
+                  {this.props.spot.processes.map((process, idx) => {
+                    return this.renderProcess(process, idx)
+                  })}
+                  
             </tbody>
           </table>
         </div>
@@ -69,6 +79,7 @@ class MachineTable extends React.Component {
 
 const mapStateToProps = (state) => ({
   users: state.users.data,
+  orders: state.orders,
   floor: state.floor.floor,
   editable: state.query.editable
 });
