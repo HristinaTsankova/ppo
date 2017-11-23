@@ -3,23 +3,10 @@ import { connect } from 'react-redux';
 import { Droppable } from 'react-drag-and-drop';
 import { showDialog } from '../../../actions/dialog';
 import { saveFloorData } from '../../../actions/floor';
+import { setQueryValue, QUERY_USER } from '../../../actions/query';
+import Process from './process';
 
 class MachineTable extends React.Component {
-  renderProcess(process, idx) {
-    return (
-      <tr key={idx + process.id.toString()}>
-        <td className="floor_plan"><div className="cell-user-name" title={process.name}>{process.name}</div></td>
-        <td className="floor_plan num"></td>
-        <td className="floor_plan num"></td>
-        <td className="floor_plan num"></td>
-        <td className="floor_plan num"></td>
-        <td className="floor_plan num">
-          {this.props.editable ? <div className="floor-process-actions"><a className="text-danger" title="Изтриване на процеса" onClick={this.askToRemoveProcess}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
-        </td>
-      </tr>
-    )
-  }
-
   onDrop = (data) => {
     const floor = this.props.floor.payload.data;
     const seachFor = parseInt(data.process, 10);
@@ -37,16 +24,6 @@ class MachineTable extends React.Component {
     this.props.saveFloorData(floor);
   }
 
-  askToRemoveProcess = () => {
-    this.props.showDialog('Изтриване на процеса', `Желаете ли да изтриете избрания процес?`, this.removeProcess)
-  }
-
-  removeProcess = () => {
-    console.log('====================================');
-    console.log('Plese release meee! Freedooom!');
-    console.log('====================================');
-  }
-
   askToRemoveUser = () => {
     const seachFor = parseInt(this.props.spot.user, 10);
     const user = this.props.users.find(u => u.id === seachFor);
@@ -59,20 +36,23 @@ class MachineTable extends React.Component {
     floor[this.props.row][this.props.col] = newUsersList;
     this.props.saveFloorData(floor);
   }
+  
+  onMouseUp = (user) => {
+    this.props.selectUser(user)
+  }
 
   render() {
     if (this.props.users === undefined && this.props.users.length !== undefined) {
       return null;
     }
+    
     const seachFor = parseInt(this.props.spot.user, 10);
     const user = this.props.users.find(u => u.id === seachFor);
+    const style = (this.props.user === user.id) ? 'selected-user' : '';
     return (
       <Droppable types={['process']} onDrop={this.onDrop.bind(this)}>
-        <div className="margin-top-10">
+        <div className={ "margin-top-10 " + style } onMouseUp={() => this.onMouseUp(user.id)}>
           <table className="table">
-            <thead>
-              <tr><td></td></tr>
-            </thead>
             <tbody>
               <tr>
                 <td className="floor_plan2">
@@ -85,7 +65,7 @@ class MachineTable extends React.Component {
               </tr>
 
               {this.props.spot.processes.map((process, idx) => {
-                return this.renderProcess(process, idx)
+                return ( <Process key={idx + process.id.toString()} row={this.props.row} col={this.props.col} index={this.props.index} process={process} idx={idx} />)
               })}
 
             </tbody>
@@ -100,6 +80,7 @@ const mapStateToProps = (state) => ({
   users: state.users.data,
   orders: state.orders,
   floor: state.floor.floor,
+  user: state.query.user,
   editable: state.query.editable
 });
 
@@ -107,7 +88,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     showDialog: (title, question, callback) => dispatch(showDialog(title, question, callback)),
-    saveFloorData: (data) => dispatch(saveFloorData(data))
+    saveFloorData: (data) => dispatch(saveFloorData(data)),
+    selectUser: (id) => dispatch(setQueryValue(id, QUERY_USER))
   };
 }
 

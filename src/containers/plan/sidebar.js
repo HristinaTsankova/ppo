@@ -1,5 +1,5 @@
 import React from 'react';
-import User from './user';
+import Users from './user';
 import Process from './process';
 
 export default class Sidebar extends React.Component {
@@ -63,8 +63,8 @@ export default class Sidebar extends React.Component {
           </div>
         </div>
         <div>
-          {this.state.showUsers && <User filter="BY_NAME" />}
-          {this.state.showMashine && <User filter="BY_DEPARTMENT" />}
+          {this.state.showUsers && <Users filter="BY_NAME" />}
+          {this.state.showMashine && <Users filter="BY_DEPARTMENT" />}
           {this.state.showProcess && <Process />}
         </div>
       </div>

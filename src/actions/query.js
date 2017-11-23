@@ -1,4 +1,5 @@
 export const QUERY_PROCESS = 'QUERY_PROCESS';
+export const QUERY_USER = 'QUERY_USER';
 export const QUERY_DEPARTMENT = 'QUERY_DEPARTMENT';
 export const QUERY_ORDER = 'QUERY_ORDER';
 export const QUERY_EDITABLE = 'QUERY_EDITABLE';
@@ -16,6 +17,10 @@ export function setQueryValue(val, type, callback) {
 
       case QUERY_PROCESS:
         dispatch(setProcess(val));
+        break;
+        
+      case QUERY_USER:
+        dispatch(setUser(val));
         break;
       
       case QUERY_DEPARTMENT:
@@ -46,6 +51,13 @@ function setProcess(proc) {
   return {
     type: QUERY_PROCESS,
     process: proc
+  };
+}
+
+function setUser(user) {
+  return {
+    type: QUERY_USER,
+    user: user
   };
 }
 

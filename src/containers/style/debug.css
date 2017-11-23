@@ -16,9 +16,22 @@
 
 .floor_plan {
   max-width: 150px;
-  text-align: left;
+  text-align: left !important;
 }
 
 .num {
   text-align: right;
+}
+
+.selected-user {
+  box-shadow: 0px 0px 15px #eb9114;
+}
+
+.selected-process {
+  line-height: 1;
+  font-size: 14px;
+  font-weight: bolder;
+  position: absolute;
+  margin-left: -15px;
+  background-color: transparent;
 }

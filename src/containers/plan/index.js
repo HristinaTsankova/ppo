@@ -23,10 +23,9 @@ class Plan extends React.Component {
 
   componentDidMount() {
     const query = new URLSearchParams(this.props.location.search);
-    // this.props.setQueryValue(this.state.editable, QUERY_EDITABLE);
-    this.props.setQueryValue(query.get('process'), QUERY_PROCESS);
+    this.props.setQueryValue(parseInt(query.get('process'), 10), QUERY_PROCESS);
     this.props.setQueryValue(this.props.match.params.id, QUERY_DEPARTMENT);
-    this.props.setQueryValue(query.get('order'), QUERY_ORDER, (order) => {
+    this.props.setQueryValue(parseInt(query.get('order'), 10), QUERY_ORDER, (order) => {
       this.props.loadCurrentDepartment(this.props.match.params.id, (data) => {
         if (order === null) {
           this.props.setQueryValue(data.orders[0].id, QUERY_ORDER);

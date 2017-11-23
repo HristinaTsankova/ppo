@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Draggable } from 'react-drag-and-drop';
+import { sortBy } from 'lodash';
+import { setQueryValue, QUERY_PROCESS } from '../../actions/query';
 
 class Process extends React.Component {
   constructor(props) {
@@ -10,12 +12,15 @@ class Process extends React.Component {
       processes: ''
     }
   }
+  
+  onMouseUp = (id) => {
+    this.props.selectProcess(id)
+  }
 
-
-  renderRow(rowData, i) {
+  renderRow = (rowData, i) => {
     return (
-      <tr key={i}>
-        <td>{rowData.serial_number}</td>
+      <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)}>
+        <td>{ this.props.selected === rowData.id ? <span className="glyphicon glyphicon-play"/> : rowData.serial_number }</td>
         <td><Draggable type="process" data={rowData.id}>{rowData.name}</Draggable></td>
         <td>{rowData.aligned_time}</td>
         <td></td>
@@ -29,7 +34,8 @@ class Process extends React.Component {
       return (<div>....</div>);
     }
 
-    const rows = this.props.orders.order.order_processes.map(this.renderRow)
+    const processes = sortBy(this.props.orders.order.order_processes, 'serial_number');
+    const rows = processes.map(this.renderRow)
     return (
       <div>
         <table className="table table-bordered">
@@ -53,13 +59,14 @@ class Process extends React.Component {
 }
 const mapStateToProps = (state) => ({
   department: state.query.order,
+  selected: state.query.process,
   orders: state.orders
-
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
+    selectProcess: (id) => dispatch(setQueryValue(id, QUERY_PROCESS))
   };
 }
 
