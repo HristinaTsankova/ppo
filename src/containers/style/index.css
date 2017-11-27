@@ -716,3 +716,9 @@ li{
 .first{
     border-top: 0 !important;
 }
+.checked{
+    color: #66ff99;
+}
+.recording{
+    color: #f3bd72;
+}

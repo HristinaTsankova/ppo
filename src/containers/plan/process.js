@@ -9,8 +9,26 @@ class Process extends React.Component {
     super(props);
 
     this.state = {
-      processes: ''
+      processes: []
     }
+  }
+
+  mapFloorProcesses = () => {
+    const floor = this.props.floor.payload.data;
+    let processes = [];
+    for (const row in floor) {
+      for (const col in floor[row]) {
+        for (const usr in floor[row][col]) {
+          for (const prc in floor[row][col][usr].processes){
+            processes.push(floor[row][col][usr].processes[prc].id);
+          }
+        }
+      }
+    }
+        
+    this.setState({
+      processes: processes
+    })
   }
   
   onMouseUp = (id) => {
@@ -18,9 +36,15 @@ class Process extends React.Component {
   }
 
   renderRow = (rowData, i) => {
+    const arr = [rowData.aligned_time];
+    const sum =  arr.reduce((prev, next) => prev + next);
+    
+    console.log(sum);
     return (
       <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)}>
-        <td>{ this.props.selected === rowData.id ? <span className="glyphicon glyphicon-play"/> : rowData.serial_number }</td>
+        <td>{ this.props.selected === rowData.id ? <span className="glyphicon glyphicon-play recording"/> : rowData.serial_number }
+        { this.props.selected !== rowData.id && this.state.processes.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle checked"/> : null }
+        </td>
         <td><Draggable type="process" data={rowData.id}>{rowData.name}</Draggable></td>
         <td>{rowData.aligned_time}</td>
         <td></td>
@@ -29,13 +53,18 @@ class Process extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this.mapFloorProcesses();
+  }
+
   render() {
     if (this.props.orders.order.order_processes === undefined) {
       return (<div>....</div>);
     }
 
     const processes = sortBy(this.props.orders.order.order_processes, 'serial_number');
-    const rows = processes.map(this.renderRow)
+    const rows = processes.map(this.renderRow);
+    
     return (
       <div>
         <table className="table table-bordered">
@@ -50,6 +79,11 @@ class Process extends React.Component {
           </thead>
           <tbody>
             {rows}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -59,6 +93,7 @@ class Process extends React.Component {
 }
 const mapStateToProps = (state) => ({
   department: state.query.order,
+  floor: state.floor.floor,
   selected: state.query.process,
   orders: state.orders
 });
