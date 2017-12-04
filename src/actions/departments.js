@@ -1,10 +1,8 @@
 import Constants from '../utils/constants';
+import { LOAD_GENERAL_ERROR } from '../reducers/errors';
 
 export const LOAD_DEPARTMENTS_SUCCESS = 'LOAD_DEPARTMENTS_SUCCESS';
-export const LOAD_DEPARTMENTS_ERROR = 'LOAD_DEPARTMENT_ERROR';
-
 export const LOAD_SINGLE_DEPARTMENT_SUCCESS = 'LOAD_SINGLE_DEPARTMENT_SUCCESS';
-export const LOAD_SINGLE_DEPARTMENT_ERROR = 'LOAD_SINGLE_DEPARTMENT_ERROR';
 
 export function loadAllDepartments() {
   return dispatch => {
@@ -27,7 +25,7 @@ export function loadDepartmentById(depId, callback) {
           callback(data);
         }
       } else {
-        dispatch(loadSingleDepartmentError(error));
+        dispatch(loadDepartmentsError(error));
       }
     });
   };
@@ -42,8 +40,8 @@ function loadDepartmentsSuccess(data) {
 
 function loadDepartmentsError(isLoadError) {
   return {
-    type: LOAD_DEPARTMENTS_ERROR,
-    isListLoadError: isLoadError
+    type: LOAD_GENERAL_ERROR,
+    isError: isLoadError
   };
 }
 
@@ -51,13 +49,6 @@ function loadSingleDepartmentSuccess(data) {
   return {
     type: LOAD_SINGLE_DEPARTMENT_SUCCESS,
     department: data
-  };
-}
-
-function loadSingleDepartmentError(isLoadError) {
-  return {
-    type: LOAD_SINGLE_DEPARTMENT_ERROR,
-    isSingleLoadError: isLoadError
   };
 }
 
@@ -71,9 +62,13 @@ export async function callDepartmentsApi(department, callback) {
     if (response.ok) {
       return callback(json);
     } else {
-      return callback({}, new Error('Unknown error!'));
+      return callback({}, new Error('Неизвестна грешка!'));
     }
   } catch (error) {
-    return callback({}, new Error('Unable to load department/s!'));
+    let msg = 'Неуспешен опит да заредим бригадите!';
+    if (department !== null) {
+      msg = 'Неуспешен опит да заредим бригадата!';
+    }
+    return callback({}, new Error(msg));
   }
 }

@@ -7,10 +7,11 @@ import query from './query';
 import orders from './orders';
 import floor from './floor';
 import dialog from './dialog';
-
+import errors from './errors';
 
 export default combineReducers({
   routing: routerReducer,
+  errors: errors,
   departments: departments,
   login: login,
   users: users,

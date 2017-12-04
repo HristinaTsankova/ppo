@@ -1,26 +1,18 @@
-import { LOAD_DEPARTMENTS_SUCCESS, LOAD_DEPARTMENTS_ERROR, LOAD_SINGLE_DEPARTMENT_SUCCESS, LOAD_SINGLE_DEPARTMENT_ERROR } from "../actions/departments";
+import { LOAD_DEPARTMENTS_SUCCESS, LOAD_SINGLE_DEPARTMENT_SUCCESS } from "../actions/departments";
 
 const departments = (state = {
 }, action) => {
   switch (action.type) {
     case LOAD_DEPARTMENTS_SUCCESS:
-      return {...state,
+      return {
+        ...state,
         list: action.list
       };
 
-    case LOAD_DEPARTMENTS_ERROR:
-      return {...state,
-        isListLoadError: action.isListLoadError
-      };
-
     case LOAD_SINGLE_DEPARTMENT_SUCCESS:
-      return {...state,
+      return {
+        ...state,
         department: action.department
-      };
-
-    case LOAD_SINGLE_DEPARTMENT_ERROR:
-      return {...state,
-        isSingleLoadError: action.isSingleLoadError
       };
 
     default:

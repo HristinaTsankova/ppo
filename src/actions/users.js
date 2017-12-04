@@ -1,7 +1,7 @@
 import Constants from '../utils/constants';
+import { LOAD_GENERAL_ERROR } from '../reducers/errors';
 
 export const LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS';
-export const LOAD_USERS_ERROR = 'LOAD_USERS_ERROR';
 
 export function loadAllUsers() {
   return dispatch => {
@@ -27,8 +27,8 @@ function loadUsersSuccess(data) {
 
 function loadUsersError(isLoadError) {
   return {
-    type: LOAD_USERS_ERROR,
-    isLoadError
+    type: LOAD_GENERAL_ERROR,
+    isError: isLoadError
   };
 }
 
@@ -43,9 +43,9 @@ export async function callUsersApi(callback) {
       return callback(json);
     } else {
       console.log(json);
-      return callback({}, new Error('Unknown error!'));
+      return callback({}, new Error('Неизвестна грешка!'));
     }
   } catch (error) {
-    return callback({}, new Error('Unable to load users!'));
+    return callback({}, new Error('Неуспешен опит да заредим работниците!'));
   }
 }

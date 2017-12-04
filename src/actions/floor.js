@@ -1,10 +1,8 @@
 import Constants from '../utils/constants';
+import { LOAD_GENERAL_ERROR } from '../reducers/errors';
 
 export const LOAD_DEPARTMENT_FLOORS_SUCCESS = 'LOAD_DEPARTMENT_FLOORS_SUCCESS';
-export const LOAD_DEPARTMENT_FLOORS_ERROR = 'LOAD_DEPARTMENT_FLOORS_ERROR';
-
 export const LOAD_SINGLE_FLOOR_SUCCESS = 'LOAD_SINGLE_FLOOR_SUCCESS';
-export const LOAD_SINGLE_FLOOR_ERROR = 'LOAD_SINGLE_FLOOR_ERROR';
 
 export function saveFloorData(data) {
   return (dispatch, getState) => {
@@ -14,7 +12,7 @@ export function saveFloorData(data) {
       if (!error) {
         dispatch(loadSingleFloorSuccess(data));
       } else {
-        dispatch(loadSingleFloorError(error));
+        dispatch(loadFloorsError(error));
       }
     });
   };
@@ -45,7 +43,7 @@ export function loadFloorById(floorId) {
       if (!error) {
         dispatch(loadSingleFloorSuccess(data));
       } else {
-        dispatch(loadSingleFloorError(error));
+        dispatch(loadFloorsError(error));
       }
     });
   }
@@ -69,7 +67,7 @@ function initFloorData() {
       if (!error) {
         dispatch(loadSingleFloorSuccess(data));
       } else {
-        dispatch(loadSingleFloorError(error));
+        dispatch(loadFloorsError(error));
       }
     });
   }
@@ -84,8 +82,8 @@ function loadFloorsSuccess(data) {
 
 function loadFloorsError(isLoadError) {
   return {
-    type: LOAD_DEPARTMENT_FLOORS_ERROR,
-    isListLoadError: isLoadError
+    type: LOAD_GENERAL_ERROR,
+    isError: isLoadError
   };
 }
 
@@ -95,14 +93,6 @@ function loadSingleFloorSuccess(data) {
     floor: data
   };
 }
-
-function loadSingleFloorError(isLoadError) {
-  return {
-    type: LOAD_SINGLE_FLOOR_ERROR,
-    isLoadError: isLoadError
-  };
-}
-
 
 /**
  * API call do get data from the server
@@ -121,10 +111,10 @@ async function callFloorsApi(floor, callback) {
       return callback(json);
     } else {
       console.log(json);
-      return callback({}, new Error('Unknown error!'));
+      return callback({}, new Error('Неизвестна грешка!'));
     }
   } catch (error) {
-    return callback({}, new Error('Unable to load Floor/s!'));
+    return callback({}, new Error('Неуспешен опит да заредим подовия план!'));
   }
 }
 
@@ -149,10 +139,10 @@ async function callFloorsSaveApi(floor, callback) {
       return callback(json);
     } else {
       console.log(json);
-      return callback({}, new Error('Unknown error!'));
+      return callback({}, new Error('Неизвестна грешка!'));
     }
   } catch (error) {
-    return callback({}, new Error('Unable to load Floor/s!'));
+    return callback({}, new Error('Неуспешен опит да запишем промените в подовия план!'));
   }
 }
 
@@ -177,9 +167,9 @@ async function callFloorsCreateApi(floor, callback) {
       return callback(json);
     } else {
       console.log(json);
-      return callback({}, new Error('Unknown error!'));
+      return callback({}, new Error('Неизвестна грешка!'));
     }
   } catch (error) {
-    return callback({}, new Error('Unable to load Floor/s!'));
+    return callback({}, new Error('Неуспешен опит да създадем подов план!'));
   }
 }

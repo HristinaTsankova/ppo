@@ -1,10 +1,8 @@
 import Constants from '../utils/constants';
+import { LOAD_GENERAL_ERROR } from '../reducers/errors';
 
 export const LOAD_ORDERS_SUCCESS = 'LOAD_ORDERS_SUCCESS';
-export const LOAD_ORDERS_ERROR = 'LOAD_ORDERS_ERROR';
-
 export const LOAD_SINGLE_ORDER_SUCCESS = 'LOAD_SINGLE_ORDER_SUCCESS';
-export const LOAD_SINGLE_ORDER_ERROR = 'LOAD_SINGLE_ORDER_ERROR';
 
 export function saveParentsData(order) {
   return dispatch => {
@@ -12,7 +10,7 @@ export function saveParentsData(order) {
       if (!error) {
         dispatch(loadSingleOrderSuccess(data));
       } else {
-        dispatch(loadSingleOrderError(error));
+        dispatch(loadOrdersError(error));
       }
     });
   }
@@ -36,13 +34,13 @@ export function loadAllOrders() {
 export function loadOrderById(orderId) {
   return dispatch => {
     dispatch(loadSingleOrderSuccess({}));
-    dispatch(loadSingleOrderError(null));
+    dispatch(loadOrdersError(null));
 
     callOrdersApi(orderId, (data, error) => {
       if (!error) {
         dispatch(loadSingleOrderSuccess(data));
       } else {
-        dispatch(loadSingleOrderError(error));
+        dispatch(loadOrdersError(error));
       }
     });
   }
@@ -57,8 +55,8 @@ function loadOrdersSuccess(data) {
 
 function loadOrdersError(isLoadError) {
   return {
-    type: LOAD_ORDERS_ERROR,
-    isListLoadError: isLoadError
+    type: LOAD_GENERAL_ERROR,
+    isError: isLoadError
   };
 }
 
@@ -66,13 +64,6 @@ function loadSingleOrderSuccess(data) {
   return {
     type: LOAD_SINGLE_ORDER_SUCCESS,
     order: data
-  };
-}
-
-function loadSingleOrderError(isLoadError) {
-  return {
-    type: LOAD_SINGLE_ORDER_ERROR,
-    isLoadError: isLoadError
   };
 }
 
@@ -87,10 +78,14 @@ async function callOrdersApi(order, callback) {
       return callback(json);
     } else {
       console.log(json);
-      return callback({}, new Error('Unknown error!'));
+      return callback({}, new Error('Неизвестна грешка!'));
     }
   } catch (error) {
-    return callback({}, new Error('Unable to load order/s!'));
+    let msg = 'Неуспешен опит да заредим поръчките!';
+    if (order !== null) {
+      msg = 'Неуспешен опит да заредим поръчката!';
+    }
+    return callback({}, new Error(msg));
   }
 }
 
@@ -109,9 +104,9 @@ async function callOrdersSaveApi(order, callback) {
       return callback(json);
     } else {
       console.log(json);
-      return callback({}, new Error('Unknown error!'));
+      return callback({}, new Error('Неизвестна грешка!'));
     }
   } catch (error) {
-    return callback({}, new Error('Unable to load order/s!'));
+    return callback({}, new Error('Неуспешен опит да запазим промените на поръчката!'));
   }
 }
