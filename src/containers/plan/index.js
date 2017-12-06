@@ -6,7 +6,7 @@ import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
 import Sidebar from './sidebar';
 import Floor from './floor';
-
+import Info from './info';
 import '../style/debug.css';
 
 class Plan extends React.Component {
@@ -101,11 +101,15 @@ class Plan extends React.Component {
           <button data-tip="Информация подовия план" type="button" className={this.state.showMore ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showMoreForm}><span className="glyphicon glyphicon-info-sign"></span></button>
         </div>
         <div className="panel-body offset-left-60 col-md-12">
-          <h2>{department.name}</h2>
+          {this.state.showMore && <div className={((this.state.showMore) ? "col-md-12" : "col-md-12")}><Info/></div>}
+          <div className="row">
+            <h2 className="title_brigade">{department.name}</h2>
+          </div>
           <div className={((this.state.showSidebar) ? "col-md-8 wrapper" : "col-md-12 wrapper")}>
             {this.state.showPlan && <Floor />}
           </div>
           {this.state.showSidebar && <div className={((this.state.showPlan) ? "col-md-4" : "col-md-12")}><Sidebar /></div>}
+          
         </div>
         <ReactTooltip type="dark" effect="solid" />
       </div>

@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT, QUERY_ORDER, QUERY_EDITABLE } from '../../actions/query';
 import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
-import Sidebar from './sidebar';
-import Floor from './floor';
-import noImage from '../image/image.png';
+
 import Dropdown from './dropdown';
 import More from './more';
 
@@ -77,9 +75,7 @@ class Plan extends React.Component {
       <div className="page-wrap">
         <div className={this.state.showSidebar ? 'col-md-9' : 'col-md-12'}>
           <div className="row bar">
-            <div className="col-md-1">
-              <button type="button" className="btn more-menu" onClick={this.showMoreForm}><span className="glyphicon glyphicon-option-horizontal"></span></button>
-            </div>
+            
             <div className="col-md-10">
               <table className="table">
                 <thead>
@@ -105,18 +101,12 @@ class Plan extends React.Component {
               </table>
             </div>
             <div className="col-md-1">
-              <div className="pull-right"><button type="button" className="btn sidebar-button" onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-large"></span></button></div>
+              <button type="button" className="btn more-menu" onClick={this.showMoreForm}><span className="glyphicon glyphicon-option-horizontal"></span></button>
             </div>
           </div>
           { this.state.showMore ? <More/> : null }
-          <div className="panel-body move-down">
-            <h2>{department.name} <button type="button" onClick={this.setEditable} className="btn btn-link"><span className="glyphicon glyphicon-pencil" /></button></h2>
-            <div className="row">
-              <Floor />
-            </div>
-          </div>
+          
         </div>
-        <Sidebar hideSideBar={this.showSidebarForm} isOpen={this.state.showSidebar} />
       </div>
     )
   }

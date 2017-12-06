@@ -3,7 +3,7 @@ import React from 'react';
 export default class More extends React.Component {
     render() {
         return(
-            <div className="col-md-7 more_bar">
+            <div className="col-md-10 more_bar">
                 <table className="table">
                     <tbody>
                         <tr>
@@ -25,12 +25,13 @@ export default class More extends React.Component {
                         <tr>
                             <td>Брой облекла във веригат</td>
                             <td></td>
+                            
+                        </tr>
+                        <tr>
                             <td>Присъстващи</td>
                             <td></td>
                             <td>Отсъстващи</td>
                             <td></td>
-                        </tr>
-                        <tr>
                             <td>Работници от друга бригада</td>
                             <td></td>
                         </tr>

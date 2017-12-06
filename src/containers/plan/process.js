@@ -36,8 +36,8 @@ class Process extends React.Component {
   }
 
   renderRow = (rowData, i) => {
-    const arr = [rowData.aligned_time];
-    const sum =  arr.reduce((prev, next) => prev + next);
+    const numbers = [rowData.aligned_time];
+    const sum =  numbers.reduce((prev, next) => prev + next);
     
     console.log(sum);
     return (
@@ -67,7 +67,7 @@ class Process extends React.Component {
     
     return (
       <div>
-        <table className="table table-bordered">
+        <table className="table table-bordered processes" >
           <thead>
             <tr>
               <th>№</th>
