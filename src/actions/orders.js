@@ -18,9 +18,6 @@ export function saveParentsData(order) {
 
 export function loadAllOrders() {
   return dispatch => {
-    dispatch(loadOrdersSuccess({}));
-    dispatch(loadOrdersError(null));
-
     callOrdersApi(null, (data, error) => {
       if (!error) {
         dispatch(loadOrdersSuccess(data));
@@ -33,9 +30,6 @@ export function loadAllOrders() {
 
 export function loadOrderById(orderId) {
   return dispatch => {
-    dispatch(loadSingleOrderSuccess({}));
-    dispatch(loadOrdersError(null));
-
     callOrdersApi(orderId, (data, error) => {
       if (!error) {
         dispatch(loadSingleOrderSuccess(data));

@@ -12,10 +12,6 @@ body{
     margin: 0 auto;
     float: none;
 }
-.btn{
-    padding: 6px;
-    margin: 5px 0;
-}
 
 .tab{
     margin: 10px 0 0;
@@ -26,10 +22,10 @@ body{
     border-bottom:1px solid lightgrey;
     background-color: #595959;
 }
-    .number{
-        border-bottom: 1px solid grey;
-        padding: 3px;
-    }
+.number{
+    border-bottom: 1px solid grey;
+    padding: 3px;
+}
 .navbar-inverse{
     background-color: #616b65;
     border-color: #49504c;
@@ -230,58 +226,21 @@ td>.open{
     border-radius: 0;
     margin-right: 10px;
 }
-.exit{
-    float: right;
-    margin-right: 10px;
-}
+
 .links{
     text-align: left;
 }
-.sidebar{
-    display: none;
-    color: white;
-    transition: right .3s ease-in-out;
-    background-color: #6b947a;
-    overflow: auto;
-    z-index:10;
-    box-shadow: -10px 0px 10px 1px rgba(170, 170, 170, 0.3);
-    padding: 5px;
-    overflow-x: hidden;
-}
+
 .content {
     position: absolute;
     top: 105px;
     left: 50px;
     transition: right .3s ease-in-out;
 }
-.sidebar.more{
-    display: block;
-    right: 0;
-    position: absolute;
-    top: 53px;
-    width: 35%;
-    bottom: 0;
-}
 .content.more{
     right: 30%;
 }
-.sidebar_button{
-    background-color: transparent;
-    color: #616b65;
-    border: 0;
-    border-right: 1px solid #616b65;
-    border-left: 1px solid #616b65;
-    padding: 6px 10px;
-    float: right;
-}
-.bar{
-    background-color: #c5d5cb;
-    margin-left: 0;
-    position: absolute;
-    height: 80px;
-    width: 100%;
-    box-shadow: 0 4px 4px rgba(170, 170, 170, 0.3);
-}
+
 .places{
     position: absolute;
     top: 130px;
@@ -352,9 +311,7 @@ li{
     border: 0;
     padding: 0;
 }
-.navbar-form{
-    margin: 0;
-}
+
 .users{
     color: #ccc;
     margin: 5px;
@@ -694,25 +651,7 @@ li{
     width: 50%;
     margin:5px 20px;;
 }
-.more_menu{
-    background-color: transparent;
-    color: #334431;
-    font-size: 18px;
-    border: 0;
-    border-right: 1px solid #334431;
-    border-left: 1px solid #334431;
-    padding: 5px 10px;
-}
-.more_bar{
-    background-color: #6b947a;
-    position: absolute;
-    top: 135px;
-    left: 2px;
-    z-index: 10;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 6px 7px 5px -1px rgba(0,0,0,0.14);
-}
+
 .first{
     border-top: 0 !important;
 }

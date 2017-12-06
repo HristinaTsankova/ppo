@@ -18,10 +18,12 @@ class Cutting extends React.Component {
     }
     const rows = this.props.departments.map(this.renderRow);
     return (
-      <div className="container-fluid">
-        <h2 className="title2">План Кроялно</h2>
-        {rows}
-        <br /><br />
+      <div className="panel-body">
+        <div className="container-fluid">
+          <h2 className="title2">План Кроялно</h2>
+          {rows}
+          <br /><br />
+        </div>
       </div>
     )
   }

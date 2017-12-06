@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT, QUERY_ORDER, QUERY_EDITABLE } from '../../actions/query';
 import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
 import Sidebar from './sidebar';
 import Floor from './floor';
+import noImage from '../image/image.png';
+import Dropdown from './dropdown';
+import More from './more';
 
-import '../style/debug.css';
 
 class Plan extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showPlan: true,
-      showSettings: false,
       showSidebar: false,
       showMore: false
     }
@@ -49,24 +48,6 @@ class Plan extends React.Component {
     this.props.loadOrderData(order);
   }
 
-  setEditable = () => {
-    this.props.setQueryValue(!this.props.editable, QUERY_EDITABLE);
-  }
-
-  showHidePlan = () => {
-    const { showPlan } = this.state
-    this.setState({
-      showPlan: !showPlan
-    })
-  }
-
-  showHideSettings = () => {
-    const { showSettings } = this.state
-    this.setState({
-      showSettings: !showSettings
-    })
-  }
-
   showSidebarForm = () => {
     const { showSidebar } = this.state
     this.setState({
@@ -81,6 +62,10 @@ class Plan extends React.Component {
     })
   }
 
+  setEditable = () => {
+    this.props.setQueryValue(!this.props.editable, QUERY_EDITABLE);
+  }
+
   render() {
     if (this.props.department === undefined || this.props.department.id === undefined || this.props.queryOrder === null || this.props.order === undefined) {
       return null;
@@ -90,28 +75,61 @@ class Plan extends React.Component {
 
     return (
       <div className="page-wrap">
-        <div className="menu-bar">
-          <p />
-          <button data-tip="Подов план" type="button" className={this.state.showPlan ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showHidePlan}><span className="glyphicon glyphicon-dashboard" /></button>
-          <button data-tip="Списъци с данни за подов план" type="button" className={this.state.showSidebar ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-list"></span></button>
-          
-          <button data-tip="Редактиране на подов план" type="button" className={this.props.editable ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.setEditable}><span className="glyphicon glyphicon-pencil" /></button>
-
-          <button data-tip="Настройки на подов план" type="button" className={this.state.showSettings ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showHideSettings}><span className="glyphicon glyphicon-wrench" /></button>
-          <button data-tip="Информация подовия план" type="button" className={this.state.showMore ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showMoreForm}><span className="glyphicon glyphicon-info-sign"></span></button>
-        </div>
-        <div className="panel-body offset-left-60 col-md-12">
-          <h2>{department.name}</h2>
-          <div className={((this.state.showSidebar) ? "col-md-8 wrapper" : "col-md-12 wrapper")}>
-            {this.state.showPlan && <Floor />}
+        <div className={this.state.showSidebar ? 'col-md-9' : 'col-md-12'}>
+          <div className="row bar">
+            <div className="col-md-1">
+              <button type="button" className="btn more-menu" onClick={this.showMoreForm}><span className="glyphicon glyphicon-option-horizontal"></span></button>
+            </div>
+            <div className="col-md-10">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Модел</th>
+                    <th>График</th>
+                    <th>Работници</th>
+                    <th>Отсъстващи</th>
+                    <th>Актуален график</th>
+                    <th>Брой поръчки</th>
+                    <th>Остават</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <Dropdown changeHandler={this.onOrderChange} />
+                    </td>
+                    <td></td>
+                    <td><input type='number' className="selectpicker works" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="col-md-1">
+              <div className="pull-right"><button type="button" className="btn sidebar-button" onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-large"></span></button></div>
+            </div>
           </div>
-          {this.state.showSidebar && <div className={((this.state.showPlan) ? "col-md-4" : "col-md-12")}><Sidebar /></div>}
+          { this.state.showMore ? <More/> : null }
+          <div className="panel-body move-down">
+            <h2>{department.name} <button type="button" onClick={this.setEditable} className="btn btn-link"><span className="glyphicon glyphicon-pencil" /></button></h2>
+            <div className="row">
+              <Floor />
+            </div>
+          </div>
         </div>
-        <ReactTooltip type="dark" effect="solid" />
+        <Sidebar hideSideBar={this.showSidebarForm} isOpen={this.state.showSidebar} />
       </div>
     )
   }
 }
+
+/*
+<div className="col-md-1">
+<img src={noImage} alt='' className="noImage" />
+</div>
+<div className="col-md-3">
+<textarea type="text" placeholder="Забележки..." className="notes" />
+</div>
+*/
 
 const mapStateToProps = (state) => {
   return {

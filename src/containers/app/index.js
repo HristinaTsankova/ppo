@@ -49,15 +49,13 @@ class App extends React.Component {
       <div>
         <main>
           <Header />
-          <div className="panel-body">
-            <Route exact path="/" component={Login} />
-            <PrivateRoute exact path="/orders" component={Search} />
-            <PrivateRoute exact path="/orders/:id/dependencies" component={Dependencies} />
-            <PrivateRoute exact path="/departments/:id/plan" component={Plan} />
-            <PrivateRoute exact path="/cutting" component={Cutting} />
-            <Dialog />
-            <Alerts />
-          </div>
+          <Route exact path="/" component={Login} />
+          <PrivateRoute exact path="/orders" component={Search} />
+          <PrivateRoute exact path="/orders/:id/dependencies" component={Dependencies} />
+          <PrivateRoute exact path="/departments/:id/plan" component={Plan} />
+          <PrivateRoute exact path="/cutting" component={Cutting} />
+          <Dialog />
+          <Alerts />
         </main>
       </div>
     )

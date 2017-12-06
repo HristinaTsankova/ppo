@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Row from './row';
 import { loadAllFloors, saveFloorData } from '../../../actions/floor';
-import '../../style/debug.css';
 
 class Floor extends React.Component {
   componentDidMount() {
@@ -43,8 +42,8 @@ class Floor extends React.Component {
 
     return (
       <div id="floorPlan">
+        {this.props.editable ? <div className="row"><div className="pull-right"><button type="button" onClick={() => this.onAddColumn()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div></div> : "" }
         <div className="row">
-          <div className="col-md-11">
             <table className="floor">
               <tbody>
                 {table.map((item, index) => {
@@ -54,10 +53,8 @@ class Floor extends React.Component {
                 })}
               </tbody>
             </table>
-          </div>
-          {this.props.editable ? <div className="col-md-1"><button type="button" onClick={() => this.onAddColumn()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div> : "" }
         </div>
-        {this.props.editable ? <div className="row"><div className="col-md-1"><button type="button" onClick={() => this.onAddRow()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div></div>: "" }
+        {this.props.editable ? <div className="row"><button type="button" onClick={() => this.onAddRow()} className="btn btn-link btn-lg"><i className="glyphicon glyphicon-plus-sign" /></button></div>: "" }
       </div>
     )
   }

@@ -28,7 +28,7 @@ class Header extends React.Component{
               <li><Link to="/cutting">Кроялно</Link></li>
             </ul>
             <div className="navbar-form navbar-right">
-              <button className="btn btn-danger exit" onClick={this.onLogoutClick}>Изход</button>
+              <button className="btn btn-danger exit" onClick={this.onLogoutClick}>Изход</button>&nbsp;
             </div>
 
           </div>

@@ -1,6 +1,8 @@
 import { LOAD_ORDERS_SUCCESS, LOAD_SINGLE_ORDER_SUCCESS } from "../actions/orders";
 
 const orders = (state = {
+  list: [],
+  order: {}
 }, action) => {
   switch (action.type) {
     case LOAD_ORDERS_SUCCESS:

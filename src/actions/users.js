@@ -5,9 +5,6 @@ export const LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS';
 
 export function loadAllUsers() {
   return dispatch => {
-    dispatch(loadUsersSuccess({}));
-    dispatch(loadUsersError(null));
-
     callUsersApi((data, error) => {
       if (!error) {
         dispatch(loadUsersSuccess(data));

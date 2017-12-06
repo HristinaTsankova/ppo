@@ -188,7 +188,7 @@ class Dependencies extends React.Component {
     const rows = processes.map(this.renderRow)
 
     return (
-      <div>
+      <div className="panel-body">
         <div className="row"><h2 className="title">Последователност на процеси</h2></div>
         <div className="row">
           <div className="col-md-2 margin-top-40">

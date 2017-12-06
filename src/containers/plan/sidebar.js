@@ -9,7 +9,7 @@ export default class Sidebar extends React.Component {
     this.state = {
       users: [],
       showUsers: false,
-      showMashine: false,
+      showMashine: true,
       showProcess: false,
       selectedAll: null
     }
@@ -48,27 +48,20 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
-    const sidebarClass = this.props.isOpen ? 'sidebar more' : 'sidebar';
     return (
-      <div className={sidebarClass}>
-        <div className="row buttons">
-          <div className="col-md-4">
-            <button type="button" className="btn mashineBtn" onClick={this.showMashineTable}>Работници</button>
-          </div>
-          <div className="col-md-3">
-            <button type="button" className="btn btn-warning process" onClick={this.showProcessTable}>Процеси</button>
-          </div>
-          <div className="col-md-5">
-            <button type="button" className="btn userBtn" onClick={this.showUserTable}>Всички работници</button>
-          </div>
+      <div className="well sidebar-wrapper">
+        <div className="btn-group" role="group">
+          <button type="button" className="btn btn-warning" onClick={this.showMashineTable}>Работници</button>
+          <button type="button" className="btn btn-warning" onClick={this.showProcessTable}>Процеси</button>
+          <button type="button" className="btn btn-warning" onClick={this.showUserTable}><span className="glyphicon glyphicon-search"></span> Работници</button>
         </div>
+        <p />
         <div>
-          {this.state.showUsers && <Users filter="BY_NAME" />}
           {this.state.showMashine && <Users filter="BY_DEPARTMENT" />}
+          {this.state.showUsers && <Users filter="BY_NAME" />}
           {this.state.showProcess && <Process />}
         </div>
       </div>
-
     )
   }
 }
