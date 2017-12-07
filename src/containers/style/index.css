@@ -463,7 +463,7 @@ li{
 }
 
 .noImage{
-    width: 300px;
+    width: 50%;
     border: 1px solid #49504c;
     border-radius: 5px;
     margin-top: 5px;
@@ -659,4 +659,7 @@ li{
 }
 .more-menu{
     margin-top: 10px;
+}
+.well {
+    padding: 5px;
 }
