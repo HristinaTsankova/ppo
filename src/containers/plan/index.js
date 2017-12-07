@@ -6,7 +6,9 @@ import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
 import Sidebar from './sidebar';
 import Floor from './floor';
-import Info from './info';
+import Setup from './setup';
+import More from './more';
+import noImage from "../image/image.png";
 import '../style/debug.css';
 
 class Plan extends React.Component {
@@ -15,8 +17,9 @@ class Plan extends React.Component {
     this.state = {
       showPlan: true,
       showSettings: false,
-      showSidebar: false,
-      showMore: false
+      showMore: false,
+      showImage: false,
+      showSidebar: false
     }
     this.showSidebarForm = this.showSidebarForm.bind(this);
     this.showMoreForm = this.showMoreForm.bind(this);
@@ -67,6 +70,13 @@ class Plan extends React.Component {
     })
   }
 
+  showHideImage = () => {
+    const { showImage } = this.state
+    this.setState({
+      showImage: !showImage
+    })
+  }
+
   showSidebarForm = () => {
     const { showSidebar } = this.state
     this.setState({
@@ -85,7 +95,7 @@ class Plan extends React.Component {
     if (this.props.department === undefined || this.props.department.id === undefined || this.props.queryOrder === null || this.props.order === undefined) {
       return null;
     }
-
+    let order = this.props.department.orders.find(o => o.id === this.props.queryOrder);
     let { department } = this.props;
 
     return (
@@ -94,22 +104,26 @@ class Plan extends React.Component {
           <p />
           <button data-tip="Подов план" type="button" className={this.state.showPlan ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showHidePlan}><span className="glyphicon glyphicon-dashboard" /></button>
           <button data-tip="Списъци с данни за подов план" type="button" className={this.state.showSidebar ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showSidebarForm}><span className="glyphicon glyphicon-th-list"></span></button>
-          
           <button data-tip="Редактиране на подов план" type="button" className={this.props.editable ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.setEditable}><span className="glyphicon glyphicon-pencil" /></button>
-
           <button data-tip="Настройки на подов план" type="button" className={this.state.showSettings ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showHideSettings}><span className="glyphicon glyphicon-wrench" /></button>
-          <button data-tip="Информация подовия план" type="button" className={this.state.showMore ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showMoreForm}><span className="glyphicon glyphicon-info-sign"></span></button>
+          <button data-tip="Информация за подов план" type="button" className={this.state.showMore ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showMoreForm}><span className="glyphicon glyphicon-info-sign"></span></button>
+          <button data-tip="Модел" type="button" className={this.state.showImage ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showHideImage}><span className="glyphicon glyphicon-film"></span></button>
         </div>
         <div className="panel-body offset-left-60 col-md-12">
-          {this.state.showMore && <div className={((this.state.showMore) ? "col-md-12" : "col-md-12")}><Info/></div>}
-          <div className="row">
-            <h2 className="title_brigade">{department.name}</h2>
+          <div className="panel-body">
+            <h2>{department.name}</h2>
+            {order !== undefined && <h4>Поръчка: {order.name}</h4>}
+          </div>
+          <div className="panel-body">
+            {this.state.showSettings && <div className="col-md-3"><Setup /></div>}
+            {this.state.showMore && <div className="col-md-6"><More /></div>}
+            {this.state.showImage && <div className="col-md-3"><div className="well info-wrapper"><img src={noImage} alt="" className="noImage" /></div></div>}
           </div>
           <div className={((this.state.showSidebar) ? "col-md-8 wrapper" : "col-md-12 wrapper")}>
             {this.state.showPlan && <Floor />}
           </div>
           {this.state.showSidebar && <div className={((this.state.showPlan) ? "col-md-4" : "col-md-12")}><Sidebar /></div>}
-          
+
         </div>
         <ReactTooltip type="dark" effect="solid" />
       </div>
@@ -120,7 +134,7 @@ class Plan extends React.Component {
 const mapStateToProps = (state) => {
   return {
     department: state.departments.department,
-    queryOrder: state.query.order,
+    queryOrder: parseInt(state.query.order, 10),
     editable: state.query.editable,
     order: state.orders.order
   };

@@ -11,6 +11,10 @@
   
 }
 
+.div-table > div.row {
+  margin-bottom: 2px;
+}
+
 .menu-bar {
   background-color: #c5d5cb;
   position: fixed;
@@ -48,24 +52,21 @@
   overflow: auto;
 }
 
+.sidebar-container {
+  height: 550px !important;
+}
+
 .sidebar-wrapper {
   height: 500px !important;
   overflow: auto;
 }
 
-/*?????*/
-.more_bar {
-  background-color: #616b65;
-  position: absolute;
-  top: 80px;
-  left: 2px;
-  z-index: 10;
-  color: white;
-  box-shadow: 6px 7px 5px -1px rgba(0,0,0,0.14);
+.info-wrapper {
+  height: 200px !important;
+  overflow: auto;
 }
 
 /* Floor plan */
-
 .floor-process-actions {
   line-height: 1;
   font-size: 10px;
@@ -111,7 +112,8 @@
 }
 .sidebar-wrapper::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
@@ -126,7 +128,8 @@
 .sidebar-wrapper::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #f0ad4e;
 }
 
@@ -148,6 +151,18 @@
 .wrapper::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #c9d8c5;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.sidebar-nowrap-process {
+  width: 120px !important;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }

@@ -21,7 +21,9 @@ class Users extends React.Component {
         return this.props.users.filter(t => t.name.toLowerCase().includes(this.state.searchUser.toLowerCase()));
       }
     } else {
-      return this.props.users.filter(t => t.department_id === parseInt(this.props.department, 10));
+      return this.props.users.filter(t => {
+        return t.department_id === parseInt(this.props.department, 10) || this.state.users.includes(t.id)
+      });
     }
   }
 
@@ -45,11 +47,12 @@ class Users extends React.Component {
   }
 
   renderRow = (rowData, i) => {
+    let dept = parseInt(this.props.department, 10);
     return (
-      <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)}>
+      <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)} className={dept !== rowData.department_id ? "text-info" : ""}>
         <td className="size-30">
-          { this.props.user === rowData.id ? <span className="glyphicon glyphicon-play"/> : null }
-          { this.props.user !== rowData.id && this.state.users.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle"/> : null }
+          {this.props.user === rowData.id ? <span className="glyphicon glyphicon-play" /> : null}
+          {this.props.user !== rowData.id && this.state.users.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle" /> : null}
         </td>
         <td><Draggable type="user" data={rowData.id}>{rowData.name}</Draggable></td>
         <td className="colm">{rowData.department_id}</td>

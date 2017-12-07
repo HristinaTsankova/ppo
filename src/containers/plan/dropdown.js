@@ -19,7 +19,7 @@ class DropDown extends React.Component {
   render() {
     const rows = this.props.department.orders.map(this.renderRow)
     return (
-      <select className="selectpicker" value={this.props.order} onChange={(e) => this.props.changeHandler(e.target.value) }>
+      <select className="form-control" value={this.props.order} onChange={(e) => this.props.changeHandler(e.target.value) }>
         <option disabled>Избери модел</option>
         {rows}
       </select>

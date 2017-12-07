@@ -42,10 +42,9 @@ class Process extends React.Component {
     console.log(sum);
     return (
       <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)}>
-        <td>{ this.props.selected === rowData.id ? <span className="glyphicon glyphicon-play recording"/> : rowData.serial_number }
-        { this.props.selected !== rowData.id && this.state.processes.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle checked"/> : null }
-        </td>
-        <td><Draggable type="process" data={rowData.id}>{rowData.name}</Draggable></td>
+        <td>{ this.props.selected !== rowData.id && this.state.processes.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle checked"/> : null }</td>
+        <td>{ this.props.selected === rowData.id ? <span className="glyphicon glyphicon-play recording"/> : rowData.serial_number }</td>
+        <td><div className="sidebar-nowrap-process"><Draggable type="process" data={rowData.id}>{rowData.name}</Draggable></div></td>
         <td>{rowData.aligned_time}</td>
         <td></td>
         <td>{rowData.machine_type.name}</td>
@@ -67,13 +66,14 @@ class Process extends React.Component {
     
     return (
       <div>
-        <table className="table table-bordered processes" >
+        <table className="table table-striped" >
           <thead>
             <tr>
+              <th></th>
               <th>№</th>
               <th>Процес</th>
               <th>Н.вр.</th>
-              <th>Брой работници</th>
+              <th>Бр.раб.</th>
               <th>Машина</th>
             </tr>
           </thead>

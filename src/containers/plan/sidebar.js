@@ -49,14 +49,13 @@ export default class Sidebar extends React.Component {
 
   render() {
     return (
-      <div className="well sidebar-wrapper">
-        <div className="btn-group" role="group">
-          <button type="button" className="btn btn-warning" onClick={this.showMashineTable}>Работници</button>
-          <button type="button" className="btn btn-warning" onClick={this.showProcessTable}>Процеси</button>
-          <button type="button" className="btn btn-warning" onClick={this.showUserTable}><span className="glyphicon glyphicon-search"></span> Работници</button>
+      <div className="sidebar-container">
+        <div className="row center">
+          <button type="button" className={this.state.showMashine ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showMashineTable}><span className="glyphicon glyphicon-user"></span></button>
+          <button type="button" className={this.state.showUsers ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showUserTable}><span className="glyphicon glyphicon-search"></span></button>
+          <button type="button" className={this.state.showProcess ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showProcessTable}><span className="glyphicon glyphicon-scissors"></span></button>
         </div>
-        <p />
-        <div>
+        <div className="well sidebar-wrapper">
           {this.state.showMashine && <Users filter="BY_DEPARTMENT" />}
           {this.state.showUsers && <Users filter="BY_NAME" />}
           {this.state.showProcess && <Process />}

@@ -461,18 +461,14 @@ li{
     padding: 2px;
     width: 80px;
 }
+
 .noImage{
-    width: 70px;
-    height: 70px;
+    width: 300px;
     border: 1px solid #49504c;
     border-radius: 5px;
     margin-top: 5px;
 }
-.notes{
-    margin-top: 15px;
-    border-radius: 5px;
-    overflow: hidden;
-}
+
 .modelss th{
     width: 200px;
 }
