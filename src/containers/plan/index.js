@@ -39,9 +39,13 @@ class Plan extends React.Component {
       this.props.loadCurrentDepartment(this.props.match.params.id, (data) => {
         if (order === null) {
           this.props.setQueryValue(data.orders[0].id, QUERY_ORDER);
+          order = data.orders[0].id;
         }
-        if (this.props.order === undefined) {
-          this.props.loadOrderData((order === null) ? data.orders[0].id : order);
+
+        if (!this.props.order.hasOwnProperty('id')) {
+          data.orders.forEach(o => {
+            this.props.loadOrderData(o.id, order);
+          });
         }
       });
     });
@@ -144,7 +148,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     setQueryValue: (val, type, callback) => dispatch(setQueryValue(val, type, callback)),
-    loadOrderData: (id) => dispatch(loadOrderById(id)),
+    loadOrderData: (id, order) => dispatch(loadOrderById(id, order)),
     loadCurrentDepartment: (id, callback) => dispatch(loadDepartmentById(id, callback))
   };
 }

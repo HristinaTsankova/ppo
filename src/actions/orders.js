@@ -1,6 +1,7 @@
 import Constants from '../utils/constants';
 import { LOAD_GENERAL_ERROR } from '../reducers/errors';
 
+export const CACHE_SINGLE_ORDER = 'CACHE_SINGLE_ORDER';
 export const LOAD_ORDERS_SUCCESS = 'LOAD_ORDERS_SUCCESS';
 export const LOAD_SINGLE_ORDER_SUCCESS = 'LOAD_SINGLE_ORDER_SUCCESS';
 
@@ -28,11 +29,22 @@ export function loadAllOrders() {
   }
 }
 
-export function loadOrderById(orderId) {
-  return dispatch => {
+export function loadOrderById(orderId, selected) {
+  selected = (selected === undefined || selected === null) ? orderId : selected;
+  return (dispatch, getState) => {
+    let cache = getState().orders.cache;
+    if (cache[orderId] !== undefined) {
+      if (selected === orderId) {
+        dispatch(loadSingleOrderSuccess(cache[orderId]));
+      }
+      return;
+    }
     callOrdersApi(orderId, (data, error) => {
       if (!error) {
-        dispatch(loadSingleOrderSuccess(data));
+        if (selected === orderId) {
+          dispatch(loadSingleOrderSuccess(data));
+        }
+        dispatch(cacheSingleOrderSuccess(data));
       } else {
         dispatch(loadOrdersError(error));
       }
@@ -57,6 +69,13 @@ function loadOrdersError(isLoadError) {
 function loadSingleOrderSuccess(data) {
   return {
     type: LOAD_SINGLE_ORDER_SUCCESS,
+    order: data
+  };
+}
+
+function cacheSingleOrderSuccess(data) {
+  return {
+    type: CACHE_SINGLE_ORDER,
     order: data
   };
 }

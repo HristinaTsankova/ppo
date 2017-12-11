@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { sortBy } from 'lodash';
+import moment from 'moment';
 import Parent from './parent';
 import AddParent from './addParent';
 import { loadOrderById, saveParentsData } from '../../actions/orders';
@@ -13,23 +14,31 @@ class Dependencies extends React.Component {
     this.state = {
       selected: null,
       processes: [],
-      dependencies: {}
+      dependencies: {},
+      totalTime: 0
     }
+  }
 
-    this.renderRow = this.renderRow.bind(this);
-    this.onItemClick = this.onItemClick.bind(this);
-    this.onParentDelete = this.onParentDelete.bind(this);
-    this.makeOnAddParent = this.makeOnAddParent.bind(this);
+  calculateTotalTime = (order) => {
+    let total = Math.round(order.order_processes.map((item) => 60*item.aligned_time ).reduce((a, b) => a + b));
+    return total;
   }
 
   componentWillReceiveProps(props) {
     if (props.order !== undefined) {
+      this.calculateTotalTime(props.order);
       this.setState({
         ...this.state,
         processes: props.order.order_processes,
-        dependencies: (props.order.payload !== undefined && props.order.payload.dependencies !== undefined) ? props.order.payload.dependencies : {}
+        dependencies: (props.order.payload !== undefined && props.order.payload.dependencies !== undefined) ? props.order.payload.dependencies : {},
+        totalTime: (props.order.payload !== undefined && props.order.payload.time !== undefined) ? props.order.payload.time : 0,
       });
     }
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.loadOrderData(id);
   }
 
   getProcessById(id) {
@@ -39,12 +48,7 @@ class Dependencies extends React.Component {
     return this.props.order.order_processes.filter(process => process.id === id)[0]
   }
 
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.loadOrderData(id);
-  }
-
-  onItemClick(selected) {
+  onItemClick = (selected) => {
     const currentlySelected = this.state.selected
     if (currentlySelected && currentlySelected.id === selected.id)
       return
@@ -52,10 +56,9 @@ class Dependencies extends React.Component {
       ...this.state,
       selected
     })
-
   }
 
-  makeOnAddParent(processId) {
+  makeOnAddParent = (processId) => {
     return selection => {
       const parent = selection[0]
 
@@ -79,16 +82,18 @@ class Dependencies extends React.Component {
 
       newParents[processId].push(parent.serial_number);
       newOrder.payload.dependencies = newParents;
+      newOrder.payload.time = this.calculateTotalTime(newOrder);
       this.props.saveParentsData(newOrder);
     }
   }
 
-  onParentDelete(id, parentId) {
+  onParentDelete = (id, parentId) => {
     const newParents = this.state.dependencies;
     const newOrder = this.props.order;
 
     newParents[id] = newParents[id].filter(parent => parent !== parentId);
     newOrder.payload.dependencies = newParents;
+    newOrder.payload.time = this.calculateTotalTime(newOrder);
     this.props.saveParentsData(newOrder);
   }
 
@@ -136,7 +141,7 @@ class Dependencies extends React.Component {
     return null;
   }
 
-  renderRow(rowData, i) {
+  renderRow = (rowData, i) => {
     const active = this.state.selected && this.state.selected.id === rowData.id
     const className = active ? 'active' : '';
     return (
@@ -224,6 +229,12 @@ class Dependencies extends React.Component {
               <tbody>
                 {rows}
               </tbody>
+              <tfoot>
+                <tr>
+                  <th colSpan="4" className="text-right">Общо Н.вр.</th>
+                  <th colSpan="5" className="text-left">{moment.utc(this.state.totalTime*1000).format('HH:mm:ss')} / {Math.round(this.state.totalTime/60*100)/100} min.</th>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>

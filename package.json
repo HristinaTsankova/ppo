@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "lodash": "^4.17.4",
+    "moment": "^2.19.4",
     "react": "^15.6.1",
     "react-bootstrap-typeahead": "^2.0.0-alpha.3",
     "react-bs-notifier": "^4.4.5",
