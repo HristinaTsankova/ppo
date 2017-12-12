@@ -61,7 +61,11 @@ class MachineTable extends React.Component {
                     {user.name}
                   </div>
                 </td>
+                
                 <td className="floor_plan2"></td>
+                <td className="floor_icon"><span className="glyphicon glyphicon-signal"/></td>
+                <td className="floor_icon2"><span className="glyphicon glyphicon-ok"/></td>
+                <td className="floor_icon"><span className="glyphicon glyphicon-menu-hamburger"/></td>
               </tr>
 
               {this.props.spot.processes.map((process, idx) => {

@@ -663,3 +663,10 @@ li{
 .well {
     padding: 5px;
 }
+.floor_icon{
+   border-top: 0 !important;
+}
+.floor_icon2{
+    border-top: 0 !important;
+    color: green;
+ }
