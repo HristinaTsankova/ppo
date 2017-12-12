@@ -18,7 +18,7 @@ export function loadEarningsByIds(ids) {
 function loadEarningsSuccess(data) {
   return {
     type: LOAD_EARNINGS_SUCCESS,
-    order: data
+    data: data
   };
 }
 

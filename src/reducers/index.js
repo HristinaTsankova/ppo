@@ -8,6 +8,7 @@ import orders from './orders';
 import floor from './floor';
 import dialog from './dialog';
 import errors from './errors';
+import earnings from './earnings';
 
 export default combineReducers({
   routing: routerReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   query: query,
   orders: orders,
   floor: floor,
-  dialog: dialog
+  dialog: dialog,
+  earnings: earnings
 })
