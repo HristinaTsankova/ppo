@@ -10,7 +10,10 @@ class DropDown extends React.Component {
     }
   }
   
-  renderRow(rowData, i) {
+  renderRow = (rowData, i) => {
+    if (rowData.workflow_state !== 'in_progress') {
+      return null;
+    }
     return (
       <option key={i} value={rowData.id}>{rowData.name}</option>
     )

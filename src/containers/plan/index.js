@@ -21,9 +21,6 @@ class Plan extends React.Component {
       showImage: false,
       showSidebar: false
     }
-    this.showSidebarForm = this.showSidebarForm.bind(this);
-    this.showMoreForm = this.showMoreForm.bind(this);
-    this.onOrderChange = this.onOrderChange.bind(this);
   }
 
   componentDidMount() {
@@ -49,11 +46,6 @@ class Plan extends React.Component {
         }
       });
     });
-  }
-
-  onOrderChange(order) {
-    this.props.setQueryValue(order, QUERY_ORDER);
-    this.props.loadOrderData(order);
   }
 
   setEditable = () => {
@@ -127,7 +119,6 @@ class Plan extends React.Component {
             {this.state.showPlan && <Floor />}
           </div>
           {this.state.showSidebar && <div className={((this.state.showPlan) ? "col-md-4" : "col-md-12")}><Sidebar /></div>}
-
         </div>
         <ReactTooltip type="dark" effect="solid" />
       </div>

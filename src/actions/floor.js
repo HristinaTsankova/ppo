@@ -4,6 +4,18 @@ import { LOAD_GENERAL_ERROR } from '../reducers/errors';
 export const LOAD_DEPARTMENT_FLOORS_SUCCESS = 'LOAD_DEPARTMENT_FLOORS_SUCCESS';
 export const LOAD_SINGLE_FLOOR_SUCCESS = 'LOAD_SINGLE_FLOOR_SUCCESS';
 
+export function saveFloor(floor) {
+  return (dispatch) => {
+    callFloorsSaveApi(floor, (data, error) => {
+      if (!error) {
+        dispatch(loadSingleFloorSuccess(data));
+      } else {
+        dispatch(loadFloorsError(error));
+      }
+    });
+  };
+}
+
 export function saveFloorData(data) {
   return (dispatch, getState) => {
     let floor = getState().floor.floor;
@@ -18,16 +30,17 @@ export function saveFloorData(data) {
   };
 }
 
-export function loadAllFloors() {
+export function loadAllFloors(id, callback) {
   return (dispatch, getState) => {
-    let dept = 'by_department_id/' + getState().query.department;
+    const deptId = (id !== undefined) ? id : getState().query.department;
+    const dept = 'by_department_id/' + deptId;
     callFloorsApi(dept, (data, error) => {
       if (!error) {
         if (data.length > 0) {
-          let floorId = data[data.length - 1].id;
-          dispatch(loadFloorById(floorId));
+          const floorId = data[data.length - 1].id;
+          dispatch(loadFloorById(floorId, callback));
         } else {
-          dispatch(initFloorData());
+          dispatch(initFloorData(deptId));
         }
         dispatch(loadFloorsSuccess(data));
       } else {
@@ -37,11 +50,15 @@ export function loadAllFloors() {
   };
 }
 
-export function loadFloorById(floorId) {
+export function loadFloorById(floorId, callback) {
   return dispatch => {
     callFloorsApi(floorId, (data, error) => {
       if (!error) {
-        dispatch(loadSingleFloorSuccess(data));
+        if (callback !== undefined) {
+          callback(data);
+        } else {
+          dispatch(loadSingleFloorSuccess(data));
+        }
       } else {
         dispatch(loadFloorsError(error));
       }
@@ -49,10 +66,10 @@ export function loadFloorById(floorId) {
   }
 }
 
-function initFloorData() {
+function initFloorData(id) {
   return (dispatch, getState) => {
-    let dept = getState().query.department;
-
+    const dept = (id !== undefined) ? id : getState().query.department;
+    
     let floor = {
       "department_id": dept,
       "status": "draft",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setQueryValue, QUERY_ORDER, QUERY_EDITABLE } from '../../actions/query';
-import { loadDepartmentById } from '../../actions/departments';
+import { setQueryValue, QUERY_ORDER } from '../../actions/query';
+import { saveFloor } from '../../actions/floor';
 import { loadOrderById } from '../../actions/orders';
 
 import Dropdown from './dropdown';
@@ -11,44 +11,72 @@ class Setup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSidebar: false,
-      showMore: false
+      edited: false,
+      calculatedLoadPerDay: 0,
+      missingPeople: 0,
+      currentPeople: 0,
+      loadPerDay: 0,
+      description: ''
     }
-    this.showSidebarForm = this.showSidebarForm.bind(this);
-    this.showMoreForm = this.showMoreForm.bind(this);
-    this.onOrderChange = this.onOrderChange.bind(this);
   }
 
-  onOrderChange(order) {
+  onOrderChange = (order) => {
     this.props.setQueryValue(order, QUERY_ORDER);
     this.props.loadOrderData(order);
   }
 
-  showSidebarForm = () => {
-    const { showSidebar } = this.state
-    this.setState({
-      showSidebar: !showSidebar
-    })
+  saveFloorSettings = () => {
+    const floor = this.props.floor;
+    floor.payload.description = this.state.description;
+    floor.payload.calculatedLoadPerDay = this.state.calculatedLoadPerDay;
+    floor.payload.missingPeople = this.state.missingPeople;
+    floor.payload.currentPeople = this.state.currentPeople;
+    floor.payload.loadPerDay = this.state.loadPerDay;
+    this.setState({ edited: false });
+    this.props.saveFloorData(floor);
   }
 
-  showMoreForm = () => {
-    const { showMore } = this.state
-    this.setState({
-      showMore: !showMore
-    })
+  componentDidMount() {
+    this.initState(this.props);
   }
 
-  setEditable = () => {
-    this.props.setQueryValue(!this.props.editable, QUERY_EDITABLE);
+  componentWillReceiveProps(props) {
+    this.initState(props);
+  }
+
+  initState = (props) => {
+
+    if (props.floor !== undefined) {
+      this.setState({
+        calculatedLoadPerDay: props.floor.payload.calculatedLoadPerDay !== undefined ? props.floor.payload.calculatedLoadPerDay : 0,
+        missingPeople: props.floor.payload.missingPeople !== undefined ? props.floor.payload.missingPeople : 0,
+        currentPeople: props.floor.payload.currentPeople !== undefined ? props.floor.payload.currentPeople : 0,
+        loadPerDay: props.floor.payload.loadPerDay !== undefined ? props.floor.payload.loadPerDay : 0,
+        description: props.floor.payload.description !== undefined ? props.floor.payload.description : ''
+      });
+
+      if (props.order.id !== undefined) {
+        if (props.order.payload.time !== undefined && props.floor.payload.currentPeople !== undefined) {
+          let final = Math.round((480 * props.floor.payload.currentPeople) / props.order.payload.time);
+          this.setState({
+            calculatedLoadPerDay: final
+          });
+        }
+      }
+    }
+  }
+
+  updateStateWithValue = (object) => {
+    this.setState(object);
+    this.setState({ edited: true })
   }
 
   render() {
-    if (this.props.department === undefined || this.props.department.id === undefined || this.props.queryOrder === null || this.props.order === undefined) {
+    if (this.props.queryOrder === null || this.props.order === undefined) {
       return null;
     }
 
     return (
-
       <div className=" well info-wrapper">
         <div className="div-table">
           <div className="row">
@@ -57,33 +85,37 @@ class Setup extends React.Component {
           </div>
           <div className="row">
             <div className="col-md-6">График</div>
-            <div className="col-md-6"><input type='number' className="form-control" /></div>
+            <div className="col-md-6"><input type='number' className="form-control" value={this.state.loadPerDay} onChange={e => this.updateStateWithValue({ loadPerDay: e.target.value })} /></div>
           </div>
           <div className="row">
             <div className="col-md-6">Работници</div>
-            <div className="col-md-6"><input type='number' className="form-control" /></div>
+            <div className="col-md-6"><input type='number' className="form-control" value={this.state.currentPeople} onChange={e => this.updateStateWithValue({ currentPeople: e.target.value })} /></div>
           </div>
           <div className="row">
             <div className="col-md-6">Отсъстващи</div>
-            <div className="col-md-6"><input type='number' className="form-control" /></div>
+            <div className="col-md-6"><input type='number' className="form-control" value={this.state.missingPeople} onChange={e => this.updateStateWithValue({ missingPeople: e.target.value })} /></div>
           </div>
           <div className="row">
             <div className="col-md-6">Актуален график</div>
-            <div className="col-md-6"><input type='number' className="form-control" /></div>
+            <div className="col-md-6"><input type='number' className="form-control" disabled="true" value={this.state.calculatedLoadPerDay} /></div>
           </div>
           <div className="row">
             <div className="col-md-6">Брой поръчки</div>
-            <div className="col-md-6"><input type='number' className="form-control" /></div>
+            <div className="col-md-6"><input type='number' className="form-control" disabled="true" /></div>
           </div>
           <div className="row">
             <div className="col-md-6">Остават</div>
-            <div className="col-md-6"><input type='number' className="form-control" /></div>
+            <div className="col-md-6"><input type='number' className="form-control" disabled="true" /></div>
           </div>
           <div className="row">
             <div className="col-md-12">Забележки ...</div>
           </div>
           <div className="row">
-            <div className="col-md-12"><textarea type="text" className="form-control" /></div>
+            <div className="col-md-12"><textarea type="text" className="form-control" onChange={e => this.updateStateWithValue({ description: e.target.value })} value={this.state.description} /></div>
+          </div>
+          <p />
+          <div className="row">
+            <div className="col-md-12 text-right"><button type="button" className="btn btn-warning" disabled={!this.state.edited} onClick={this.saveFloorSettings}><span className="glyphicon glyphicon-ok" /> Приложи промените</button></div>
           </div>
         </div>
       </div>
@@ -91,17 +123,10 @@ class Setup extends React.Component {
   }
 }
 
-/*
-<div className="col-md-3">
-
-</div>
-*/
-
 const mapStateToProps = (state) => {
   return {
-    department: state.departments.department,
+    floor: state.floor.floor,
     queryOrder: state.query.order,
-    editable: state.query.editable,
     order: state.orders.order
   };
 }
@@ -109,9 +134,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
+    saveFloorData: (data) => dispatch(saveFloor(data)),
     setQueryValue: (val, type, callback) => dispatch(setQueryValue(val, type, callback)),
-    loadOrderData: (id) => dispatch(loadOrderById(id)),
-    loadCurrentDepartment: (id, callback) => dispatch(loadDepartmentById(id, callback))
+    loadOrderData: (id) => dispatch(loadOrderById(id))
   };
 }
 

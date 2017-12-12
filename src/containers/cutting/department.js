@@ -1,21 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { callDepartmentsApi } from '../../actions/departments';
+import { loadAllFloors } from '../../actions/floor';
 import Order from './order';
 
-export default class Department extends React.Component {
+class Department extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      department: null
+      department: null,
+      floorData: null
     }
   }
 
-  renderRow(rowData, i) {
+  renderRow(rowData, i, floor) {
     if (rowData.workflow_state !== "in_progress") {
       return null;
     }
+    
     return (
-        <Order data={rowData} key={i} />
+      <Order floor={floor} data={rowData} key={i} />
     )
   }
 
@@ -25,14 +29,21 @@ export default class Department extends React.Component {
     });
   }
 
+  loadFloorData = (data) => {
+    this.setState({
+      floorData: data
+    });
+  }
+
   componentDidMount() {
     callDepartmentsApi(this.props.data.id, this.loadDepartmentData);
+    this.props.loadAllFloors(this.props.data.id, this.loadFloorData);
   }
 
   render() {
     let orders = null;
-    if (this.state.department !== null && this.state.department.orders.length !== undefined) {
-      orders = this.state.department.orders.map(this.renderRow);
+    if (this.state.department !== null && this.state.department.orders.length !== undefined && this.state.floorData !== null) {
+      orders = this.state.department.orders.map((row, i) => this.renderRow(row, i, this.state.floorData));
     }
 
     return (
@@ -59,3 +70,17 @@ export default class Department extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    loadAllFloors: (id, callback) => dispatch(loadAllFloors(id, callback))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Department);
