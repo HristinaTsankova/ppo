@@ -65,7 +65,7 @@ class Process extends React.Component {
           <div className="cell-user-name" title={this.props.process.name}>{this.props.process.name}</div>
         </td>
         <td className="floor_plan num">{this.props.process.machine_type.name}</td>
-        <td className="floor_plan num"></td>
+        <td className="floor_plan num">{this.props.floor.payload.calculatedLoadPerDay}</td>
         <td className="floor_plan num"></td>
         <td className="floor_plan num">
           {this.props.editable ? <div className="floor-process-actions"><a className="text-danger" title="Изтриване на процеса" onClick={this.askToRemoveProcess}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
