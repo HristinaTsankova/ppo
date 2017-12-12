@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT, QUERY_ORDER, QUERY_EDITABLE } from '../../actions/query';
 import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
+import { loadEarningsByIds } from "../../actions/earnings";
 import Sidebar from './sidebar';
 import Floor from './floor';
 import Setup from './setup';
@@ -40,6 +41,10 @@ class Plan extends React.Component {
         }
 
         if (!this.props.order.hasOwnProperty('id')) {
+          const ids = data.orders.map((o) => o.id);
+          if (ids.length > 0) {
+            this.props.loadEarnings(ids);
+          }
           data.orders.forEach(o => {
             this.props.loadOrderData(o.id, order);
           });
@@ -140,7 +145,8 @@ const mapDispatchToProps = (dispatch) => {
     dispatch,
     setQueryValue: (val, type, callback) => dispatch(setQueryValue(val, type, callback)),
     loadOrderData: (id, order) => dispatch(loadOrderById(id, order)),
-    loadCurrentDepartment: (id, callback) => dispatch(loadDepartmentById(id, callback))
+    loadCurrentDepartment: (id, callback) => dispatch(loadDepartmentById(id, callback)),
+    loadEarnings: (ids) => dispatch(loadEarningsByIds(ids))
   };
 }
 

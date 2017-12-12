@@ -57,7 +57,7 @@ class Setup extends React.Component {
 
       if (props.order.id !== undefined) {
         if (props.order.payload.time !== undefined && props.floor.payload.currentPeople !== undefined) {
-          let final = Math.round((480 * props.floor.payload.currentPeople) / props.order.payload.time);
+          let final = Math.round((480 * props.floor.payload.currentPeople) / (props.order.payload.time/60));
           this.setState({
             calculatedLoadPerDay: final
           });
@@ -74,6 +74,11 @@ class Setup extends React.Component {
   render() {
     if (this.props.queryOrder === null || this.props.order === undefined) {
       return null;
+    }
+
+    let calculatedLoadPerDay = 0;
+    if (this.state.currentPeople !== 0 && this.props.order.payload.time !== undefined) {
+      calculatedLoadPerDay = Math.round((480 * this.state.currentPeople) / (this.props.order.payload.time/60));
     }
 
     return (
@@ -97,7 +102,7 @@ class Setup extends React.Component {
           </div>
           <div className="row">
             <div className="col-md-6">Актуален график</div>
-            <div className="col-md-6"><input type='number' className="form-control" disabled="true" value={this.state.calculatedLoadPerDay} /></div>
+            <div className="col-md-6"><input type='number' className="form-control" disabled="true" value={calculatedLoadPerDay} onChange={e => this.updateStateWithValue({ calculatedLoadPerDay: e.target.value })} /></div>
           </div>
           <div className="row">
             <div className="col-md-6">Брой поръчки</div>
