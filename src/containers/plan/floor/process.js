@@ -108,12 +108,14 @@ class Process extends React.Component {
 
     if (props.earnings !== undefined) {
       const order = props.earnings.find((o) => o.order_id === this.props.process.order);
-      if (order.order_info !== undefined) {
-        orderInfo = order.order_info;
-      }
-      for (const key in order.users_earnings) {
-        const element = order.users_earnings[key];
-        earnings = earnings.concat(element.earnings);
+      if (order !== undefined) {
+        if (order.order_info !== undefined) {
+          orderInfo = order.order_info;
+        }
+        for (const key in order.users_earnings) {
+          const element = order.users_earnings[key];
+          earnings = earnings.concat(element.earnings);
+        }
       }
     }
 
@@ -138,7 +140,7 @@ class Process extends React.Component {
           {this.renderConnectingIcon(this.props.process)}
           <div className="cell-user-name" title={this.props.process.name}>{this.props.process.name}</div>
         </td>
-        <td className="floor_plan num">{Math.round(today/this.props.floor.payload.loadPerDay*100)}%</td>
+        <td className="floor_plan num">{Math.round(today / this.props.floor.payload.loadPerDay * 100)}%</td>
         <td className="floor_plan num">{this.props.floor.payload.loadPerDay}</td>
         <td className="floor_plan num">{today}</td>
         <td className={'floor_plan num' + alarm}>{buffer}</td>

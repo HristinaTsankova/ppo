@@ -66,9 +66,11 @@ class MachineTable extends React.Component {
 
       if (props.earnings !== undefined) {
         const order = props.earnings.find((o) => o.order_id === this.props.spot.processes[0].order);
-        for (const key in order.users_earnings) {
-          const element = order.users_earnings[key];
-          earnings = earnings.concat(element.earnings);
+        if (order !== undefined) {
+          for (const key in order.users_earnings) {
+            const element = order.users_earnings[key];
+            earnings = earnings.concat(element.earnings);
+          }
         }
       }
       this.setState({ earnings: earnings });
@@ -99,7 +101,7 @@ class MachineTable extends React.Component {
                   </div>
                 </td>
 
-                <td className="floor_plan2">{Math.round(jesterday/this.props.floor.payload.loadPerDay*100)}%</td>
+                <td className="floor_plan2">{Math.round(jesterday / this.props.floor.payload.loadPerDay * 100)}%</td>
                 <td className="floor_icon"><span className="glyphicon glyphicon-signal" /></td>
                 <td className="floor_icon2"><span className="glyphicon glyphicon-ok" /></td>
                 <td className="floor_icon"><span className="glyphicon glyphicon-menu-hamburger" /></td>
