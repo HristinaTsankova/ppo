@@ -50,6 +50,13 @@ class Cell extends React.Component {
     this.props.saveFloorData(floor);
   }
 
+  renderMachineName = () => {
+    let item = this.props.data;
+    if (item.length > 0 && item[0].processes.length > 0) {
+      return (<div className="bg-success text-right machine-title">{item[0].processes[0].machine_type.name}</div>)
+    }
+  }
+
   render() {
     let item = this.props.data;
     let machines = <div className="margin-top-10"><span className="glyphicon glyphicon-record" /></div>;
@@ -64,6 +71,7 @@ class Cell extends React.Component {
         {this.props.row === 0 && this.props.editable ? <div className="floor-delete-column"><a className="text-danger" title="Премахване на колона" onClick={this.askToRemoveColumn}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
         {this.props.index === 0 && this.props.editable ? <div className="floor-delete-row"><a className="text-danger" title="Премахване на ред" onClick={this.askToRemoveRow}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
         <div className="text-muted floor-cell-number">{(this.props.row + 1) + '.' + (this.props.index + 1)}</div>
+        {this.renderMachineName()}
         {machines}
       </Droppable>
     )

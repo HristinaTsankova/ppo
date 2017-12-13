@@ -28,10 +28,10 @@ class Setup extends React.Component {
   saveFloorSettings = () => {
     const floor = this.props.floor;
     floor.payload.description = this.state.description;
-    floor.payload.calculatedLoadPerDay = this.state.calculatedLoadPerDay;
-    floor.payload.missingPeople = this.state.missingPeople;
-    floor.payload.currentPeople = this.state.currentPeople;
-    floor.payload.loadPerDay = this.state.loadPerDay;
+    floor.payload.calculatedLoadPerDay = parseInt(this.state.calculatedLoadPerDay, 10);
+    floor.payload.missingPeople = parseInt(this.state.missingPeople, 10);
+    floor.payload.currentPeople = parseInt(this.state.currentPeople, 10);
+    floor.payload.loadPerDay = parseInt(this.state.loadPerDay, 10);
     this.setState({ edited: false });
     this.props.saveFloorData(floor);
   }

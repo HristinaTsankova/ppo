@@ -53,6 +53,13 @@ class Plan extends React.Component {
     });
   }
 
+  reloadData = () => {
+    const ids = this.props.department.orders.map((o) => o.id);
+    if (ids.length > 0) {
+      this.props.loadEarnings(ids);
+    }
+  }
+
   setEditable = () => {
     this.props.setQueryValue(!this.props.editable, QUERY_EDITABLE);
   }
@@ -109,6 +116,7 @@ class Plan extends React.Component {
           <button data-tip="Настройки на подов план" type="button" className={this.state.showSettings ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showHideSettings}><span className="glyphicon glyphicon-wrench" /></button>
           <button data-tip="Информация за подов план" type="button" className={this.state.showMore ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showMoreForm}><span className="glyphicon glyphicon-info-sign"></span></button>
           <button data-tip="Модел" type="button" className={this.state.showImage ? 'btn menu-button-selected' : 'btn menu-button'} onClick={this.showHideImage}><span className="glyphicon glyphicon-film"></span></button>
+          <button data-tip="Презареди данните" type="button" className="btn menu-button" onClick={this.reloadData}><span className="glyphicon glyphicon-refresh"></span></button>
         </div>
         <div className="panel-body offset-left-60 col-md-12">
           <div className="panel-body">

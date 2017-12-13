@@ -20,6 +20,8 @@ class MachineTable extends React.Component {
         return;
       }
     }
+
+    processes.order = this.props.editOrder;
     floor[this.props.row][this.props.col][this.props.index].processes.push(processes);
     this.props.saveFloorData(floor);
   }
@@ -50,7 +52,7 @@ class MachineTable extends React.Component {
     const user = this.props.users.find(u => u.id === seachFor);
     const style = (this.props.user === user.id) ? 'selected-user' : '';
     return (
-      <Droppable types={['process']} onDrop={this.onDrop.bind(this)}>
+      <Droppable types={['process']} onDrop={this.onDrop}>
         <div className={ "margin-top-10 " + style } onMouseUp={() => this.onMouseUp(user.id)}>
           <table className="table">
             <tbody>
@@ -62,14 +64,15 @@ class MachineTable extends React.Component {
                   </div>
                 </td>
                 
-                <td className="floor_plan2"></td>
+                <td className="floor_plan2">XX%</td>
                 <td className="floor_icon"><span className="glyphicon glyphicon-signal"/></td>
                 <td className="floor_icon2"><span className="glyphicon glyphicon-ok"/></td>
                 <td className="floor_icon"><span className="glyphicon glyphicon-menu-hamburger"/></td>
+                <td className="floor_icon"></td>
               </tr>
 
               {this.props.spot.processes.map((process, idx) => {
-                return ( <Process key={idx + process.id.toString()} row={this.props.row} col={this.props.col} index={this.props.index} process={process} idx={idx} />)
+                return ( <Process key={idx + process.id.toString()} user={this.props.spot.user} row={this.props.row} col={this.props.col} index={this.props.index} process={process} idx={idx} />)
               })}
 
             </tbody>
@@ -83,6 +86,7 @@ class MachineTable extends React.Component {
 const mapStateToProps = (state) => ({
   users: state.users.data,
   orders: state.orders,
+  editOrder: state.query.order,
   floor: state.floor.floor,
   user: state.query.user,
   editable: state.query.editable

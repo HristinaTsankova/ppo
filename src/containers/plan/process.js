@@ -76,11 +76,6 @@ class Process extends React.Component {
           </thead>
           <tbody>
             {rows}
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
           </tbody>
         </table>
         <ReactTooltip type="dark" effect="solid" />

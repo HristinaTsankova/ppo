@@ -5,6 +5,17 @@ import { saveFloorData } from '../../../actions/floor';
 import { setQueryValue, QUERY_PROCESS } from '../../../actions/query';
 
 class Process extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      earnings: [],
+      orderInfo: {
+        articles_number: 0,
+        articles_number_from_batches: 0
+      }
+    }
+  }
+
   askToRemoveProcess = () => {
     this.props.showDialog('Изтриване на процеса', `Желаете ли да изтриете избрания процес?`, this.removeProcess)
   }
@@ -15,7 +26,7 @@ class Process extends React.Component {
     floor[this.props.row][this.props.col][this.props.index].processes = newList;
     this.props.saveFloorData(floor);
   }
-  
+
   onMouseUp = (id) => {
     this.props.selectProcess(id)
   }
@@ -53,21 +64,74 @@ class Process extends React.Component {
     return null;
   }
 
+  findMyEarnings = () => {
+    const earnings = this.state.earnings.filter((o) => o.order_process_id === this.props.process.id && o.user_id === this.props.user);
+    return earnings.length;
+  }
+
+  findInComing = () => {
+    let incoming = 0;
+
+    if (this.props.process.flagged === "start") {
+      incoming = this.state.orderInfo.articles_number_from_batches;
+    } else {
+      let order = this.props.orders[this.props.process.order];
+      if (order === undefined && this.props.order.id === this.props.process.order) {
+        order = this.props.order;
+      }
+      if (order !== undefined) {
+        const dependencies = order.payload.dependencies[this.props.process.id];
+        for (const serialNumber of dependencies) {
+          const process = order.order_processes.find((o) => o.serial_number === serialNumber);
+          const earnings = this.state.earnings.filter((o) => o.order_process_id === process.id);
+          incoming += earnings.length;
+        }
+      }
+    }
+
+    return incoming;
+  }
+
+  componentWillReceiveProps(props) {
+    let earnings = [];
+    let orderInfo = this.state.orderInfo;
+
+    if (props.earnings !== undefined) {
+      const order = props.earnings.find((o) => o.order_id === this.props.process.order);
+      if (order.order_info !== undefined) {
+        orderInfo = order.order_info;
+      }
+      for (const key in order.users_earnings) {
+        const element = order.users_earnings[key];
+        earnings = earnings.concat(element.earnings);
+      }
+    }
+
+    this.setState({ earnings: earnings });
+    this.setState({ orderInfo: orderInfo });
+  }
+
   render() {
     if (this.props.process === undefined) {
       return null;
     }
-    
+    const earnings = this.findMyEarnings();
+    const incoming = this.findInComing()
+    const buffer = incoming - earnings;
+    const alarm = ((buffer <= 20) ? " bg-red" : (buffer >= 30) ? " bg-blue" : false);
+
     return (
       <tr onMouseUp={() => this.onMouseUp(this.props.process.id)}>
         <td className="floor_plan">
-          { this.renderConnectingIcon(this.props.process) }
+          {this.renderConnectingIcon(this.props.process)}
           <div className="cell-user-name" title={this.props.process.name}>{this.props.process.name}</div>
         </td>
-        <td className="floor_plan num">{this.props.process.machine_type.name}</td>
-        <td className="floor_plan num">{this.props.floor.payload.calculatedLoadPerDay}</td>
-        <td className="floor_plan num"></td>
-        <td className="floor_plan num">
+        <td className="floor_plan num">XX%</td>
+        <td className="floor_plan num">{this.props.floor.payload.loadPerDay}</td>
+        <td className="floor_plan num">{earnings}</td>
+        <td className={'floor_plan num' + alarm}>{buffer}</td>
+        <td className="no-boder">
+          {alarm && <span className="glyphicon glyphicon-bell text-danger"></span>}
           {this.props.editable ? <div className="floor-process-actions"><a className="text-danger" title="Изтриване на процеса" onClick={this.askToRemoveProcess}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
         </td>
       </tr>
@@ -76,11 +140,12 @@ class Process extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  order: (state.orders.order !== undefined) ? state.orders.order : null,
   floor: state.floor.floor,
   selectedProcess: state.query.process,
   editable: state.query.editable,
-  order:  (state.orders.order !== undefined) ? state.orders.order : null
-  
+  earnings: state.earnings.data,
+  orders: state.orders.cache
 });
 
 const mapDispatchToProps = (dispatch) => {
