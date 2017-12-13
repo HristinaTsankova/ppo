@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { showDialog } from '../../../actions/dialog';
 import { saveFloorData } from '../../../actions/floor';
@@ -64,6 +65,15 @@ class Process extends React.Component {
     return null;
   }
 
+  findMyEarningForDate = (start, end) => {
+    const _start = start.format("X");
+    const _end = end.format("X");
+    const earnings = this.state.earnings.filter((o) =>
+      o.order_process_id === this.props.process.id && o.user_id === this.props.user &&
+      o.earning_started_at >= _start && o.earning_started_at <= _end);
+    return earnings.length;
+  }
+
   findMyEarnings = () => {
     const earnings = this.state.earnings.filter((o) => o.order_process_id === this.props.process.id && o.user_id === this.props.user);
     return earnings.length;
@@ -115,6 +125,8 @@ class Process extends React.Component {
     if (this.props.process === undefined) {
       return null;
     }
+
+    const today = this.findMyEarningForDate(moment().startOf('day'), moment().endOf('day'));
     const earnings = this.findMyEarnings();
     const incoming = this.findInComing()
     const buffer = incoming - earnings;
@@ -126,9 +138,9 @@ class Process extends React.Component {
           {this.renderConnectingIcon(this.props.process)}
           <div className="cell-user-name" title={this.props.process.name}>{this.props.process.name}</div>
         </td>
-        <td className="floor_plan num">XX%</td>
+        <td className="floor_plan num">{Math.round(today/this.props.floor.payload.loadPerDay*100)}%</td>
         <td className="floor_plan num">{this.props.floor.payload.loadPerDay}</td>
-        <td className="floor_plan num">{earnings}</td>
+        <td className="floor_plan num">{today}</td>
         <td className={'floor_plan num' + alarm}>{buffer}</td>
         <td className="no-boder">
           {alarm && <span className="glyphicon glyphicon-bell text-danger"></span>}

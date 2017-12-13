@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Droppable } from 'react-drag-and-drop';
 import { showDialog } from '../../../actions/dialog';
@@ -7,6 +8,13 @@ import { setQueryValue, QUERY_USER } from '../../../actions/query';
 import Process from './process';
 
 class MachineTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      earnings: []
+    }
+  }
+
   onDrop = (data) => {
     const floor = this.props.floor.payload.data;
     const seachFor = parseInt(data.process, 10);
@@ -38,22 +46,49 @@ class MachineTable extends React.Component {
     floor[this.props.row][this.props.col] = newUsersList;
     this.props.saveFloorData(floor);
   }
-  
+
   onMouseUp = (user) => {
     this.props.selectUser(user)
+  }
+
+  findMyEarningForDate = (start, end, user) => {
+    const _start = start.format("X");
+    const _end = end.format("X");
+    const earnings = this.state.earnings.filter((o) =>
+      o.user_id === user &&
+      o.earning_started_at >= _start && o.earning_started_at <= _end);
+    return earnings.length;
+  }
+
+  componentWillReceiveProps(props) {
+    if (this.props.spot.processes[0] !== undefined) {
+      let earnings = [];
+
+      if (props.earnings !== undefined) {
+        const order = props.earnings.find((o) => o.order_id === this.props.spot.processes[0].order);
+        for (const key in order.users_earnings) {
+          const element = order.users_earnings[key];
+          earnings = earnings.concat(element.earnings);
+        }
+      }
+      this.setState({ earnings: earnings });
+
+    }
   }
 
   render() {
     if (this.props.users === undefined && this.props.users.length !== undefined) {
       return null;
     }
-    
+
     const seachFor = parseInt(this.props.spot.user, 10);
     const user = this.props.users.find(u => u.id === seachFor);
+    const jesterday = this.findMyEarningForDate(moment().add(-1, 'day').startOf('day'), moment().add(-1, 'day').endOf('day'), seachFor);
     const style = (this.props.user === user.id) ? 'selected-user' : '';
+
     return (
       <Droppable types={['process']} onDrop={this.onDrop}>
-        <div className={ "margin-top-10 " + style } onMouseUp={() => this.onMouseUp(user.id)}>
+        <div className={"margin-top-10 " + style} onMouseUp={() => this.onMouseUp(user.id)}>
           <table className="table">
             <tbody>
               <tr>
@@ -63,16 +98,16 @@ class MachineTable extends React.Component {
                     {user.name}
                   </div>
                 </td>
-                
-                <td className="floor_plan2">XX%</td>
-                <td className="floor_icon"><span className="glyphicon glyphicon-signal"/></td>
-                <td className="floor_icon2"><span className="glyphicon glyphicon-ok"/></td>
-                <td className="floor_icon"><span className="glyphicon glyphicon-menu-hamburger"/></td>
+
+                <td className="floor_plan2">{Math.round(jesterday/this.props.floor.payload.loadPerDay*100)}%</td>
+                <td className="floor_icon"><span className="glyphicon glyphicon-signal" /></td>
+                <td className="floor_icon2"><span className="glyphicon glyphicon-ok" /></td>
+                <td className="floor_icon"><span className="glyphicon glyphicon-menu-hamburger" /></td>
                 <td className="floor_icon"></td>
               </tr>
 
               {this.props.spot.processes.map((process, idx) => {
-                return ( <Process key={idx + process.id.toString()} user={this.props.spot.user} row={this.props.row} col={this.props.col} index={this.props.index} process={process} idx={idx} />)
+                return (<Process key={idx + process.id.toString()} user={this.props.spot.user} row={this.props.row} col={this.props.col} index={this.props.index} process={process} idx={idx} />)
               })}
 
             </tbody>
@@ -89,7 +124,8 @@ const mapStateToProps = (state) => ({
   editOrder: state.query.order,
   floor: state.floor.floor,
   user: state.query.user,
-  editable: state.query.editable
+  editable: state.query.editable,
+  earnings: state.earnings.data
 });
 
 const mapDispatchToProps = (dispatch) => {
