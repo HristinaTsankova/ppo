@@ -36,14 +36,24 @@ class Process extends React.Component {
     this.props.selectProcess(id)
   }
 
+    
+
   renderRow = (rowData, i) => {
+
+    let peopleTime = 0;
+    if (this.props.floor.loadPerDay !== 0 && rowData.aligned_time !== undefined) {
+      peopleTime = parseFloat(((this.props.floor.payload.loadPerDay * rowData.aligned_time ) / 480).toFixed(2));
+
+      console.log(parseFloat(peopleTime.toFixed(2)) );
+    }
+    
     return (
       <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)}>
         <td>{this.props.selected !== rowData.id && this.state.processes.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle checked" /> : null}</td>
         <td>{this.props.selected === rowData.id ? <span className="glyphicon glyphicon-play recording" /> : rowData.serial_number}</td>
         <td><div className="sidebar-nowrap-process" data-tip={rowData.name}><Draggable type="process" data={rowData.id}>{rowData.name}</Draggable></div></td>
         <td>{rowData.aligned_time}</td>
-        <td></td>
+        <td>{peopleTime}</td>
         <td>{rowData.machine_type.name}</td>
       </tr>
     )
