@@ -23,7 +23,7 @@ export default class More extends React.Component {
               <td></td>
             </tr>
             <tr>
-              <td>Брой облекла във веригат</td>
+              <td>Брой облекла във веригатa</td>
               <td></td>
 
             </tr>
