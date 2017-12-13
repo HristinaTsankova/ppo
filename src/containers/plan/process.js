@@ -43,8 +43,6 @@ class Process extends React.Component {
     let peopleTime = 0;
     if (this.props.floor.loadPerDay !== 0 && rowData.aligned_time !== undefined) {
       peopleTime = parseFloat(((this.props.floor.payload.loadPerDay * rowData.aligned_time ) / 480).toFixed(2));
-
-      console.log(parseFloat(peopleTime.toFixed(2)) );
     }
     
     return (
@@ -54,7 +52,7 @@ class Process extends React.Component {
         <td><div className="sidebar-nowrap-process" data-tip={rowData.name}><Draggable type="process" data={rowData.id}>{rowData.name}</Draggable></div></td>
         <td>{rowData.aligned_time}</td>
         <td>{peopleTime}</td>
-        <td>{rowData.machine_type.name}</td>
+        <td className="mashine_type">{rowData.machine_type.name}</td>
       </tr>
     )
   }
