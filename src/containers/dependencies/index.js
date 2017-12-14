@@ -20,13 +20,15 @@ class Dependencies extends React.Component {
   }
 
   calculateTotalTime = (order) => {
-    let total = Math.round(order.order_processes.map((item) => 60*item.aligned_time ).reduce((a, b) => a + b));
+    let total = 0;
+    if (order.order_processes.length > 0) {
+      total = Math.round(order.order_processes.map((item) => 60*item.aligned_time ).reduce((a, b) => a + b));
+    }
     return total;
   }
 
   componentWillReceiveProps(props) {
     if (props.order !== undefined) {
-      this.calculateTotalTime(props.order);
       this.setState({
         ...this.state,
         processes: props.order.order_processes,
@@ -184,9 +186,7 @@ class Dependencies extends React.Component {
 
   render() {
     if (!this.props.order) {
-      return (
-        <h1>Loading</h1>
-      )
+      return (<div className="panel-body"><div className="loader"></div></div>)
     }
 
     const processes = sortBy(this.state.processes, 'serial_number');
@@ -199,7 +199,7 @@ class Dependencies extends React.Component {
           <div className="col-md-2 margin-top-40">
             <div className="well">
               <b>Модел</b><br />
-              {this.props.order.name}
+              {this.props.order.name} / {this.props.order.workflow_state}
               <br /><br />
               <b>Поръчка №</b><br />
               {this.props.order.identification_number}
@@ -232,7 +232,7 @@ class Dependencies extends React.Component {
               <tfoot>
                 <tr>
                   <th colSpan="4" className="text-right">Общо Н.вр.</th>
-                  <th colSpan="5" className="text-left">{moment.utc(this.state.totalTime*1000).format('HH:mm:ss')} / {Math.round(this.state.totalTime/60*100)/100} min.</th>
+                  <th colSpan="5" className="text-left">{moment.utc(this.state.totalTime*1000).format('HH:mm:ss')} / {Math.round(this.state.totalTime/60*100)/100} мин.</th>
                 </tr>
               </tfoot>
             </table>

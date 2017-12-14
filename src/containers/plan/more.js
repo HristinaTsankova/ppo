@@ -38,31 +38,33 @@ class More extends React.Component {
   
   
   render() {
-    
+    if (this.props.floor === undefined) {
+      return (<div className="well info-wrapper"><div className="loader"></div></div>);
+    }
+
     return (
       <div className="well info-wrapper">
-        <table className="table">
+        <table className="table table-striped">
           <tbody>
             <tr>
-              <td className="first">Нормовреме</td>
-              <td className="first"></td>
-              <td className="first">Брой пуснати облекла</td>
-              <td className="first"></td>
-              <td className="first">Остават за пускане</td>
-              <td className="first"></td>
+              <td>Нормовреме (мин.)</td>
+              <td>{this.props.order.payload !== undefined && (Math.round(this.props.order.payload.time/60*100)/100)}</td>
+              <td>Брой пуснати облекла</td>
+              <td>...</td>
+              <td>Остават за пускане</td>
+              <td>?{this.state.orderInfo.articles_number_from_batches}</td>
             </tr>
             <tr>
               <td>Общо скроени бройки</td>
               <td>{this.state.orderInfo.articles_number_from_batches}</td>
               <td>Остават за кроене</td>
-              <td></td>
+              <td>{this.state.orderInfo.articles_number - this.state.orderInfo.articles_number_from_batches}</td>
               <td>Брой готови облекла</td>
-              <td></td>
+              <td>...</td>
             </tr>
             <tr>
               <td>Брой облекла във веригатa</td>
-              <td></td>
-
+              <td colSpan="5">...</td>
             </tr>
             <tr>
               <td>Присъстващи</td>
@@ -70,7 +72,10 @@ class More extends React.Component {
               <td>Отсъстващи</td>
               <td>{this.props.floor.payload.missingPeople}</td>
               <td>Работници от друга бригада</td>
-              <td></td>
+              <td>...</td>
+            </tr>
+            <tr>
+              <td colSpan="6">&nbsp;</td>
             </tr>
           </tbody>
         </table>

@@ -14,7 +14,7 @@ class Cutting extends React.Component {
 
   render() {
     if (this.props.departments === undefined || this.props.departments.length === undefined) {
-      return null;
+      return (<div className="panel-body"><div className="loader"></div></div>)
     }
     const rows = this.props.departments.map(this.renderRow);
     return (

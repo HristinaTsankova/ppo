@@ -4,7 +4,7 @@ import Cell from './cell';
 export default class Row extends React.Component {
   render() {
     if (this.props.data === null) {
-      return null;
+      return (<div className="panel-body"><div className="loader"></div></div>)
     }
     return (
       <tr>

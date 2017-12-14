@@ -36,7 +36,7 @@ class Orders extends React.Component {
 
   render() {
     if (this.props.orders === undefined || this.props.orders.length === undefined) {
-      return null;
+      return (<div className="panel-body"><div className="loader"></div></div>)
     }
 
     return (

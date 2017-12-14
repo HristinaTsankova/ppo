@@ -18,7 +18,7 @@ class Plan extends React.Component {
     this.state = {
       showPlan: true,
       showSettings: false,
-      showMore: false,
+      showMore: true,
       showImage: false,
       showSidebar: false
     }
@@ -101,7 +101,7 @@ class Plan extends React.Component {
 
   render() {
     if (this.props.department === undefined || this.props.department.id === undefined || this.props.queryOrder === null || this.props.order === undefined) {
-      return null;
+      return (<div className="panel-body"><div className="loader"></div></div>);
     }
     let order = this.props.department.orders.find(o => o.id === this.props.queryOrder);
     let { department } = this.props;

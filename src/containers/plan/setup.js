@@ -73,7 +73,7 @@ class Setup extends React.Component {
 
   render() {
     if (this.props.queryOrder === null || this.props.order === undefined) {
-      return null;
+      return (<div className="panel-body"><div className="loader"></div></div>);
     }
 
     let calculatedLoadPerDay = 0;

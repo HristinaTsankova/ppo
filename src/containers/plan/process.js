@@ -49,7 +49,7 @@ class Process extends React.Component {
       <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)}>
         <td>{this.props.selected !== rowData.id && this.state.processes.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle checked" /> : null}</td>
         <td>{this.props.selected === rowData.id ? <span className="glyphicon glyphicon-play recording" /> : rowData.serial_number}</td>
-        <td><div className="sidebar-nowrap-process" data-tip={rowData.name}><Draggable type="process" data={rowData.id}>{rowData.name}</Draggable></div></td>
+        <td><div className="sidebar-nowrap-process" data-tip={rowData.name}><Draggable type="process" data={rowData.id}>{rowData.id} {rowData.name}</Draggable></div></td>
         <td>{rowData.aligned_time}</td>
         <td>{peopleTime}</td>
         <td className="mashine_type">{rowData.machine_type.name}</td>
@@ -63,7 +63,7 @@ class Process extends React.Component {
 
   render() {
     if (this.props.orders.order.order_processes === undefined) {
-      return (<div>....</div>);
+      return (<div className="panel-body"><div className="loader"></div></div>);
     }
 
     const processes = sortBy(this.props.orders.order.order_processes, 'serial_number');
