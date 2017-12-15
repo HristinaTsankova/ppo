@@ -58,6 +58,7 @@ class Department extends React.Component {
             <td className="modelName">Модел</td>
             <td className="orders">Поръчка бройки</td>
             <td className="cut">Скроени бройки</td>
+            <td className="orders">Пуснати бройки</td>
             <td className="ok">Ок, кроене след прошиване</td>
             <td className="grafic">Дневен график</td>
             <td className="min">Минимален буфер</td>

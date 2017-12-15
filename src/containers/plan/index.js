@@ -105,6 +105,21 @@ class Plan extends React.Component {
     }
     let order = this.props.department.orders.find(o => o.id === this.props.queryOrder);
     let { department } = this.props;
+    const visible = [this.state.showSettings, this.state.showMore, this.state.showImage].filter((o) => o === true).length;
+
+    let infoClass = 'col-md-12';
+    let sideInfoClass = 'col-md-12';
+    if (visible === 3) {
+      infoClass = 'col-md-6';
+      sideInfoClass = 'col-md-3';
+    } else if (visible === 2) {
+      infoClass = 'col-md-9';
+      sideInfoClass = 'col-md-3';
+      if (!this.state.showMore) {
+        sideInfoClass = 'col-md-6';
+      }
+    }
+    
 
     return (
       <div className="page-wrap">
@@ -124,9 +139,9 @@ class Plan extends React.Component {
             {order !== undefined && <h4>Поръчка: {order.name}</h4>}
           </div>
           <div className="panel-body">
-            {this.state.showSettings && <div className="col-md-3"><Setup /></div>}
-            {this.state.showMore && <div className="col-md-6"><More /></div>}
-            {this.state.showImage && <div className="col-md-3"><div className="well info-wrapper"><img src={noImage} alt="" className="noImage" /></div></div>}
+            {this.state.showSettings && <div className={sideInfoClass}><Setup /></div>}
+            {this.state.showMore && <div className={infoClass}><More /></div>}
+            {this.state.showImage && <div className={sideInfoClass}><div className="well info-wrapper"><img src={noImage} alt="" className="noImage" /></div></div>}
           </div>
           <div className={((this.state.showSidebar) ? "col-md-8 wrapper" : "col-md-12 wrapper")}>
             {this.state.showPlan && <Floor />}

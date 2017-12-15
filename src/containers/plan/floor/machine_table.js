@@ -94,18 +94,18 @@ class MachineTable extends React.Component {
           <table className="table">
             <tbody>
               <tr>
-                <td className="floor_plan2">
-                  <div className="cell-user-name" title={user.name}>
+                <td className="floor_plan2 width-50">100%</td>
+                <td className="floor_plan2 width-150">
+                  <div className="cell-user-name width-150" title={user.name}>
                     {this.props.editable ? <div className="floor-person-actions"><a className="text-danger" title="Изтриване на работника" onClick={this.askToRemoveUser}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
                     {user.name}
                   </div>
                 </td>
-
-                <td className="floor_plan2">{Math.round(jesterday / this.props.floor.payload.loadPerDay * 100)}%</td>
-                <td className="floor_icon"><span className="glyphicon glyphicon-signal" /></td>
-                <td className="floor_icon2"><span className="glyphicon glyphicon-ok" /></td>
-                <td className="floor_icon"><span className="glyphicon glyphicon-menu-hamburger" /></td>
-                <td className="floor_icon"></td>
+                <td className="floor_plan2 width-50">{Math.round(jesterday / this.props.floor.payload.loadPerDay * 100)}%</td>
+                <td className="floor_icon width-30"><span className="glyphicon glyphicon-signal" /></td>
+                <td className="floor_icon2 width-30"><span className="glyphicon glyphicon-ok" /></td>
+                <td className="floor_icon width-30"><span className="glyphicon glyphicon-menu-hamburger" /></td>
+                <td className="floor_icon width-30"></td>
               </tr>
 
               {this.props.spot.processes.map((process, idx) => {

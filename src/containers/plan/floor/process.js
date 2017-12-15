@@ -136,11 +136,10 @@ class Process extends React.Component {
 
     return (
       <tr onMouseUp={() => this.onMouseUp(this.props.process.id)}>
-        <td className="floor_plan">
+        <td className="floor_plan num">
           {this.renderConnectingIcon(this.props.process)}
-          <div className="cell-user-name" title={this.props.process.name}>{this.props.process.name}</div>
-        </td>
-        <td className="floor_plan num">{Math.round(today / this.props.floor.payload.loadPerDay * 100)}%</td>
+          {this.props.process.serial_number}</td>
+        <td className="floor_plan" colSpan="2"><div className="cell-user-name" title={this.props.process.name}>{this.props.process.name}</div></td>
         <td className="floor_plan num">{this.props.floor.payload.loadPerDay}</td>
         <td className="floor_plan num">{today}</td>
         <td className={'floor_plan num' + alarm}>{buffer}</td>
