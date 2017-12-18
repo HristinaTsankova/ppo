@@ -19,7 +19,7 @@ const orders = (state = {
       };
 
     case CACHE_SINGLE_ORDER:
-      let cache = state.cache;
+      let cache = Object.assign({}, state.cache);
       cache[action.order.id] = action.order;
       return {
         ...state,
