@@ -160,7 +160,7 @@ class Dependencies extends React.Component {
             <AddParent
               options={this.props.order.order_processes}
               onAdd={this.makeOnAddParent(rowData.id)}
-              labelKey="name" />
+              labelKey={option => `${option.serial_number} ${option.name}`}/>
           }
 
         </td>

@@ -101,7 +101,7 @@ class MachineTable extends React.Component {
                     {user.name}
                   </div>
                 </td>
-                <td className="floor_plan2 width-50">{Math.round(jesterday / this.props.floor.payload.loadPerDay * 100)}%</td>
+                <td className="floor_procent width-50">{Math.round(jesterday / this.props.floor.payload.loadPerDay * 100)}%</td>
                 <td className="floor_icon width-30"><span className="glyphicon glyphicon-signal" /></td>
                 <td className="floor_icon2 width-30"><span className="glyphicon glyphicon-ok" /></td>
                 <td className="floor_icon width-30"><span className="glyphicon glyphicon-menu-hamburger" /></td>
