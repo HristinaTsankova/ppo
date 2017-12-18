@@ -144,6 +144,7 @@ class Dependencies extends React.Component {
   }
 
   renderRow = (rowData, i) => {
+    const process = sortBy(this.props.order.order_processes, 'serial_number')
     const active = this.state.selected && this.state.selected.id === rowData.id
     const className = active ? 'active' : '';
     return (
@@ -158,7 +159,7 @@ class Dependencies extends React.Component {
             active
             &&
             <AddParent
-              options={this.props.order.order_processes}
+              options={process}
               onAdd={this.makeOnAddParent(rowData.id)}
               labelKey={option => `${option.serial_number} ${option.name}`}/>
           }
