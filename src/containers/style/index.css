@@ -817,6 +817,15 @@ li {
 
 /* Floor plan */
 
+.other-order>.floor_plan {
+    text-align: center;
+    font-size: 12px;
+    background-color: #cfcfe3;
+    border: 1px solid #ba9077 !important;
+    max-width: 150px;
+    text-align: left !important;
+}
+
 .floor-process-actions {
     line-height: 1;
     font-size: 10px;
@@ -830,7 +839,7 @@ li {
 }
 
 .num {
-    text-align: right;
+    text-align: right !important;
 }
 
 .selected-user {
@@ -929,7 +938,6 @@ li {
     background-color: #afb6b2;
 }
 
-
 .machine-title {
     margin-left: -9px;
     margin-right: -9px;
@@ -965,12 +973,13 @@ li {
     width: 30px !important;
 }
 
-.floor_procent{
+.floor_procent {
     background-color: #ffe6cc;
     font-weight: bolder;
     font-size: 16px;
     text-align: center;
 }
+
 /* loader */
 
 .loader {
@@ -1005,6 +1014,7 @@ li {
         transform: rotate(360deg);
     }
 }
+
 .dropdown-menu::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;

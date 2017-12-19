@@ -39,7 +39,7 @@ class Order extends React.Component {
     const start = this.props.orders[this.props.data.id].order_processes.find((o) => o.flagged === 'start');
     if (this.state.order.users_earnings.length > 0) {
       for (const user of this.state.order.users_earnings) {
-        final += user.earnings.filter((o) => o.order_process_id === start.id).length;
+        final += user.earnings.filter((o) => o.order_process_id === start.id).reduce((total, o) => total + parseInt(o.totla_pieces, 10), 0);
       }
     }
     return final;

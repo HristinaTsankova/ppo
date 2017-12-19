@@ -24,8 +24,12 @@ class More extends React.Component {
     let anotherUsers = [];
     let orderInfo = this.state.orderInfo;
 
+    if (props.order === undefined) {
+      return;
+    }
+
     if (props.earnings !== undefined) {
-      const order = props.earnings.find((o) => o.order_id);
+      const order = props.earnings.find((o) => o.order_id === props.queryOrder);
       if (order !== undefined) {
         if (order.order_info !== undefined) {
           orderInfo = order.order_info;
@@ -40,8 +44,8 @@ class More extends React.Component {
     if (props.order.order_processes !== undefined) {
       const start = props.order.order_processes.find((o) => o.flagged === 'start');
       const end = props.order.order_processes.find((o) => o.flagged === 'end');
-      earningsStart = earnings.filter((o) => o.order_process_id === start.id);
-      earningsEnd = earnings.filter((o) => o.order_process_id === end.id);
+      earningsStart = earnings.filter((o) => o.order_process_id === start.id).reduce((total, o) => total + parseInt(o.totla_pieces, 10), 0);
+      earningsEnd = earnings.filter((o) => o.order_process_id === end.id).reduce((total, o) => total + parseInt(o.totla_pieces, 10), 0);
     }
 
     if (props.floor !== undefined && props.floor.payload !== undefined && props.floor.payload.data !== undefined) {
@@ -60,14 +64,14 @@ class More extends React.Component {
 
     this.setState({ earnings: earnings });
     this.setState({ orderInfo: orderInfo });
-    this.setState({ earningsStart: earningsStart.length });
-    this.setState({ earningsEnd: earningsEnd.length });
+    this.setState({ earningsStart: earningsStart });
+    this.setState({ earningsEnd: earningsEnd });
     this.setState({ anotherUsers: anotherUsers.length });
   }
 
 
   render() {
-    if (this.props.floor === undefined) {
+    if (this.props.floor === undefined || this.props.order === undefined) {
       return (<div className="well info-wrapper"><div className="loader"></div></div>);
     }
 
@@ -116,10 +120,10 @@ class More extends React.Component {
 const mapStateToProps = (state) => {
   return {
     floor: state.floor.floor,
-    queryOrder: state.query.order,
+    queryOrder: parseInt(state.query.order, 10),
     department: parseInt(state.query.department, 10),
     earnings: state.earnings.data,
-    order: state.orders.order,
+    order: state.orders.cache[parseInt(state.query.order, 10)],
     users: state.users.data
   };
 }

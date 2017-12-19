@@ -51,13 +51,15 @@ class MachineTable extends React.Component {
     this.props.selectUser(user)
   }
 
+  /**
+   * Returns time NOT COUNT!
+   */
   findMyEarningForDate = (start, end, user) => {
     const _start = start.format("X");
     const _end = end.format("X");
-    const earnings = this.state.earnings.filter((o) =>
-      o.user_id === user &&
-      o.earning_started_at >= _start && o.earning_started_at <= _end);
-    return earnings.length;
+    const earnings = this.state.earnings.filter((o) => o.user_id === user && o.earning_started_at >= _start && o.earning_started_at <= _end)
+      .reduce((total, o) => total + (parseInt(o.totla_pieces, 10) * parseInt(o.total_rate_time, 10)), 0);
+    return earnings;
   }
 
   componentWillReceiveProps(props) {
@@ -85,6 +87,7 @@ class MachineTable extends React.Component {
 
     const seachFor = parseInt(this.props.spot.user, 10);
     const user = this.props.users.find(u => u.id === seachFor);
+    const today = this.findMyEarningForDate(moment().startOf('day'), moment().endOf('day'), seachFor);
     const jesterday = this.findMyEarningForDate(moment().add(-1, 'day').startOf('day'), moment().add(-1, 'day').endOf('day'), seachFor);
     const style = (this.props.user === user.id) ? 'selected-user' : '';
 
@@ -94,20 +97,19 @@ class MachineTable extends React.Component {
           <table className="table">
             <tbody>
               <tr>
-                <td className="floor_plan2 width-50">100%</td>
+                <td className="floor_plan2 width-50">{Math.round(jesterday / 480 * 100)}%</td>
                 <td className="floor_plan2 width-150">
                   <div className="cell-user-name width-150" title={user.name}>
                     {this.props.editable ? <div className="floor-person-actions"><a className="text-danger" title="Изтриване на работника" onClick={this.askToRemoveUser}><span className="glyphicon glyphicon-remove" /></a></div> : ""}
                     {user.name}
                   </div>
                 </td>
-                <td className="floor_procent width-50">{Math.round(jesterday / this.props.floor.payload.loadPerDay * 100)}%</td>
+                <td className="floor_procent width-50">{Math.round(today / 480 * 100)}%</td>
                 <td className="floor_icon width-30"><span className="glyphicon glyphicon-signal" /></td>
                 <td className="floor_icon2 width-30"><span className="glyphicon glyphicon-ok" /></td>
                 <td className="floor_icon width-30"><span className="glyphicon glyphicon-menu-hamburger" /></td>
                 <td className="floor_icon width-30"></td>
               </tr>
-
               {this.props.spot.processes.map((process, idx) => {
                 return (<Process key={idx + process.id.toString()} user={this.props.spot.user} row={this.props.row} col={this.props.col} index={this.props.index} process={process} idx={idx} />)
               })}

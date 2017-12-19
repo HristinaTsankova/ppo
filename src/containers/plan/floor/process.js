@@ -70,13 +70,13 @@ class Process extends React.Component {
     const _end = end.format("X");
     const earnings = this.state.earnings.filter((o) =>
       o.order_process_id === this.props.process.id && o.user_id === this.props.user &&
-      o.earning_started_at >= _start && o.earning_started_at <= _end);
-    return earnings.length;
+      o.earning_started_at >= _start && o.earning_started_at <= _end).reduce((total, o) => total + parseInt(o.totla_pieces, 10), 0);
+    return earnings;
   }
 
   findMyEarnings = () => {
-    const earnings = this.state.earnings.filter((o) => o.order_process_id === this.props.process.id && o.user_id === this.props.user);
-    return earnings.length;
+    const earnings = this.state.earnings.filter((o) => o.order_process_id === this.props.process.id && o.user_id === this.props.user).reduce((total, o) => total + parseInt(o.totla_pieces, 10), 0);
+    return earnings;
   }
 
   findInComing = () => {
@@ -86,15 +86,12 @@ class Process extends React.Component {
       incoming = this.state.orderInfo.articles_number_from_batches;
     } else {
       let order = this.props.orders[this.props.process.order];
-      if (order === undefined && this.props.order.id === this.props.process.order) {
-        order = this.props.order;
-      }
       if (order !== undefined) {
         const dependencies = order.payload.dependencies[this.props.process.id];
         for (const serialNumber of dependencies) {
           const process = order.order_processes.find((o) => o.serial_number === serialNumber);
-          const earnings = this.state.earnings.filter((o) => o.order_process_id === process.id);
-          incoming += earnings.length;
+          const earnings = this.state.earnings.filter((o) => o.order_process_id === process.id).reduce((total, o) => total + parseInt(o.totla_pieces, 10), 0);
+          incoming += earnings;
         }
       }
     }
@@ -133,9 +130,10 @@ class Process extends React.Component {
     const incoming = this.findInComing()
     const buffer = incoming - earnings;
     const alarm = ((buffer <= 20) ? " bg-red" : (buffer >= 30) ? " bg-blue" : false);
+    const procClass = (this.props.process.order !== this.props.queryOrder) ? 'other-order' : '';
 
     return (
-      <tr onMouseUp={() => this.onMouseUp(this.props.process.id)}>
+      <tr className={procClass} onMouseUp={() => this.onMouseUp(this.props.process.id)}>
         <td className="floor_plan num">
           {this.renderConnectingIcon(this.props.process)}
           {this.props.process.serial_number}</td>
@@ -153,7 +151,8 @@ class Process extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  order: (state.orders.order !== undefined) ? state.orders.order : null,
+  // order: (state.orders.order !== undefined) ? state.orders.order : null,
+  queryOrder: parseInt(state.query.order, 10),
   floor: state.floor.floor,
   selectedProcess: state.query.process,
   editable: state.query.editable,

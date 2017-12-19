@@ -54,7 +54,7 @@ class Users extends React.Component {
           {this.props.user === rowData.id ? <span className="glyphicon glyphicon-play" /> : null}
           {this.props.user !== rowData.id && this.state.users.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle" /> : null}
         </td>
-        <td><Draggable type="user" data={rowData.id}>{rowData.name}</Draggable></td>
+        <td><Draggable type="user" data={rowData.id}>{rowData.id} {rowData.name}</Draggable></td>
         <td className="colm">{rowData.department_id}</td>
       </tr>
     )

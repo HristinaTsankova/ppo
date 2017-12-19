@@ -5,6 +5,7 @@ import { setQueryValue, QUERY_PROCESS, QUERY_DEPARTMENT, QUERY_ORDER, QUERY_EDIT
 import { loadDepartmentById } from '../../actions/departments';
 import { loadOrderById } from '../../actions/orders';
 import { loadEarningsByIds } from "../../actions/earnings";
+import Dropdown from './dropdown';
 import Sidebar from './sidebar';
 import Floor from './floor';
 import Setup from './setup';
@@ -99,6 +100,11 @@ class Plan extends React.Component {
     })
   }
 
+  onOrderChange = (order) => {
+    this.props.setQueryValue(order, QUERY_ORDER);
+    this.props.loadOrderData(order);
+  }
+
   render() {
     if (this.props.department === undefined || this.props.department.id === undefined || this.props.queryOrder === null || this.props.order === undefined) {
       return (<div className="panel-body"><div className="loader"></div></div>);
@@ -119,7 +125,7 @@ class Plan extends React.Component {
         sideInfoClass = 'col-md-6';
       }
     }
-    
+
 
     return (
       <div className="page-wrap">
@@ -136,9 +142,10 @@ class Plan extends React.Component {
         <div className="panel-body offset-left-60 col-md-12">
           <div className="panel-body">
             <h2>{department.name}</h2>
-            {order !== undefined && <h4>Поръчка: {order.name}</h4>}
+            {order !== undefined && <div className="input-group"><div className="input-group-addon">Поръчка:</div><Dropdown id="selectOrder" changeHandler={this.onOrderChange} /></div>}
           </div>
           <div className="panel-body">
+            <p />
             {this.state.showSettings && <div className={sideInfoClass}><Setup /></div>}
             {this.state.showMore && <div className={infoClass}><More /></div>}
             {this.state.showImage && <div className={sideInfoClass}><div className="well info-wrapper"><img src={noImage} alt="" className="noImage" /></div></div>}

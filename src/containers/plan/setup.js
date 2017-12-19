@@ -1,11 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setQueryValue, QUERY_ORDER } from '../../actions/query';
 import { saveFloor } from '../../actions/floor';
-import { loadOrderById } from '../../actions/orders';
-
-import Dropdown from './dropdown';
-
 
 class Setup extends React.Component {
   constructor(props) {
@@ -18,11 +13,6 @@ class Setup extends React.Component {
       loadPerDay: 0,
       description: ''
     }
-  }
-
-  onOrderChange = (order) => {
-    this.props.setQueryValue(order, QUERY_ORDER);
-    this.props.loadOrderData(order);
   }
 
   saveFloorSettings = () => {
@@ -72,7 +62,7 @@ class Setup extends React.Component {
   }
 
   render() {
-    if (this.props.queryOrder === null || this.props.order === undefined) {
+    if (this.props.order === undefined) {
       return (<div className="panel-body"><div className="loader"></div></div>);
     }
 
@@ -84,10 +74,6 @@ class Setup extends React.Component {
     return (
       <div className=" well info-wrapper">
         <div className="div-table">
-          <div className="row">
-            <div className="col-md-6">Модел</div>
-            <div className="col-md-6"><Dropdown changeHandler={this.onOrderChange} /></div>
-          </div>
           <div className="row">
             <div className="col-md-6">График</div>
             <div className="col-md-6"><input type='number' className="form-control" value={this.state.loadPerDay} onChange={e => this.updateStateWithValue({ loadPerDay: e.target.value })} /></div>
@@ -131,17 +117,14 @@ class Setup extends React.Component {
 const mapStateToProps = (state) => {
   return {
     floor: state.floor.floor,
-    queryOrder: state.query.order,
-    order: state.orders.order
+    order: state.orders.cache[parseInt(state.query.order, 10)]
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
-    saveFloorData: (data) => dispatch(saveFloor(data)),
-    setQueryValue: (val, type, callback) => dispatch(setQueryValue(val, type, callback)),
-    loadOrderData: (id) => dispatch(loadOrderById(id))
+    saveFloorData: (data) => dispatch(saveFloor(data))
   };
 }
 
