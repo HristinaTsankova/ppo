@@ -45,6 +45,7 @@ class Process extends React.Component {
       peopleTime = parseFloat(((this.props.floor.payload.loadPerDay * rowData.aligned_time ) / 480).toFixed(2));
     }
     
+
     return (
       <tr key={i} onMouseUp={() => this.onMouseUp(rowData.id)}>
         <td>{this.props.selected !== rowData.id && this.state.processes.includes(rowData.id) ? <span className="glyphicon glyphicon-ok-circle checked" /> : null}</td>

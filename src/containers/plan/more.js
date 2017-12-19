@@ -85,17 +85,19 @@ class More extends React.Component {
               <td>Брой пуснати облекла</td>
               <td>{this.state.earningsStart}</td>
               <td>Остават за пускане</td>
-              <td>{this.state.orderInfo.articles_number_from_batches - this.state.earningsStart}</td>
+              <td>{this.state.orderInfo.articles_number - this.state.earningsStart}</td>
             </tr>
             <tr>
+              <td>Брой поръчка</td>
+              <td>{this.state.orderInfo.articles_number}</td>
               <td>Общо скроени бройки</td>
               <td>{this.state.orderInfo.articles_number_from_batches}</td>
               <td>Остават за кроене</td>
               <td>{this.state.orderInfo.articles_number - this.state.orderInfo.articles_number_from_batches}</td>
-              <td>Брой готови облекла</td>
-              <td>{this.state.earningsEnd}</td>
             </tr>
             <tr>
+              <td>Брой готови облекла</td>
+              <td>{this.state.earningsEnd}</td>
               <td>Брой облекла във веригатa</td>
               <td colSpan="5">{this.state.earningsStart - this.state.earningsEnd}</td>
             </tr>
